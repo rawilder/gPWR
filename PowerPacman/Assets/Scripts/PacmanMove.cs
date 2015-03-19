@@ -6,6 +6,18 @@ public class PacmanMove : MonoBehaviour {
 	public float speed = 0.4f;
 	Vector2 dest = Vector2.zero;
 
+	public static bool isPlayer1Turn = true;
+	public static float turnDuration = 50.0f; //length of turn in seconds
+	public static float turnTimeRemaining = turnDuration;
+
+	public static bool powerMode = false;  //flag for power mode (eating enemies)
+	public static float powerModeDuration = 10.0f; //number of seconds to stay in power mode
+	public static float powerModeTimeRemaining = powerModeDuration;
+
+	public static int player1Score = 0;
+
+
+
 	// Use this for initialization
 	void Start () {
 		dest = transform.position;
@@ -35,8 +47,32 @@ public class PacmanMove : MonoBehaviour {
 		GetComponent<Animator>().SetFloat("DirY", dir.y);
 
 		//update the score for player 1
-		Text p1Score = GameObject.Find ("Score Canvas/ScoreBox").GetComponent<Text> ();
-		p1Score.text = "" + Pacdot.player1Score;
+		Text p1Score = GameObject.Find ("Top Canvas/ScoreBox").GetComponent<Text> ();
+		p1Score.text = "" + player1Score;
+
+		//decrease turn timer
+		if (isPlayer1Turn) {
+			if(turnTimeRemaining > 0){
+				turnTimeRemaining -= Time.deltaTime;
+				Text timeText = GameObject.Find("Top Canvas/TimeRemainingBox").GetComponent<Text>();
+				timeText.text = "" + turnTimeRemaining;
+			}
+			else{
+				Text timeText = GameObject.Find("Top Canvas/TimeRemainingBox").GetComponent<Text>();
+				timeText.text = "0";
+				//end turn?
+			}
+		}
+
+		//if powermode, decrease timer
+		if (powerMode) {
+			if(powerModeTimeRemaining > 0){
+				powerModeTimeRemaining -= Time.deltaTime;
+			}
+			else{
+				powerMode = false;
+			}
+		}
 
 	}
 

@@ -24,8 +24,16 @@ public class PinkyMove : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter2D(Collider2D co) {
-		if (co.name == "pacman")
-			Destroy(co.gameObject);
+		if (co.name == "pacman") {
+			
+			if(PacmanMove.powerMode){
+				Destroy(gameObject);
+				PacmanMove.player1Score += 100;
+			}
+			else{
+				Destroy (co.gameObject);
+			}
+		}
 		//this is where we can decrease lives or show a game over screen
 	}
 }

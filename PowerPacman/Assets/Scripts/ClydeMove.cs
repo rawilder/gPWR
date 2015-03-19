@@ -21,11 +21,25 @@ public class ClydeMove : MonoBehaviour {
 		Vector2 dir = waypoints[cur].position - transform.position;
 		GetComponent<Animator>().SetFloat("DirX", dir.x);
 		GetComponent<Animator>().SetFloat("DirY", dir.y);
+
+		//if pacman is in power mode, change to a different color
+		if (PacmanMove.powerMode) {
+			//should change the texture or something here
+		}
+
 	}
 	
 	void OnTriggerEnter2D(Collider2D co) {
-		if (co.name == "pacman")
-			Destroy(co.gameObject);
+		if (co.name == "pacman") {
+
+			if(PacmanMove.powerMode){
+				Destroy(gameObject);
+				PacmanMove.player1Score += 100;
+			}
+			else{
+				Destroy (co.gameObject);
+			}
+		}
 		//this is where we can decrease lives or show a game over screen
 	}
 }
