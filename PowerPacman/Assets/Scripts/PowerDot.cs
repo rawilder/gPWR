@@ -10,7 +10,9 @@ public class PowerDot : MonoBehaviour {
 			PacmanMove.powerMode = true;
 			PacmanMove.player1Score += 20;
 			PacmanMove.powerModeTimeRemaining = PacmanMove.powerModeDuration;
-			Destroy(gameObject);
+//			Destroy(gameObject);
+			PacmanMove.powerDotsRemaining--;
+			gameObject.SetActive(false);
 		}
 		//scoring system would be here
 	}

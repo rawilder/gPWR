@@ -21,12 +21,19 @@ public class PacmanMove : MonoBehaviour {
 
 	Vector2 origin;
 
-
+	GameObject[] dots;
+	GameObject[] powerDots;
+	public static int dotsRemaining;
+	public static int powerDotsRemaining;
 
 	// Use this for initialization
 	void Start () {
+		dots = GameObject.FindGameObjectsWithTag("dot");
+		powerDots = GameObject.FindGameObjectsWithTag ("powerDot");
 		dest = transform.position;
 		origin = transform.position;
+
+		dotsRemaining = GameObject.FindGameObjectsWithTag("dot").Length;
 	}
 	
 	// Update is called once per frame
@@ -37,6 +44,16 @@ public class PacmanMove : MonoBehaviour {
 			dest = transform.position;
 			pacmanEaten = false;
 			eatenDelayRemaining = eatenTimeDelay;
+		}
+
+		if (dotsRemaining == 0) {
+			for(int i = 0; i < dots.Length; i++){
+				dots[i].SetActive(true);
+			}
+			for(int i = 0; i < powerDots.Length; i++){
+				powerDots[i].SetActive(true);
+			}
+			dotsRemaining = dots.Length;
 		}
 
 		// Move closer to Destination

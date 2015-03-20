@@ -5,8 +5,10 @@ public class Pacdot : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D co) {
 		if (co.name == "pacman") {
-			Destroy(gameObject);
+//			Destroy(gameObject);
+			gameObject.SetActive(false);
 			PacmanMove.player1Score++;
+			PacmanMove.dotsRemaining--;
 		}
 		//scoring system would be here
 	}
