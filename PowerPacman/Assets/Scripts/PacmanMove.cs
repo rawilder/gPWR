@@ -11,34 +11,52 @@ public class PacmanMove : MonoBehaviour {
 	public static float turnTimeRemaining = turnDuration;
 
 	public static bool powerMode = false;  //flag for power mode (eating enemies)
-	public static float powerModeDuration = 10.0f; //number of seconds to stay in power mode
+	public static float powerModeDuration = 5.0f; //number of seconds to stay in power mode
 	public static float powerModeTimeRemaining = powerModeDuration;
 
 	public static int player1Score = 0;
+	public static bool pacmanEaten = false;
+	float eatenTimeDelay = 0.5f; //the amount of time the player is frozen after being eaten
+	float eatenDelayRemaining = 0;
+
+	Vector2 origin;
 
 
 
 	// Use this for initialization
 	void Start () {
 		dest = transform.position;
+		origin = transform.position;
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+
+		if (pacmanEaten) {
+			transform.position = origin;
+			dest = transform.position;
+			pacmanEaten = false;
+			eatenDelayRemaining = eatenTimeDelay;
+		}
+
 		// Move closer to Destination
 		Vector2 p = Vector2.MoveTowards(transform.position, dest, speed);
 		GetComponent<Rigidbody2D>().MovePosition(p);
 
-		// Check for Input if not moving
-		if ((Vector2)transform.position == dest) {
-			if (Input.GetKey(KeyCode.UpArrow) && valid(Vector2.up))
-				dest = (Vector2)transform.position + Vector2.up;
-			if (Input.GetKey(KeyCode.RightArrow) && valid(Vector2.right))
-				dest = (Vector2)transform.position + Vector2.right;
-			if (Input.GetKey(KeyCode.DownArrow) && valid(-Vector2.up))
-				dest = (Vector2)transform.position - Vector2.up;
-			if (Input.GetKey(KeyCode.LeftArrow) && valid(-Vector2.right))
-				dest = (Vector2)transform.position - Vector2.right;
+		if (eatenDelayRemaining > 0) {
+			eatenDelayRemaining -= Time.deltaTime;
+		} else {
+			// Check for Input if not moving
+			if ((Vector2)transform.position == dest) {
+				if (Input.GetKey (KeyCode.UpArrow) && valid (Vector2.up))
+					dest = (Vector2)transform.position + Vector2.up;
+				if (Input.GetKey (KeyCode.RightArrow) && valid (Vector2.right))
+					dest = (Vector2)transform.position + Vector2.right;
+				if (Input.GetKey (KeyCode.DownArrow) && valid (-Vector2.up))
+					dest = (Vector2)transform.position - Vector2.up;
+				if (Input.GetKey (KeyCode.LeftArrow) && valid (-Vector2.right))
+					dest = (Vector2)transform.position - Vector2.right;
+			}
 		}
 
 		// Animation Parameters
