@@ -26,6 +26,10 @@ public class PacmanMove : MonoBehaviour {
 	public static int dotsRemaining;
 	public static int powerDotsRemaining;
 
+    private Direction movementDir;
+
+    enum Direction { None, Up, Down, Left, Right };
+
 	// Use this for initialization
 	void Start () {
 		dots = GameObject.FindGameObjectsWithTag("dot");
@@ -44,6 +48,7 @@ public class PacmanMove : MonoBehaviour {
 			dest = transform.position;
 			pacmanEaten = false;
 			eatenDelayRemaining = eatenTimeDelay;
+            movementDir = Direction.None;
 		}
 
 		if (dotsRemaining == 0) {
@@ -65,14 +70,24 @@ public class PacmanMove : MonoBehaviour {
 		} else {
 			// Check for Input if not moving
 			if ((Vector2)transform.position == dest) {
-				if (Input.GetKey (KeyCode.UpArrow) && valid (Vector2.up))
+                if (Input.GetKey(KeyCode.UpArrow) && valid(Vector2.up))
+                    movementDir = Direction.Up;
+                if (Input.GetKey(KeyCode.RightArrow) && valid(Vector2.right))
+                    movementDir = Direction.Right;
+                if (Input.GetKey(KeyCode.DownArrow) && valid(-Vector2.up))
+                    movementDir = Direction.Down;
+                if (Input.GetKey(KeyCode.LeftArrow) && valid(-Vector2.right))
+                    movementDir = Direction.Left;
+
+                if (movementDir == Direction.Up && valid(Vector2.up))
 					dest = (Vector2)transform.position + Vector2.up;
-				if (Input.GetKey (KeyCode.RightArrow) && valid (Vector2.right))
+                if (movementDir == Direction.Right && valid(Vector2.right))
 					dest = (Vector2)transform.position + Vector2.right;
-				if (Input.GetKey (KeyCode.DownArrow) && valid (-Vector2.up))
+                if (movementDir == Direction.Down && valid(-Vector2.up))
 					dest = (Vector2)transform.position - Vector2.up;
-				if (Input.GetKey (KeyCode.LeftArrow) && valid (-Vector2.right))
+                if (movementDir == Direction.Left && valid(-Vector2.right))
 					dest = (Vector2)transform.position - Vector2.right;
+
 			}
 		}
 
