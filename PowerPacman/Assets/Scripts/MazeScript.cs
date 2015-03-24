@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class MazeScript : MonoBehaviour {
 
@@ -57,8 +58,9 @@ public class MazeScript : MonoBehaviour {
 	}
 
 	public static bool validPacManMove(Vector2 position, PacmanMove.Direction dir){
-		int x = (int)position.x;
-		int y = (int)position.y;
+
+		int x = (int)Math.Round (position.x, 0);
+		int y = (int)Math.Round (position.y, 0);
 
 		try{
 			int value = 0;
