@@ -46,6 +46,7 @@ public class GhostMove : MonoBehaviour {
 
 	public void killGhost(){
 		transform.position = origin;
+		tilePosition = origin;
 		cur = 0;
 		eatenDelayRemaining = GhostMove.eatenDelay;
 	}

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 public class MazeScript : MonoBehaviour {
 
@@ -92,6 +93,42 @@ public class MazeScript : MonoBehaviour {
 			return false;
 		}
 
+	}
+
+	//checks all directions from the current position to see if moving there is possible
+	//returns a list of 4 bools, representing a move up,right,down, and left (in that order)
+	public static List<bool> getAvailableDirections(Vector2 position){
+
+		List<bool> directionsList = new List<bool>();
+		if (validPacManMove (position, PacmanMove.Direction.Up))
+			directionsList.Add (true);
+		else
+			directionsList.Add (false);
+
+		if (validPacManMove (position, PacmanMove.Direction.Right))
+			directionsList.Add (true);
+		else
+			directionsList.Add (false);
+
+		if (validPacManMove (position, PacmanMove.Direction.Down))
+			directionsList.Add (true);
+		else
+			directionsList.Add (false);
+
+		if (validPacManMove (position, PacmanMove.Direction.Left))
+			directionsList.Add (true);
+		else
+			directionsList.Add (false);
+
+		return directionsList;
+
+	}
+
+	//returns the tile value at position
+	public static int getValue(Vector2 position){
+		int x = (int)Math.Round (position.x, 0);
+		int y = (int)Math.Round (position.y, 0);
+		return map [y, x];
 	}
 
 
