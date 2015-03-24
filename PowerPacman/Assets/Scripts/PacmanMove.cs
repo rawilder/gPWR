@@ -11,6 +11,9 @@ public class PacmanMove : MonoBehaviour {
 
 	//The ghosts
 	public ClydeMove clyde;
+	public InkyMove inky;
+	public PinkyMove pinky;
+	public GhostMove blinky;
 
 	public static bool isPlayer1Turn = true;
 	public static float turnDuration = 60.0f; //length of turn in seconds
@@ -220,6 +223,39 @@ public class PacmanMove : MonoBehaviour {
 		if (tilePosition == clyde.tilePosition) {
 			if(powerMode){
 				clyde.killGhost();
+				player1Score+=100;
+			}
+			else{
+				pacmanEaten = true;
+				return;
+			}
+		}
+
+		if (tilePosition == inky.tilePosition) {
+			if(powerMode){
+				inky.killGhost();
+				player1Score+=100;
+			}
+			else{
+				pacmanEaten = true;
+				return;
+			}
+		}
+
+		if (tilePosition == pinky.tilePosition) {
+			if(powerMode){
+				pinky.killGhost();
+				player1Score+=100;
+			}
+			else{
+				pacmanEaten = true;
+				return;
+			}
+		}
+
+		if (tilePosition == blinky.tilePosition) {
+			if(powerMode){
+				blinky.killGhost();
 				player1Score+=100;
 			}
 			else{
