@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 public class PacmanMove : MonoBehaviour {
 	public float speed = 0.5f;
@@ -23,10 +25,7 @@ public class PacmanMove : MonoBehaviour {
 
 	GameObject[] dots;
 	GameObject[] powerDots;
-    GameObject blinky;
-    GameObject clyde;
-    GameObject inky;
-    GameObject pinky;
+	GameObject[] ghosts;
 
 	public static int dotsRemaining;
 	public static int powerDotsRemaining;
@@ -39,10 +38,7 @@ public class PacmanMove : MonoBehaviour {
 	void Start () {
 		dots = GameObject.FindGameObjectsWithTag("dot");
 		powerDots = GameObject.FindGameObjectsWithTag ("powerDot");
-        blinky = GameObject.Find("blinky");
-        clyde = GameObject.Find("clyde");
-        inky = GameObject.Find("inky");
-        pinky = GameObject.Find("pinky");
+		ghosts = GameObject.FindGameObjectsWithTag("ghost");
 
 		dest = transform.position;
 		origin = transform.position;
@@ -123,7 +119,6 @@ public class PacmanMove : MonoBehaviour {
 						dest = (Vector2)transform.position + MoveAwayFromGhost();
 					}
                 }
-
 			}
 		}
 
@@ -171,35 +166,51 @@ public class PacmanMove : MonoBehaviour {
     bool GhostIsThere(Vector2 dir)
     {
 		Vector2 pos = (Vector2)transform.position + dir;
-		Debug.Log (Vector2.Distance(pos, (Vector2)blinky.transform.position));
-		if (Vector2.Distance(pos, (Vector2)blinky.transform.position) < 5)
-			return true;
-		else if (Vector2.Distance(pos, (Vector2)inky.transform.position) < 5)
-			return true;
-		else if (Vector2.Distance(pos, (Vector2)clyde.transform.position) < 5)
-			return true;
-		else if (Vector2.Distance(pos, (Vector2)pinky.transform.position) < 5)
-			return true;
-		else
-            return false;
+		for (int i = 0; i < ghosts.Length; ++i) {
+			if (Vector2.Distance(pos, (Vector2)ghosts[i].transform.position) < 5)
+				return true;
+		}
+		return false;
     }
 
 	//Make the move that is the farest from the ghost
 	Vector2 MoveAwayFromGhost()
 	{
-		float up, down, left, right, max;
-		up = FurthestDistanceByMoving(Vector2.up);
-		down = FurthestDistanceByMoving (-Vector2.up);
-		//left
-		//right
-		max = Mathf.Max(right, Mathf.Max(left,Mathf.Max (up,down)));
-		if (max == up)
+		var values = new float[4];
+		float max = 0;
+		if (valid (Vector2.up)) {
+			values[0] = FurthestDistanceByMoving(Vector2.up);
+		}
+		if (valid (-Vector2.up)) {
+			values[1] = FurthestDistanceByMoving(-Vector2.up);
+		}
+		if (valid (Vector2.right)) {
+			values[2] = FurthestDistanceByMoving(Vector2.right);
+		}
+		if (valid (-Vector2.right)) {
+			values[3] = FurthestDistanceByMoving(-Vector2.right);
+		}
+		max = values.Max();
+		if (max == values[0])
 			return Vector2.up;
-		else if (max == down)
+		else if (max == values[1])
 			return (-Vector2.up);
-		else if (max == right)
+		else if (max == values[2])
 			return Vector2.right;
 		else
-			return (-Vector2.right);
+			return (-Vector2.right); //what if left is not a valid move
+	}
+
+	float FurthestDistanceByMoving(Vector2 dir)
+	{
+		Vector2 pos = (Vector2)transform.position + dir;
+		float max = 0;
+		float temp = 0;
+		for (int i=0; i < ghosts.Length; ++i) {
+			temp = Vector2.Distance(pos, (Vector2)ghosts[i].transform.position);
+			if (temp > max)
+				max = temp;
+		}
+		return max;
 	}
 }
