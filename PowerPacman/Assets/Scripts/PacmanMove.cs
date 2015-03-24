@@ -3,10 +3,10 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class PacmanMove : MonoBehaviour {
-	public float speed = 0.4f;
+	public float speed = 0.5f;
 	Vector2 dest = Vector2.zero;
 
-	public static bool isPlayer1Turn = true;
+	public static bool isPlayer1Turn = false;
 	public static float turnDuration = 50.0f; //length of turn in seconds
 	public static float turnTimeRemaining = turnDuration;
 
@@ -23,6 +23,11 @@ public class PacmanMove : MonoBehaviour {
 
 	GameObject[] dots;
 	GameObject[] powerDots;
+    GameObject blinky;
+    GameObject clyde;
+    GameObject inky;
+    GameObject pinky;
+
 	public static int dotsRemaining;
 	public static int powerDotsRemaining;
 
@@ -34,6 +39,11 @@ public class PacmanMove : MonoBehaviour {
 	void Start () {
 		dots = GameObject.FindGameObjectsWithTag("dot");
 		powerDots = GameObject.FindGameObjectsWithTag ("powerDot");
+        blinky = GameObject.Find("blinky");
+        clyde = GameObject.Find("clyde");
+        inky = GameObject.Find("inky");
+        pinky = GameObject.Find("pinky");
+
 		dest = transform.position;
 		origin = transform.position;
 
@@ -70,23 +80,49 @@ public class PacmanMove : MonoBehaviour {
 		} else {
 			// Check for Input if not moving
 			if ((Vector2)transform.position == dest) {
-                if (Input.GetKey(KeyCode.UpArrow) && valid(Vector2.up))
-                    movementDir = Direction.Up;
-                if (Input.GetKey(KeyCode.RightArrow) && valid(Vector2.right))
-                    movementDir = Direction.Right;
-                if (Input.GetKey(KeyCode.DownArrow) && valid(-Vector2.up))
-                    movementDir = Direction.Down;
-                if (Input.GetKey(KeyCode.LeftArrow) && valid(-Vector2.right))
-                    movementDir = Direction.Left;
+                if (isPlayer1Turn)
+                {
+                    if (Input.GetKey(KeyCode.UpArrow) && valid(Vector2.up))
+                        movementDir = Direction.Up;
+                    if (Input.GetKey(KeyCode.RightArrow) && valid(Vector2.right))
+                        movementDir = Direction.Right;
+                    if (Input.GetKey(KeyCode.DownArrow) && valid(-Vector2.up))
+                        movementDir = Direction.Down;
+                    if (Input.GetKey(KeyCode.LeftArrow) && valid(-Vector2.right))
+                        movementDir = Direction.Left;
 
-                if (movementDir == Direction.Up && valid(Vector2.up))
-					dest = (Vector2)transform.position + Vector2.up;
-                if (movementDir == Direction.Right && valid(Vector2.right))
-					dest = (Vector2)transform.position + Vector2.right;
-                if (movementDir == Direction.Down && valid(-Vector2.up))
-					dest = (Vector2)transform.position - Vector2.up;
-                if (movementDir == Direction.Left && valid(-Vector2.right))
-					dest = (Vector2)transform.position - Vector2.right;
+                    if (movementDir == Direction.Up && valid(Vector2.up))
+                        dest = (Vector2)transform.position + Vector2.up;
+                    if (movementDir == Direction.Right && valid(Vector2.right))
+                        dest = (Vector2)transform.position + Vector2.right;
+                    if (movementDir == Direction.Down && valid(-Vector2.up))
+                        dest = (Vector2)transform.position - Vector2.up;
+                    if (movementDir == Direction.Left && valid(-Vector2.right))
+                        dest = (Vector2)transform.position - Vector2.right;
+                }
+                else
+                {
+                    if (valid(Vector2.up) && !GhostIsThere(Vector2.up))
+                    {
+                        dest = (Vector2)transform.position + Vector2.up;
+                    }
+					else if (valid(-Vector2.right) && !GhostIsThere(-Vector2.right))
+					{
+						dest = (Vector2)transform.position - Vector2.right;
+					}
+					else if (valid(-Vector2.up) && !GhostIsThere(-Vector2.up))
+					{
+						dest = (Vector2)transform.position - Vector2.up;
+					}
+					else if (valid(Vector2.right) && !GhostIsThere(Vector2.right))
+					{
+						dest = (Vector2)transform.position + Vector2.right;
+                    }
+					else 
+					{
+						dest = (Vector2)transform.position + MoveAwayFromGhost();
+					}
+                }
 
 			}
 		}
@@ -109,8 +145,7 @@ public class PacmanMove : MonoBehaviour {
 			}
 			else{
 				Text timeText = GameObject.Find("Top Canvas/TimeRemainingBox").GetComponent<Text>();
-				timeText.text = "0";
-				//end turn?
+				timeText.text = "0";        
 			}
 		}
 
@@ -131,5 +166,40 @@ public class PacmanMove : MonoBehaviour {
 		Vector2 pos = transform.position;
 		RaycastHit2D hit = Physics2D.Linecast(pos + dir, pos);
 		return (hit.collider == GetComponent<Collider2D>());
+	}
+
+    bool GhostIsThere(Vector2 dir)
+    {
+		Vector2 pos = (Vector2)transform.position + dir;
+		Debug.Log (Vector2.Distance(pos, (Vector2)blinky.transform.position));
+		if (Vector2.Distance(pos, (Vector2)blinky.transform.position) < 5)
+			return true;
+		else if (Vector2.Distance(pos, (Vector2)inky.transform.position) < 5)
+			return true;
+		else if (Vector2.Distance(pos, (Vector2)clyde.transform.position) < 5)
+			return true;
+		else if (Vector2.Distance(pos, (Vector2)pinky.transform.position) < 5)
+			return true;
+		else
+            return false;
+    }
+
+	//Make the move that is the farest from the ghost
+	Vector2 MoveAwayFromGhost()
+	{
+		float up, down, left, right, max;
+		up = FurthestDistanceByMoving(Vector2.up);
+		down = FurthestDistanceByMoving (-Vector2.up);
+		//left
+		//right
+		max = Mathf.Max(right, Mathf.Max(left,Mathf.Max (up,down)));
+		if (max == up)
+			return Vector2.up;
+		else if (max == down)
+			return (-Vector2.up);
+		else if (max == right)
+			return Vector2.right;
+		else
+			return (-Vector2.right);
 	}
 }
