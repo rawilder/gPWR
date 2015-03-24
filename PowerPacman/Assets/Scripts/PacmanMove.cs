@@ -9,6 +9,9 @@ public class PacmanMove : MonoBehaviour {
 	Vector2 dest = Vector2.zero;
 	Vector2 destTile = Vector2.zero;
 
+	//The ghosts
+	public ClydeMove clyde;
+
 	public static bool isPlayer1Turn = true;
 	public static float turnDuration = 60.0f; //length of turn in seconds
 	public static float turnTimeRemaining = turnDuration;
@@ -51,6 +54,8 @@ public class PacmanMove : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+
+		checkForGhostCollisions ();
 
 		if (pacmanEaten) {
 			transform.position = origin;
@@ -173,7 +178,6 @@ public class PacmanMove : MonoBehaviour {
 			tilePosition.x = (int)Math.Round(transform.position.x,0);
 			tilePosition.y = (int)Math.Round(transform.position.y,0);
 
-			Debug.Log (transform.position + " " + tilePosition + " " + destTile);
 		} else {
 			//not a valid move
 		}
@@ -203,6 +207,24 @@ public class PacmanMove : MonoBehaviour {
 			}
 			else{
 				powerMode = false;
+			}
+		}
+
+	}
+
+	void checkForGhostCollisions(){
+
+		//compare player tile position to the position of each of the ghosts
+
+		//clyde
+		if (tilePosition == clyde.tilePosition) {
+			if(powerMode){
+				clyde.killGhost();
+				player1Score+=100;
+			}
+			else{
+				pacmanEaten = true;
+				return;
 			}
 		}
 

@@ -23,7 +23,7 @@ public class InkyMove : MonoBehaviour {
 			if (transform.position != waypoints [cur].position) {
 				Vector2 p = Vector2.MoveTowards (transform.position,
 				                                waypoints [cur].position,
-				                                speed);
+				                                speed*Time.deltaTime);
 				GetComponent<Rigidbody2D> ().MovePosition (p);
 			}
 			// Waypoint reached, select next one

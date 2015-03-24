@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class ClydeMove : MonoBehaviour {
 	public Transform[] waypoints;
 	int cur = 0;
-	public float speed = 0.3f;
+	public float speed = 11.0f;
 	
 	float eatenDelayRemaining = 0;
 
-	Vector2 origin;
+	public static Vector2 origin;
+	public Vector2 tilePosition;
 
 	void Start(){
 		origin = transform.position;
@@ -24,7 +26,7 @@ public class ClydeMove : MonoBehaviour {
 			if (transform.position != waypoints [cur].position) {
 				Vector2 p = Vector2.MoveTowards (transform.position,
 			                                waypoints [cur].position,
-			                                speed);
+			                                speed * Time.deltaTime);
 				GetComponent<Rigidbody2D> ().MovePosition (p);
 			}
 		// Waypoint reached, select next one
@@ -36,28 +38,20 @@ public class ClydeMove : MonoBehaviour {
 			GetComponent<Animator> ().SetFloat ("DirX", dir.x);
 			GetComponent<Animator> ().SetFloat ("DirY", dir.y);
 
+			//round to nearest tile
+			tilePosition.x = (int)Math.Round(transform.position.x,0);
+			tilePosition.y = (int)Math.Round(transform.position.y,0);
+
 			//if pacman is in power mode, change to a different color
 			if (PacmanMove.powerMode) {
 				//should change the texture or something here
 			}
 		}
-
 	}
-	
-	void OnTriggerEnter2D(Collider2D co) {
-		if (co.name == "pacman") {
 
-			if(PacmanMove.powerMode){
-				transform.position = origin;
-				cur = 0;
-				eatenDelayRemaining = GhostMove.eatenDelay;
-				PacmanMove.player1Score += 100;
-			}
-			else{
-//				Destroy (co.gameObject);
-				PacmanMove.pacmanEaten = true;
-			}
-		}
-		//this is where we can decrease lives or show a game over screen
+	public void killGhost(){
+		transform.position = origin;
+		cur = 0;
+		eatenDelayRemaining = GhostMove.eatenDelay;
 	}
 }
