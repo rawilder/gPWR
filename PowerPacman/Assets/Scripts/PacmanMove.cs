@@ -8,6 +8,7 @@ public class PacmanMove : MonoBehaviour {
 	public float speed = 11.0f; //11 tiles per second
 	Vector2 dest = Vector2.zero;
 	Vector2 destTile = Vector2.zero;
+	float corneringDistance = 0.4f; //the distance before a intersection when you can initiate a turn. MUST be less than .5
 
 	//The ghosts
 	public ClydeMove clyde;
@@ -116,7 +117,7 @@ public class PacmanMove : MonoBehaviour {
 			}
 			else{
 				//handle corners?
-				if(Math.Abs (transform.position.x - dest.x) < .4 && Math.Abs (transform.position.y - dest.y) < .4){
+				if(Math.Abs (transform.position.x - dest.x) < corneringDistance && Math.Abs (transform.position.y - dest.y) < corneringDistance){
 					//The player is close to the destination, might be close to a corner
 					if(Input.GetKey(KeyCode.UpArrow) && MazeScript.validPacManMove(transform.position,Direction.Up)){
 						movementDir = Direction.Up;

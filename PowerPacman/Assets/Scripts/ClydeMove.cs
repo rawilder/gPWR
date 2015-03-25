@@ -12,7 +12,7 @@ public class ClydeMove : MonoBehaviour {
 	public Vector2 tilePosition;
 	public PacmanMove.Direction moveDir = PacmanMove.Direction.None;
 
-	Vector2 dest = origin;
+	Vector2 dest;
 
 	void Start(){
 		origin = transform.position;
@@ -35,9 +35,14 @@ public class ClydeMove : MonoBehaviour {
 				}
 				else{
 
-					//check all directions to see if there is a turn that could be made
+
+					/*-------------------------------------------------------*/
+					//this section is probably where actual intelligent path planning would go
+
+					//dumb ai: check all directions to see if there is a turn that could be made
 					List<bool> availableDirections = MazeScript.getAvailableDirections(transform.position);
 					for(int i = 0; i < 4; i++){
+						//if there is an available direction to travel
 						if(availableDirections[i]){
 							//take this turn with a 25% probability
 
@@ -50,6 +55,8 @@ public class ClydeMove : MonoBehaviour {
 							}
 						}
 					}
+
+					/*-------------------------------------------------------*/
 
 					if (moveDir == PacmanMove.Direction.Up && MazeScript.validPacManMove(transform.position, PacmanMove.Direction.Up)){
 						dest = (Vector2)transform.position + Vector2.up;
