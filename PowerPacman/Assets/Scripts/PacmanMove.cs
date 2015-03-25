@@ -2,6 +2,8 @@
 using UnityEngine.UI;
 using System.Collections;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public class PacmanMove : MonoBehaviour {
 	//public float speed = 0.4f;
@@ -32,7 +34,12 @@ public class PacmanMove : MonoBehaviour {
 	Vector2 origin;
 
 	GameObject[] dots;
+	List<GameObject> dotList;
 	GameObject[] powerDots;
+	GameObject[] ghosts;
+	GameObject targetFood = null;
+
+	public static int dotsRemaining;
 	public static int powerDotsRemaining;
 
     private Direction movementDir;
@@ -46,7 +53,10 @@ public class PacmanMove : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//dots = GameObject.FindGameObjectsWithTag("dot");
+		dotList = new List<GameObject> (dots);
 		powerDots = GameObject.FindGameObjectsWithTag ("powerDot");
+		ghosts = GameObject.FindGameObjectsWithTag("ghost");
+
 		dest = transform.position;
 		destTile = transform.position;
 		origin = transform.position;
@@ -195,8 +205,7 @@ public class PacmanMove : MonoBehaviour {
 			}
 			else{
 				Text timeText = GameObject.Find("Top Canvas/TimeRemainingBox").GetComponent<Text>();
-				timeText.text = "0";
-				//end turn?
+				timeText.text = "0";        
 			}
 		}
 
@@ -274,5 +283,92 @@ public class PacmanMove : MonoBehaviour {
 		Vector2 pos = transform.position;
 		RaycastHit2D hit = Physics2D.Linecast(pos + dir, pos);
 		return (hit.collider == GetComponent<Collider2D>());
+	}
+
+	//not checking if move is valid
+	Vector2 MoveTowardsFood()
+	{
+		//find closestFood
+		int distance = 1;
+		if (targetFood != null) {
+			if (targetFood.transform.position.x == transform.position.x && targetFood.transform.position.y == transform.position.y) {
+				dotList.Remove (targetFood);
+			}
+		}
+		while(targetFood == null) {
+			targetFood = dotList.FirstOrDefault( d => Vector2.Distance(transform.position, (Vector2)d.transform.position) < distance );
+			distance++;
+		}
+		Debug.Log (dotList.Count ());
+		Debug.Log (targetFood.transform.position);
+		if(targetFood.transform.position.y > transform.position.y && valid(Vector2.up))
+			movementDir = Direction.Up;
+		else if(targetFood.transform.position.y < transform.position.y && valid(-Vector2.up))
+			movementDir = Direction.Down;
+		else if (targetFood.transform.position.x > transform.position.x && valid(Vector2.right))
+			movementDir = Direction.Right;
+		else if (targetFood.transform.position.x < transform.position.x && valid(-Vector2.right))
+			movementDir = Direction.Left;
+
+		if (movementDir == Direction.Up && valid(Vector2.up))
+			return Vector2.up;
+		if (movementDir == Direction.Right && valid(Vector2.right))
+			return Vector2.right;
+		if (movementDir == Direction.Down && valid(-Vector2.up)) 
+			return (-Vector2.up);
+		if (movementDir == Direction.Left && valid(-Vector2.right))
+			return (-Vector2.right);
+		return Vector2.up;
+	}
+
+    bool GhostIsThere()
+    {
+		Vector2 pos = (Vector2)transform.position;
+		for (int i = 0; i < ghosts.Length; ++i) {
+			if (Vector2.Distance(pos, (Vector2)ghosts[i].transform.position) < 2)
+				return true;
+		}
+		return false;
+    }
+
+	//Make the move that is the farest from the ghost
+	Vector2 MoveAwayFromGhost()
+	{
+		var values = new float[4];
+		float max = 0;
+		if (valid (Vector2.up)) {
+			values[0] = FurthestDistanceByMoving(Vector2.up);
+		}
+		if (valid (-Vector2.up)) {
+			values[1] = FurthestDistanceByMoving(-Vector2.up);
+		}
+		if (valid (Vector2.right)) {
+			values[2] = FurthestDistanceByMoving(Vector2.right);
+		}
+		if (valid (-Vector2.right)) {
+			values[3] = FurthestDistanceByMoving(-Vector2.right);
+		}
+		max = values.Max();
+		if (max == values[0])
+			return Vector2.up;
+		else if (max == values[1])
+			return (-Vector2.up);
+		else if (max == values[2])
+			return Vector2.right;
+		else
+			return (-Vector2.right);
+	}
+
+	float FurthestDistanceByMoving(Vector2 dir)
+	{
+		Vector2 pos = (Vector2)transform.position + dir;
+		float max = 0;
+		float temp = 0;
+		for (int i=0; i < ghosts.Length; ++i) {
+			temp = Vector2.Distance(pos, (Vector2)ghosts[i].transform.position);
+			if (temp > max)
+				max = temp;
+		}
+		return max;
 	}
 }
