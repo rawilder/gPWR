@@ -10,6 +10,5 @@ public class Pacdot : MonoBehaviour {
 			PacmanMove.player1Score++;
 			PacmanMove.dotsRemaining--;
 		}
-		//scoring system would be here
 	}
 }

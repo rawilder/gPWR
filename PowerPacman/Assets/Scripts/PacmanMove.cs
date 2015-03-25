@@ -24,6 +24,7 @@ public class PacmanMove : MonoBehaviour {
 	Vector2 origin;
 
 	GameObject[] dots;
+	List<GameObject> dotList;
 	GameObject[] powerDots;
 	GameObject[] ghosts;
 
@@ -37,6 +38,7 @@ public class PacmanMove : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		dots = GameObject.FindGameObjectsWithTag("dot");
+		dotList = new List<GameObject> (dots);
 		powerDots = GameObject.FindGameObjectsWithTag ("powerDot");
 		ghosts = GameObject.FindGameObjectsWithTag("ghost");
 
@@ -65,6 +67,7 @@ public class PacmanMove : MonoBehaviour {
 				powerDots[i].SetActive(true);
 			}
 			dotsRemaining = dots.Length;
+			dotList = new List<GameObject> (dots);
 		}
 
 		// Move closer to Destination
@@ -98,26 +101,10 @@ public class PacmanMove : MonoBehaviour {
                 }
                 else
                 {
-                    if (valid(Vector2.up) && !GhostIsThere(Vector2.up))
-                    {
-                        dest = (Vector2)transform.position + Vector2.up;
-                    }
-					else if (valid(-Vector2.right) && !GhostIsThere(-Vector2.right))
-					{
-						dest = (Vector2)transform.position - Vector2.right;
-					}
-					else if (valid(-Vector2.up) && !GhostIsThere(-Vector2.up))
-					{
-						dest = (Vector2)transform.position - Vector2.up;
-					}
-					else if (valid(Vector2.right) && !GhostIsThere(Vector2.right))
-					{
-						dest = (Vector2)transform.position + Vector2.right;
-                    }
-					else 
-					{
+					if(!GhostIsThere())
+						dest = (Vector2)transform.position + MoveTowardsFood();
+					else
 						dest = (Vector2)transform.position + MoveAwayFromGhost();
-					}
                 }
 			}
 		}
@@ -163,11 +150,60 @@ public class PacmanMove : MonoBehaviour {
 		return (hit.collider == GetComponent<Collider2D>());
 	}
 
-    bool GhostIsThere(Vector2 dir)
+	//not checking if move is valid
+	Vector2 MoveTowardsFood()
+	{
+		//find closestFood
+		int distance = 1;
+		GameObject food = null;
+		while(food == null) {
+			food = dotList.FirstOrDefault( d => Vector2.Distance(transform.position, (Vector2)d.transform.position) < distance );
+			if(food != null) {
+				if (food.transform.position.x == transform.position.x && food.transform.position.y == transform.position.y) {
+					dotList.Remove (food);
+				}
+			}
+			distance++;
+		}
+		Debug.Log (dotList.Count());
+		if(food.transform.position.y > transform.position.y && valid(Vector2.up))
+			movementDir = Direction.Up;
+		else if(food.transform.position.y < transform.position.y && valid(-Vector2.up))
+			movementDir = Direction.Down;
+		else if (food.transform.position.x > transform.position.x && valid(Vector2.right))
+			movementDir = Direction.Right;
+		else if (food.transform.position.x < transform.position.x && valid(-Vector2.right))
+			movementDir = Direction.Left;
+
+		if (movementDir == Direction.Up && valid (Vector2.up))
+			return Vector2.up;
+		if (movementDir == Direction.Right && valid (Vector2.right))
+			return Vector2.right;
+		if (movementDir == Direction.Down && valid(-Vector2.up))
+			return (-Vector2.up);
+		if (movementDir == Direction.Left && valid(-Vector2.right))
+			return (-Vector2.right);
+
+		return Vector2.up;
+		/*var dir = new Vector2[4];
+		dir [0] = Vector2.up;
+		dir [1] = -Vector2.up;
+		dir [2] = Vector2.right;
+		dir [3] = -Vector2.right;
+		int rand = Random.Range (0, 3);
+		while (true) {
+			if(valid(dir[rand]))
+			   return dir[rand];
+			else
+				rand = Random.Range (0, 3);
+		}*/
+	}
+
+    bool GhostIsThere()
     {
-		Vector2 pos = (Vector2)transform.position + dir;
+		Vector2 pos = (Vector2)transform.position;
 		for (int i = 0; i < ghosts.Length; ++i) {
-			if (Vector2.Distance(pos, (Vector2)ghosts[i].transform.position) < 5)
+			if (Vector2.Distance(pos, (Vector2)ghosts[i].transform.position) < 2)
 				return true;
 		}
 		return false;
@@ -198,7 +234,7 @@ public class PacmanMove : MonoBehaviour {
 		else if (max == values[2])
 			return Vector2.right;
 		else
-			return (-Vector2.right); //what if left is not a valid move
+			return (-Vector2.right);
 	}
 
 	float FurthestDistanceByMoving(Vector2 dir)
