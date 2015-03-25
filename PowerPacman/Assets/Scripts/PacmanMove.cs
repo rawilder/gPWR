@@ -264,7 +264,7 @@ public class PacmanMove : MonoBehaviour {
 	}
 
 	void checkPacDots(){
-		if (MazeScript.isInDotTile (tilePosition) || MazeScript.isInPowerDotTile(tilePosition)) {
+		if (MazeScript.isInDotTile (tilePosition) || MazeScript.isInPowerDotTile(tilePosition) || MazeScript.isInCherryTile(tilePosition)) {
 			MazeScript.eatDot(tilePosition);
 		}
 	}
