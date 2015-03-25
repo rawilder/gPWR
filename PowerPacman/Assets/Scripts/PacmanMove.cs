@@ -33,7 +33,6 @@ public class PacmanMove : MonoBehaviour {
 
 	GameObject[] dots;
 	GameObject[] powerDots;
-	public static int dotsRemaining;
 	public static int powerDotsRemaining;
 
     private Direction movementDir;
@@ -45,21 +44,20 @@ public class PacmanMove : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		dots = GameObject.FindGameObjectsWithTag("dot");
+		//dots = GameObject.FindGameObjectsWithTag("dot");
 		powerDots = GameObject.FindGameObjectsWithTag ("powerDot");
 		dest = transform.position;
 		destTile = transform.position;
 		origin = transform.position;
 		position = new Vector2 (14, 14);
 		tilePosition = new Vector2 (14, 14);
-
-		dotsRemaining = GameObject.FindGameObjectsWithTag("dot").Length;
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 
 		checkForGhostCollisions ();
+		checkPacDots();
 
 		if (pacmanEaten) {
 			transform.position = origin;
@@ -69,16 +67,6 @@ public class PacmanMove : MonoBehaviour {
 			pacmanEaten = false;
 			eatenDelayRemaining = eatenTimeDelay;
             movementDir = Direction.None;
-		}
-
-		if (dotsRemaining == 0) {
-			for(int i = 0; i < dots.Length; i++){
-				dots[i].SetActive(true);
-			}
-			for(int i = 0; i < powerDots.Length; i++){
-				powerDots[i].SetActive(true);
-			}
-			dotsRemaining = dots.Length;
 		}
 
 		// Move closer to Destination
@@ -265,6 +253,12 @@ public class PacmanMove : MonoBehaviour {
 			}
 		}
 
+	}
+
+	void checkPacDots(){
+		if (MazeScript.isInDotTile (tilePosition) || MazeScript.isInPowerDotTile(tilePosition)) {
+			MazeScript.eatDot(tilePosition);
+		}
 	}
 
 	bool valid(Vector2 dir) {

@@ -28,7 +28,7 @@ public class GhostMove : MonoBehaviour {
 		} else {
 			if((Vector2)transform.position == dest){
 				//check if the ghost is inside the pen
-				if(MazeScript.getValue(transform.position) == 3){
+				if(MazeScript.isInGhostPen(transform.position)){
 					//exit the pen
 					moveDir = PacmanMove.Direction.Up;
 					dest = new Vector2(14,20);

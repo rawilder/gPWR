@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PowerDot : MonoBehaviour {
 
+	/*
 	void OnTriggerEnter2D(Collider2D co) {
 		if (co.name == "pacman") {
 			PacmanMove.powerMode = true;
@@ -14,4 +15,5 @@ public class PowerDot : MonoBehaviour {
 		}
 		//scoring system would be here
 	}
+	*/
 }
