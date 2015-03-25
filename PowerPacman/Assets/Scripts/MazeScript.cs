@@ -16,7 +16,7 @@ public class Position : IEquatable<Position>{
 	}
 
 	public override bool Equals(System.Object o){
-		if (0 == null)
+		if (o == null)
 			return false;
 		Position p = o as Position;
 		if ((System.Object)p == null)

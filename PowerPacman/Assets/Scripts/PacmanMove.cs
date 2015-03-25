@@ -8,7 +8,7 @@ public class PacmanMove : MonoBehaviour {
 	public float speed = 11.0f; //11 tiles per second
 	Vector2 dest = Vector2.zero;
 	Vector2 destTile = Vector2.zero;
-	float corneringDistance = 0.4f; //the distance before a intersection when you can initiate a turn. MUST be less than .5
+	float corneringDistance = 0.5f; //the distance before a intersection when you can initiate a turn. MUST be less than .5
 
 	//The ghosts
 	public ClydeMove clyde;
@@ -36,6 +36,7 @@ public class PacmanMove : MonoBehaviour {
 	public static int powerDotsRemaining;
 
     private Direction movementDir;
+    private Direction queuedDir;
 
 	Vector2 position;
 	Vector2 tilePosition;	//this is the tile that pacman currently occupies, his "center"
@@ -51,6 +52,7 @@ public class PacmanMove : MonoBehaviour {
 		origin = transform.position;
 		position = new Vector2 (14, 14);
 		tilePosition = new Vector2 (14, 14);
+        queuedDir = Direction.None;
 	}
 	
 	// Update is called once per frame
@@ -67,6 +69,7 @@ public class PacmanMove : MonoBehaviour {
 			pacmanEaten = false;
 			eatenDelayRemaining = eatenTimeDelay;
             movementDir = Direction.None;
+            queuedDir = Direction.None;
 		}
 
 		// Move closer to Destination
@@ -74,68 +77,73 @@ public class PacmanMove : MonoBehaviour {
 			eatenDelayRemaining -= Time.deltaTime;
 		} else {
 			//Check for input if not moving
-			if((Vector2)transform.position == dest){
-
-				if (Input.GetKey(KeyCode.UpArrow) && MazeScript.validPacManMove(transform.position, Direction.Up))
-					movementDir = Direction.Up;
-				if (Input.GetKey(KeyCode.RightArrow) && MazeScript.validPacManMove(transform.position, Direction.Right))
-					movementDir = Direction.Right;
-				if (Input.GetKey(KeyCode.DownArrow) && MazeScript.validPacManMove(transform.position, Direction.Down)){
-					movementDir = Direction.Down;
-				}
-				if (Input.GetKey(KeyCode.LeftArrow) && MazeScript.validPacManMove(transform.position, Direction.Left))
-					movementDir = Direction.Left;
-				
-				if (movementDir == Direction.Up && MazeScript.validPacManMove(transform.position, Direction.Up)){
-					dest = (Vector2)transform.position + Vector2.up;
-					destTile.y++;
-				}
-				if (movementDir == Direction.Right && MazeScript.validPacManMove(transform.position, Direction.Right)){
-					dest = (Vector2)transform.position + Vector2.right;
-					destTile.x++;
-				}
-				if (movementDir == Direction.Down && MazeScript.validPacManMove(transform.position, Direction.Down)){
-					dest = (Vector2)transform.position - Vector2.up;
-					destTile.y--;
-				}
-				if (movementDir == Direction.Left && MazeScript.validPacManMove(transform.position, Direction.Left)){
-					dest = (Vector2)transform.position - Vector2.right;
-					destTile.x--;
-				}
+			if((Vector2)transform.position == dest)
+            {
+                if(queuedDir != Direction.None)
+                {
+                    movementDir = queuedDir;
+                    queuedDir = Direction.None;
+                }
+                else
+                {
+                    if (Input.GetKey(KeyCode.UpArrow) && MazeScript.validPacManMove(transform.position, Direction.Up))
+                    {
+                        movementDir = Direction.Up;
+                    }
+                    if (Input.GetKey(KeyCode.RightArrow) && MazeScript.validPacManMove(transform.position, Direction.Right))
+                    {
+                        movementDir = Direction.Right;
+                    }  
+                    if (Input.GetKey(KeyCode.DownArrow) && MazeScript.validPacManMove(transform.position, Direction.Down))
+                    {
+                        movementDir = Direction.Down;
+                    }
+                    if (Input.GetKey(KeyCode.LeftArrow) && MazeScript.validPacManMove(transform.position, Direction.Left))
+                    { 
+                        movementDir = Direction.Left;
+                    }
+                    if (movementDir == Direction.Up && MazeScript.validPacManMove(transform.position, Direction.Up))
+                    {
+                        dest = (Vector2)transform.position + Vector2.up;
+                        destTile.y++;
+                    }
+                    if (movementDir == Direction.Right && MazeScript.validPacManMove(transform.position, Direction.Right))
+                    {
+                        dest = (Vector2)transform.position + Vector2.right;
+                        destTile.x++;
+                    }
+                    if (movementDir == Direction.Down && MazeScript.validPacManMove(transform.position, Direction.Down))
+                    {
+                        dest = (Vector2)transform.position - Vector2.up;
+                        destTile.y--;
+                    }
+                    if (movementDir == Direction.Left && MazeScript.validPacManMove(transform.position, Direction.Left))
+                    {
+                        dest = (Vector2)transform.position - Vector2.right;
+                        destTile.x--;
+                    }
+                }
 			}
 			else{
 				//handle corners?
-				if(Math.Abs (transform.position.x - dest.x) < corneringDistance && Math.Abs (transform.position.y - dest.y) < corneringDistance){
+				if(Math.Abs (transform.position.x - dest.x) < corneringDistance && Math.Abs (transform.position.y - dest.y) < corneringDistance)
+                {
 					//The player is close to the destination, might be close to a corner
-					if(Input.GetKey(KeyCode.UpArrow) && MazeScript.validPacManMove(transform.position,Direction.Up)){
-						movementDir = Direction.Up;
+                    if (Input.GetKey(KeyCode.UpArrow) && MazeScript.validPacManMove(dest, Direction.Up))
+                    {
+						queuedDir = Direction.Up;
 					}
-					if(Input.GetKey(KeyCode.RightArrow) && MazeScript.validPacManMove(transform.position,Direction.Right)){
-						movementDir = Direction.Right;
+                    if (Input.GetKey(KeyCode.RightArrow) && MazeScript.validPacManMove(dest, Direction.Right))
+                    {
+                        queuedDir = Direction.Right;
 					}
-					if(Input.GetKey(KeyCode.DownArrow) && MazeScript.validPacManMove(transform.position,Direction.Down)){
-						movementDir = Direction.Down;
+                    if (Input.GetKey(KeyCode.DownArrow) && MazeScript.validPacManMove(dest, Direction.Down))
+                    {
+                        queuedDir = Direction.Down;
 					}
-					if(Input.GetKey(KeyCode.LeftArrow) && MazeScript.validPacManMove(transform.position,Direction.Left)){
-						movementDir = Direction.Left;
-					}
-
-
-					if(movementDir == Direction.Up && MazeScript.validPacManMove(transform.position,Direction.Up)){
-						dest = (Vector2)destTile + Vector2.up;
-						destTile.y++;
-					}
-					if(movementDir == Direction.Right && MazeScript.validPacManMove(transform.position,Direction.Right)){
-						dest = (Vector2)destTile + Vector2.right;
-						destTile.x++;
-					}
-					if(movementDir == Direction.Down && MazeScript.validPacManMove(transform.position,Direction.Down)){
-						dest = (Vector2)destTile - Vector2.up;
-						destTile.y--;
-					}
-					if(movementDir == Direction.Left && MazeScript.validPacManMove(transform.position,Direction.Left)){
-						dest = (Vector2)destTile - Vector2.right;
-						destTile.x--;
+                    if (Input.GetKey(KeyCode.LeftArrow) && MazeScript.validPacManMove(dest, Direction.Left))
+                    {
+                        queuedDir = Direction.Left;
 					}
 				}
 			}
