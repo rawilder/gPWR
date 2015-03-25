@@ -27,6 +27,7 @@ public class PacmanMove : MonoBehaviour {
 	List<GameObject> dotList;
 	GameObject[] powerDots;
 	GameObject[] ghosts;
+	GameObject targetFood = null;
 
 	public static int dotsRemaining;
 	public static int powerDotsRemaining;
@@ -155,48 +156,35 @@ public class PacmanMove : MonoBehaviour {
 	{
 		//find closestFood
 		int distance = 1;
-		GameObject food = null;
-		while(food == null) {
-			food = dotList.FirstOrDefault( d => Vector2.Distance(transform.position, (Vector2)d.transform.position) < distance );
-			if(food != null) {
-				if (food.transform.position.x == transform.position.x && food.transform.position.y == transform.position.y) {
-					dotList.Remove (food);
-				}
+		if (targetFood != null) {
+			if (targetFood.transform.position.x == transform.position.x && targetFood.transform.position.y == transform.position.y) {
+				dotList.Remove (targetFood);
 			}
+		}
+		while(targetFood == null) {
+			targetFood = dotList.FirstOrDefault( d => Vector2.Distance(transform.position, (Vector2)d.transform.position) < distance );
 			distance++;
 		}
-		Debug.Log (dotList.Count());
-		if(food.transform.position.y > transform.position.y && valid(Vector2.up))
+		Debug.Log (dotList.Count ());
+		Debug.Log (targetFood.transform.position);
+		if(targetFood.transform.position.y > transform.position.y && valid(Vector2.up))
 			movementDir = Direction.Up;
-		else if(food.transform.position.y < transform.position.y && valid(-Vector2.up))
+		else if(targetFood.transform.position.y < transform.position.y && valid(-Vector2.up))
 			movementDir = Direction.Down;
-		else if (food.transform.position.x > transform.position.x && valid(Vector2.right))
+		else if (targetFood.transform.position.x > transform.position.x && valid(Vector2.right))
 			movementDir = Direction.Right;
-		else if (food.transform.position.x < transform.position.x && valid(-Vector2.right))
+		else if (targetFood.transform.position.x < transform.position.x && valid(-Vector2.right))
 			movementDir = Direction.Left;
 
-		if (movementDir == Direction.Up && valid (Vector2.up))
+		if (movementDir == Direction.Up && valid(Vector2.up))
 			return Vector2.up;
-		if (movementDir == Direction.Right && valid (Vector2.right))
+		if (movementDir == Direction.Right && valid(Vector2.right))
 			return Vector2.right;
-		if (movementDir == Direction.Down && valid(-Vector2.up))
+		if (movementDir == Direction.Down && valid(-Vector2.up)) 
 			return (-Vector2.up);
 		if (movementDir == Direction.Left && valid(-Vector2.right))
 			return (-Vector2.right);
-
 		return Vector2.up;
-		/*var dir = new Vector2[4];
-		dir [0] = Vector2.up;
-		dir [1] = -Vector2.up;
-		dir [2] = Vector2.right;
-		dir [3] = -Vector2.right;
-		int rand = Random.Range (0, 3);
-		while (true) {
-			if(valid(dir[rand]))
-			   return dir[rand];
-			else
-				rand = Random.Range (0, 3);
-		}*/
 	}
 
     bool GhostIsThere()
