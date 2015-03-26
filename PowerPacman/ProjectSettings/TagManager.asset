@@ -6,6 +6,11 @@ TagManager:
   tags:
   - dot
   - powerDot
+  - blinky
+  - pinky
+  - inky
+  - clyde
+  - maze
   - cherry
   layers:
   - Default

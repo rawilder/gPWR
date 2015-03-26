@@ -37,12 +37,15 @@ public class Position : IEquatable<Position>{
 
 public class MazeScript : MonoBehaviour {
 
-	static int dotPointValue = 1;
-	static int powerDotPointValue = 20;
-	static int cherryValue = 100;
+	int dotPointValue = 1;
+	int powerDotPointValue = 20;
 
-	public static int dotsRemaining;
-	public static int powerDotsRemaining;
+	public  int dotsRemaining;
+	public  int powerDotsRemaining;
+
+    public Sprite ghostScared;
+	int cherryValue = 100;
+
 	//0 = null space, used to pad the left and bottom sides of the maze
 	//1 = wall
 	//2 = blank space containing a dot with no cherry
@@ -106,17 +109,18 @@ public class MazeScript : MonoBehaviour {
 	};
 
 	//An associative array, uses a position as a key to find a particular dot's GameObject
-	static IDictionary<Position,GameObject> dots = new Dictionary<Position, GameObject>();
-	static IDictionary<Position,GameObject> powerDots = new Dictionary<Position, GameObject>();
+	IDictionary<Position,GameObject> dots = new Dictionary<Position, GameObject>();
+	IDictionary<Position,GameObject> powerDots = new Dictionary<Position, GameObject>();
+    public IList<GameObject> ghosts = new List<GameObject>();
 
-	static GameObject[] dotsList;
-	static GameObject[] powerDotsList;
+	GameObject[] dotsList;
+	GameObject[] powerDotsList;
 
-	static Vector2 cherryLocation = new Vector2(14,11);
-	static float cherryRespawnTime = 10.0f;
-	static float cherryRespawnTimeRemaining = cherryRespawnTime;
-	static bool cherryEaten = true;
-	static GameObject cherryObject;
+	Vector2 cherryLocation = new Vector2(14,11);
+	float cherryRespawnTime = 10.0f;
+	float cherryRespawnTimeRemaining;
+	bool cherryEaten = true;
+	GameObject cherryObject;
 	
 	// Use this for initialization
 	void Start () {
@@ -133,10 +137,17 @@ public class MazeScript : MonoBehaviour {
 			powerDots[p] = powerDotsList[i];
 		}
 
+        ghosts.Add(GameObject.FindGameObjectWithTag("blinky"));
+        ghosts.Add(GameObject.FindGameObjectWithTag("pinky"));
+        ghosts.Add(GameObject.FindGameObjectWithTag("inky"));
+        ghosts.Add(GameObject.FindGameObjectWithTag("clyde"));
+
 		dotsRemaining = dotsList.Length;
 		powerDotsRemaining = powerDotsList.Length;
 		cherryObject = GameObject.FindGameObjectWithTag ("cherry");
 		cherryObject.SetActive (false);
+
+        cherryRespawnTimeRemaining = cherryRespawnTime;
 	}
 
 	void FixedUpdate(){
@@ -148,7 +159,7 @@ public class MazeScript : MonoBehaviour {
 		}
 	}
 
-	public static bool validPacManMove(Vector2 position, PacmanMove.Direction dir){
+	public bool validPacManMove(Vector2 position, PacmanMove.Direction dir){
 
 		int x = (int)Math.Round (position.x, 0);
 		int y = (int)Math.Round (position.y, 0);
@@ -187,7 +198,7 @@ public class MazeScript : MonoBehaviour {
 
 	//checks all directions from the current position to see if moving there is possible
 	//returns a list of 4 bools, representing a move up,right,down, and left (in that order)
-	public static List<bool> getAvailableDirections(Vector2 position){
+	public List<bool> getAvailableDirections(Vector2 position){
 
 		List<bool> directionsList = new List<bool>();
 		if (validPacManMove (position, PacmanMove.Direction.Up))
@@ -215,7 +226,7 @@ public class MazeScript : MonoBehaviour {
 	}
 
 	//returns the tile value at position
-	static int getValue(Vector2 position){
+	int getValue(Vector2 position){
 		int x = (int)Math.Round (position.x, 0);
 		int y = (int)Math.Round (position.y, 0);
 		return map [y, x];
@@ -228,28 +239,28 @@ public class MazeScript : MonoBehaviour {
 		map [y, x] = value;
 	}
 
-	public static bool isInGhostPen(Vector2 position){
+	public bool isInGhostPen(Vector2 position){
 		int value = getValue (position);
 		if (value == 3)
 			return true;
 		return false;
 	}
 
-	public static bool isInDotTile(Vector2 position){
+	public bool isInDotTile(Vector2 position){
 		int value = getValue (position);
 		if (value == 2)
 			return true;
 		return false;
 	}
 
-	public static bool isInPowerDotTile(Vector2 position){
+	public bool isInPowerDotTile(Vector2 position){
 		int value = getValue (position);
 		if (value == 5)
 			return true;
 		return false;
 	}
 
-	public static bool isInCherryTile(Vector2 position){
+	public bool isInCherryTile(Vector2 position){
 		int value = getValue (position);
 		if (value == 7 || value == 8) {
 			return true;
@@ -258,7 +269,7 @@ public class MazeScript : MonoBehaviour {
 	}
 
 	//also handle cherry tiles
-	public static void eatDot(Vector2 position){
+	public void eatDot(Vector2 position){
 		int value = getValue (position);
 		//just a cherry
 		if (value == justCherry) {
@@ -294,6 +305,15 @@ public class MazeScript : MonoBehaviour {
 			powerDotsRemaining--;
 			PacmanMove.powerMode = true;
 			PacmanMove.powerModeTimeRemaining = PacmanMove.powerModeDuration;
+
+            //change ghosts
+            foreach(var ghost in ghosts)
+            {
+                ghost.GetComponent<Animator>().enabled = false;
+                ghost.GetComponent<SpriteRenderer>().sprite = ghostScared;
+                ghost.GetComponent<GhostMove>().isScared = true;
+            }
+
 		}
 
 		if (dotsRemaining == 0 && powerDotsRemaining == 0) {
@@ -301,7 +321,7 @@ public class MazeScript : MonoBehaviour {
 		}
 	}
 
-	public static void restoreDots(){
+	public void restoreDots(){
 
 		for (int i = 0; i < dotsList.Length; i++) {
 			int x = (int)dotsList[i].transform.position.x;
@@ -327,7 +347,7 @@ public class MazeScript : MonoBehaviour {
 
 	}
 
-	static void respawnCherry(){
+	void respawnCherry(){
 		int value = getValue (cherryLocation);
 		if (value == noDotNoCherry) {
 			setValue(cherryLocation,justCherry);
