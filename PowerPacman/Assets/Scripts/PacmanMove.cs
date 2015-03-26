@@ -199,8 +199,8 @@ public class PacmanMove : MonoBehaviour {
 
 		} else {
 			//not a valid move
-			//dest = transform.position;
-			//destTile = tilePosition;
+			dest = transform.position;
+			destTile = tilePosition;
 		}
 
 		//update the score for player 1
@@ -310,7 +310,7 @@ public class PacmanMove : MonoBehaviour {
 		Debug.Log (targetFood.transform.position);
 		Debug.Log (transform.position);
 		//movementDir = AStarcaulations(targetFruit);
-		if (MazeScript.validPacManMove (transform.position, movementDir) && movementDir != Direction.None && getCloserToFood(movementDir)) {
+		if (MazeScript.validPacManMove (transform.position, movementDir) && movementDir != Direction.None) {
 		} else {
 			if ((targetFood.transform.position.y > transform.position.y && MazeScript.validPacManMove (transform.position, Direction.Up)))
 				movementDir = Direction.Up;
