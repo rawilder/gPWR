@@ -268,6 +268,11 @@ public class MazeScript : MonoBehaviour {
 		return false;
 	}
 
+    public bool isInGoodOccupiedTile(Vector2 position)
+    {
+        return (isInCherryTile(position) || isInDotTile(position) || isInPowerDotTile(position));
+    }
+
 	//also handle cherry tiles
 	public void eatDot(Vector2 position){
 		int value = getValue (position);
