@@ -140,7 +140,7 @@ public class PacmanMove : MonoBehaviour {
 					if(!GhostIsThere())
 						MoveTowardsFood();
 					else
-						dest = (Vector2)transform.position + MoveAwayFromGhost();
+						MoveAwayFromGhost();
 				}
 			}
 			else{
@@ -309,17 +309,18 @@ public class PacmanMove : MonoBehaviour {
 			targetFood = dotList.FirstOrDefault( d => Vector2.Distance(transform.position, (Vector2)d.transform.position) < distance );
 			distance++;
 		}
-		Debug.Log (dotList.Count ());
+		Debug.Log (distance);
 		Debug.Log (targetFood.transform.position);
 		Debug.Log (transform.position);
-		if ((!MazeScript.validPacManMove (transform.position, movementDir) && !getCloserToFood(movementDir)) || movementDir == Direction.None) {
-			if (targetFood.transform.position.y > transform.position.y && MazeScript.validPacManMove (transform.position, Direction.Up))
+		if (MazeScript.validPacManMove (transform.position, movementDir) && movementDir != Direction.None && getCloserToFood (movementDir)) {
+		} else {
+			if (targetFood.transform.position.y >= transform.position.y && MazeScript.validPacManMove (transform.position, Direction.Up))
 				movementDir = Direction.Up;
-			else if (targetFood.transform.position.y < transform.position.y && MazeScript.validPacManMove (transform.position, Direction.Down))
+			else if (targetFood.transform.position.y <= transform.position.y && MazeScript.validPacManMove (transform.position, Direction.Down))
 				movementDir = Direction.Down;
-			else if (targetFood.transform.position.x > transform.position.x && MazeScript.validPacManMove (transform.position, Direction.Right))
+			else if (targetFood.transform.position.x >= transform.position.x && MazeScript.validPacManMove (transform.position, Direction.Right))
 				movementDir = Direction.Right;
-			else if (targetFood.transform.position.x < transform.position.x && MazeScript.validPacManMove (transform.position, Direction.Left))
+			else if (targetFood.transform.position.x <= transform.position.x && MazeScript.validPacManMove (transform.position, Direction.Left))
 				movementDir = Direction.Left;
 		}
 
@@ -346,54 +347,68 @@ public class PacmanMove : MonoBehaviour {
     {
 		Vector2 pos = (Vector2)transform.position;
 		for (int i = 0; i < ghosts.Length; ++i) {
-			if (Vector2.Distance(pos, (Vector2)ghosts[i].transform.position) < 2)
+			if (Vector2.Distance(pos, (Vector2)ghosts[i].transform.position) < 3)
 				return true;
 		}
 		return false;
     }
-
-	//Make the move that is the farest from the ghost
-	Vector2 MoveAwayFromGhost()
+	
+	void MoveAwayFromGhost()
 	{
 		var values = new float[4];
 		float max = 0;
-		if (valid (Vector2.up)) {
-			values[0] = FurthestDistanceByMoving(Vector2.up);
+		//find closest ghost
+		GameObject closestGhost = ghosts.FirstOrDefault(g => Vector2.Distance (transform.position, (Vector2)g.transform.position) < 3);
+		//make move that creates the most distance between ghosts
+		if (closestGhost != null) {
+			if (MazeScript.validPacManMove (transform.position, Direction.Up)) {
+				values [0] = Vector2.Distance ((Vector2)transform.position + Vector2.up, (Vector2)closestGhost.transform.position);
+			}
+			if (MazeScript.validPacManMove (transform.position, Direction.Down)) {
+				values [1] = Vector2.Distance ((Vector2)transform.position - Vector2.up, (Vector2)closestGhost.transform.position);
+			}
+			if (MazeScript.validPacManMove (transform.position, Direction.Right)) {
+				values [2] = Vector2.Distance ((Vector2)transform.position + Vector2.right, (Vector2)closestGhost.transform.position);
+			}
+			if (MazeScript.validPacManMove (transform.position, Direction.Left)) {
+				values [3] = Vector2.Distance ((Vector2)transform.position - Vector2.right, (Vector2)closestGhost.transform.position);
+			}
 		}
-		if (valid (-Vector2.up)) {
-			values[1] = FurthestDistanceByMoving(-Vector2.up);
-		}
-		if (valid (Vector2.right)) {
-			values[2] = FurthestDistanceByMoving(Vector2.right);
-		}
-		if (valid (-Vector2.right)) {
-			values[3] = FurthestDistanceByMoving(-Vector2.right);
-		}
+		//make that move that create the most distance
 		max = values.Max();
-		if (max == values[0])
-			return Vector2.up;
-		else if (max == values[1])
-			return (-Vector2.up);
-		else if (max == values[2])
-			return Vector2.right;
-		else
-			return (-Vector2.right);
-	}
-
-	bool getCloserToFood(Vector2 dir)
-	{
-
-	}
-	float FurthestDistanceByMoving(Vector2 dir)
-	{
-		Vector2 pos = (Vector2)transform.position + dir;
-		float max = 0;
-		float temp = 0;
-		for (int i=0; i < ghosts.Length; ++i) {
-			temp = Vector2.Distance(pos, (Vector2)ghosts[i].transform.position);
-			if (temp > max)
-				max = temp;
+		if (max == values[0] && MazeScript.validPacManMove (transform.position, Direction.Up)) {
+			destTile.y++;
+			dest = (Vector2)transform.position + Vector2.up;
+		} else if (max == values[1] && MazeScript.validPacManMove (transform.position, Direction.Down)) {
+			destTile.y--;
+			dest = (Vector2)transform.position - Vector2.up;
+		} else if (max == values[2] && MazeScript.validPacManMove (transform.position, Direction.Right)) {
+			destTile.x++;
+			dest = (Vector2)transform.position + Vector2.right;
+		} else if ( max == values[3] && MazeScript.validPacManMove (transform.position, Direction.Left)) {
+			destTile.x--;
+			dest = (Vector2)transform.position - Vector2.right;
 		}
-		return max;
+	}
+
+	bool getCloserToFood(PacmanMove.Direction dir)
+	{
+		Vector2 direction;
+		if (dir == Direction.Up) {
+			direction = Vector2.up;
+		} else if (dir == Direction.Down) {
+			direction = (-Vector2.up);
+		} else if (dir == Direction.Right) {
+			direction = Vector2.right;
+		} else if (dir == Direction.Left) {
+			direction = (-Vector2.right);
+		} else {
+			direction = Vector2.zero;
+		}
+		Vector2 pos = (Vector2)transform.position + direction;
+		if (Vector2.Distance (transform.position, targetFood.transform.position) > Vector2.Distance (pos, targetFood.transform.position))
+			return true;
+		else
+			return false;
 	}
 }
