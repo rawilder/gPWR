@@ -199,6 +199,8 @@ public class PacmanMove : MonoBehaviour {
 
 		} else {
 			//not a valid move
+			//dest = transform.position;
+			//destTile = tilePosition;
 		}
 
 		//update the score for player 1
@@ -298,22 +300,17 @@ public class PacmanMove : MonoBehaviour {
 	void MoveTowardsFood()
 	{
 		//find closestFood
-		int distance = 1;
 		if (targetFood != null) {
 			if (targetFood.transform.position.x == transform.position.x && targetFood.transform.position.y == transform.position.y) {
 				dotList.Remove (targetFood);
 				targetFood = null;
 			}
 		}
-		while(targetFood == null) {
-			targetFood = dotList.FirstOrDefault( d => Vector2.Distance(transform.position, (Vector2)d.transform.position) < distance );
-			distance++;
-		}
-		Debug.Log (distance);
+		targetFood = dotList.Aggregate ((d1, d2) => Vector2.Distance (transform.position, (Vector2)d1.transform.position) < Vector2.Distance (transform.position, (Vector2)d2.transform.position) ? d1 : d2);
 		Debug.Log (targetFood.transform.position);
 		Debug.Log (transform.position);
+		//movementDir = AStarcaulations(targetFruit);
 		if (MazeScript.validPacManMove (transform.position, movementDir) && movementDir != Direction.None && getCloserToFood(movementDir)) {
-
 		} else {
 			if ((targetFood.transform.position.y > transform.position.y && MazeScript.validPacManMove (transform.position, Direction.Up)))
 				movementDir = Direction.Up;
@@ -323,6 +320,10 @@ public class PacmanMove : MonoBehaviour {
 				movementDir = Direction.Right;
 			else if (targetFood.transform.position.x < transform.position.x && MazeScript.validPacManMove (transform.position, Direction.Left))
 				movementDir = Direction.Left;
+			else {
+				targetFood = dotList.Aggregate((d1, d2) => Vector2.Distance(transform.position, (Vector2)d1.transform.position) < Vector2.Distance(transform.position, (Vector2)d2.transform.position) ? d1 : d2);
+				movementDir = pickRandomMove();
+			}
 		}
 
 		Debug.Log (movementDir);
@@ -342,6 +343,42 @@ public class PacmanMove : MonoBehaviour {
 			destTile.x--;
 			dest = (Vector2)transform.position - Vector2.right;
 		}
+	}
+
+	Direction pickRandomMove()
+	{
+		if (MazeScript.validPacManMove (transform.position, Direction.Up)) {
+			return Direction.Up;
+		} else if (MazeScript.validPacManMove (transform.position, Direction.Right)) {
+			return Direction.Right;
+		} else if (MazeScript.validPacManMove (transform.position, Direction.Down)) {
+			return Direction.Down;
+		} else if (MazeScript.validPacManMove (transform.position, Direction.Left)) {
+			return Direction.Left;
+		} else {
+			return Direction.None;
+		}
+	}
+
+	Direction AStarcaulations(GameObject targetFruit)
+	{
+		var froniter = new List<Vector2> ();
+		var visitedList = new List<Vector2> ();
+		froniter.Add (transform.position);
+		visitedList.Add (transform.position);
+
+		//while (froniter.Any()) {
+			//find node with least distance in froniter
+			//if node is targetFruit
+				//return what?
+			//gerernate nodes children
+				//if node is not in visited list
+					//add children to froniter
+			//remove node from froniter
+			//add to visitedList
+		//}
+
+		return Direction.Up;
 	}
 
     bool GhostIsThere()
@@ -377,6 +414,8 @@ public class PacmanMove : MonoBehaviour {
 		}
 		//make that move that create the most distance
 		max = values.Max();
+		Debug.Log ("From moveawayfromghost = " + targetFood.transform.position);
+		Debug.Log ("From moveawayfromghost = " +transform.position);
 		if (max == values[0] && MazeScript.validPacManMove (transform.position, Direction.Up)) {
 			destTile.y++;
 			dest = (Vector2)transform.position + Vector2.up;
@@ -386,7 +425,7 @@ public class PacmanMove : MonoBehaviour {
 		} else if (max == values[2] && MazeScript.validPacManMove (transform.position, Direction.Right)) {
 			destTile.x++;
 			dest = (Vector2)transform.position + Vector2.right;
-		} else if ( max == values[3] && MazeScript.validPacManMove (transform.position, Direction.Left)) {
+		} else if (max == values[3] && MazeScript.validPacManMove (transform.position, Direction.Left)) {
 			destTile.x--;
 			dest = (Vector2)transform.position - Vector2.right;
 		}
