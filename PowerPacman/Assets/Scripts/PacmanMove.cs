@@ -312,15 +312,16 @@ public class PacmanMove : MonoBehaviour {
 		Debug.Log (distance);
 		Debug.Log (targetFood.transform.position);
 		Debug.Log (transform.position);
-		if (MazeScript.validPacManMove (transform.position, movementDir) && movementDir != Direction.None && getCloserToFood (movementDir)) {
+		if (MazeScript.validPacManMove (transform.position, movementDir) && movementDir != Direction.None && getCloserToFood(movementDir)) {
+
 		} else {
-			if (targetFood.transform.position.y >= transform.position.y && MazeScript.validPacManMove (transform.position, Direction.Up))
+			if ((targetFood.transform.position.y > transform.position.y && MazeScript.validPacManMove (transform.position, Direction.Up)))
 				movementDir = Direction.Up;
-			else if (targetFood.transform.position.y <= transform.position.y && MazeScript.validPacManMove (transform.position, Direction.Down))
+			else if (targetFood.transform.position.y < transform.position.y && MazeScript.validPacManMove (transform.position, Direction.Down))
 				movementDir = Direction.Down;
-			else if (targetFood.transform.position.x >= transform.position.x && MazeScript.validPacManMove (transform.position, Direction.Right))
+			else if (targetFood.transform.position.x > transform.position.x && MazeScript.validPacManMove (transform.position, Direction.Right))
 				movementDir = Direction.Right;
-			else if (targetFood.transform.position.x <= transform.position.x && MazeScript.validPacManMove (transform.position, Direction.Left))
+			else if (targetFood.transform.position.x < transform.position.x && MazeScript.validPacManMove (transform.position, Direction.Left))
 				movementDir = Direction.Left;
 		}
 
@@ -391,8 +392,11 @@ public class PacmanMove : MonoBehaviour {
 		}
 	}
 
+	//maybe uses path finding
 	bool getCloserToFood(PacmanMove.Direction dir)
 	{
+		//look at all four directions
+		//which direction bring me closer
 		Vector2 direction;
 		if (dir == Direction.Up) {
 			direction = Vector2.up;
