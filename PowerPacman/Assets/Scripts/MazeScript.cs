@@ -35,6 +35,40 @@ public class Position : IEquatable<Position>{
 	}
 }
 
+public class Node {
+	public Vector2 vectorDirection;
+	public Node parent;
+	public PacmanMove.Direction direction;
+
+	public List<PacmanMove.Direction> convertVectorPathToDirections()
+	{
+		var path = new List<PacmanMove.Direction> ();
+		Node node = this;
+		while (node.parent != null) {
+			path.Add(covertVectorToDirection(node));
+			node = node.parent;
+		}
+		return path;
+	}
+
+	public PacmanMove.Direction covertVectorToDirection(Node node)
+	{
+		Vector2 nodeDirection = node.vectorDirection - node.parent.vectorDirection;
+		var direction = PacmanMove.Direction.None;
+		if (nodeDirection == Vector2.up) {
+			direction = PacmanMove.Direction.Up;
+		} else if (nodeDirection == (-Vector2.up)) {
+			direction = PacmanMove.Direction.Down;
+		} else if (nodeDirection == Vector2.right) {
+			direction = PacmanMove.Direction.Right;
+		} else if (nodeDirection == (-Vector2.right)) {
+			direction = PacmanMove.Direction.Left;
+		}
+
+		return direction;
+	}
+}
+
 public class MazeScript : MonoBehaviour {
 
 	static int dotPointValue = 1;
