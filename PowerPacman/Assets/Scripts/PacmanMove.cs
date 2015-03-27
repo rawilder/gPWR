@@ -310,32 +310,9 @@ public class PacmanMove : MonoBehaviour {
 		Debug.Log (targetFood.transform.position);
 		Debug.Log (transform.position);
 		//movementDir = AStarcaulations(targetFruit);
-		if (MazeScript.validPacManMove (transform.position, movementDir) && movementDir != Direction.None && getCloserToFood(movementDir)) {
+		if (MazeScript.validPacManMove (transform.position, movementDir) && movementDir != Direction.None) {
 		} else {
-			if ((targetFood.transform.position.y > transform.position.y && MazeScript.validPacManMove (transform.position, Direction.Up)))
-				movementDir = Direction.Up;
-			else if (targetFood.transform.position.y < transform.position.y && MazeScript.validPacManMove (transform.position, Direction.Down))
-				movementDir = Direction.Down;
-			else if(targetFood.transform.position.y == transform.position.y) {
-				if (targetFood.transform.position.x > transform.position.x && MazeScript.validPacManMove (transform.position, Direction.Right))
-					movementDir = Direction.Right;
-				else if (MazeScript.validPacManMove (transform.position, Direction.Left))
-					movementDir = Direction.Left;
-			}
-			else if (targetFood.transform.position.x > transform.position.x && MazeScript.validPacManMove (transform.position, Direction.Right))
-				movementDir = Direction.Right;
-			else if (targetFood.transform.position.x < transform.position.x && MazeScript.validPacManMove (transform.position, Direction.Left))
-				movementDir = Direction.Left;
-			else if (targetFood.transform.position.x == transform.position.x) {
-				if ((targetFood.transform.position.y > transform.position.y && MazeScript.validPacManMove (transform.position, Direction.Up)))
-					movementDir = Direction.Up;
-				else if (MazeScript.validPacManMove (transform.position, Direction.Down))
-					movementDir = Direction.Down;
-			}
-			else {
-				targetFood = dotList.Aggregate((d1, d2) => Vector2.Distance(transform.position, (Vector2)d1.transform.position) < Vector2.Distance(transform.position, (Vector2)d2.transform.position) ? d1 : d2);
-				movementDir = pickRandomMove();
-			}
+			movementDir = pickRandomMove();
 		}
 
 		Debug.Log (movementDir);
