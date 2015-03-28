@@ -39,7 +39,6 @@ public class PacmanMove : MonoBehaviour {
 	public static GameObject[] dots;
 	public static GameObject[] powerDot;
 	public static List<GameObject> dotList;
-	GameObject[] ghosts;
 	GameObject targetFood = null;
 	List<Direction> queuedMovements;
 
@@ -60,13 +59,11 @@ public class PacmanMove : MonoBehaviour {
 		dots = GameObject.FindGameObjectsWithTag("dot");
 		dotList = new List<GameObject> (dots);
 		dotList.AddRange (powerDot);
-		ghosts = GameObject.FindGameObjectsWithTag("ghost");
 		queuedMovements = new List<Direction> ();
 
 		dest = transform.position;
 		destTile = transform.position;
 		origin = transform.position;
-		//position = new Vector2 (14, 14);
 		tilePosition = new Vector2 (14, 14);
         queuedDir = Direction.None;
         maze = GameObject.FindGameObjectWithTag("maze").GetComponent<MazeScript>();
@@ -107,38 +104,38 @@ public class PacmanMove : MonoBehaviour {
 	                }
 	                else
 	                {
-	                    if (Input.GetKey(KeyCode.UpArrow) && MazeScript.validPacManMove(transform.position, Direction.Up))
+	                    if (Input.GetKey(KeyCode.UpArrow) && maze.validPacManMove(transform.position, Direction.Up))
 	                    {
 	                        movementDir = Direction.Up;
 	                    }
-	                    if (Input.GetKey(KeyCode.RightArrow) && MazeScript.validPacManMove(transform.position, Direction.Right))
+						if (Input.GetKey(KeyCode.RightArrow) && maze.validPacManMove(transform.position, Direction.Right))
 	                    {
 	                        movementDir = Direction.Right;
 	                    }  
-	                    if (Input.GetKey(KeyCode.DownArrow) && MazeScript.validPacManMove(transform.position, Direction.Down))
+						if (Input.GetKey(KeyCode.DownArrow) && maze.validPacManMove(transform.position, Direction.Down))
 	                    {
 	                        movementDir = Direction.Down;
 	                    }
-	                    if (Input.GetKey(KeyCode.LeftArrow) && MazeScript.validPacManMove(transform.position, Direction.Left))
+						if (Input.GetKey(KeyCode.LeftArrow) && maze.validPacManMove(transform.position, Direction.Left))
 	                    { 
 	                        movementDir = Direction.Left;
 	                    }
-	                    if (movementDir == Direction.Up && MazeScript.validPacManMove(transform.position, Direction.Up))
+						if (movementDir == Direction.Up && maze.validPacManMove(transform.position, Direction.Up))
 	                    {
 	                        dest = (Vector2)transform.position + Vector2.up;
 	                        destTile.y++;
 	                    }
-	                    if (movementDir == Direction.Right && MazeScript.validPacManMove(transform.position, Direction.Right))
+						if (movementDir == Direction.Right && maze.validPacManMove(transform.position, Direction.Right))
 	                    {
 	                        dest = (Vector2)transform.position + Vector2.right;
 	                        destTile.x++;
 	                    }
-	                    if (movementDir == Direction.Down && MazeScript.validPacManMove(transform.position, Direction.Down))
+						if (movementDir == Direction.Down && maze.validPacManMove(transform.position, Direction.Down))
 	                    {
 	                        dest = (Vector2)transform.position - Vector2.up;
 	                        destTile.y--;
 	                    }
-	                    if (movementDir == Direction.Left && MazeScript.validPacManMove(transform.position, Direction.Left))
+						if (movementDir == Direction.Left && maze.validPacManMove(transform.position, Direction.Left))
 	                    {
 	                        dest = (Vector2)transform.position - Vector2.right;
 	                        destTile.x--;
@@ -147,7 +144,7 @@ public class PacmanMove : MonoBehaviour {
 				}
 				else 
 				{
-					if(!GhostIsThere())
+					if(!GhostIsThere() || maze.ghosts.First().GetComponent<GhostMove>().isScared == true)
 						MoveTowardsFood();
 					else {
 						targetFood = null;
@@ -324,8 +321,6 @@ public class PacmanMove : MonoBehaviour {
 		if(targetFood == null) {
 			targetFood = dotList.Aggregate ((d1, d2) => Vector2.Distance (transform.position, (Vector2)d1.transform.position) < Vector2.Distance (transform.position, (Vector2)d2.transform.position) ? d1 : d2);
 		}
-		Debug.Log (targetFood.transform.position);
-		Debug.Log (transform.position);
 		if (queuedMovements.Count == 0) {
 			queuedMovements = BFScaulations (targetFood);
 		}
@@ -334,38 +329,22 @@ public class PacmanMove : MonoBehaviour {
 			queuedMovements.RemoveAt (0);
 		}
 		if (movementDir != Direction.None) {
-			Debug.Log (movementDir);
-			if (movementDir == Direction.Up && MazeScript.validPacManMove (transform.position, Direction.Up)) {
+			if (movementDir == Direction.Up && maze.validPacManMove (transform.position, Direction.Up)) {
 				destTile.y++;
 				dest = (Vector2)transform.position + Vector2.up;
 			}
-			if (movementDir == Direction.Right && MazeScript.validPacManMove (transform.position, Direction.Right)) {
+			if (movementDir == Direction.Right && maze.validPacManMove (transform.position, Direction.Right)) {
 				destTile.x++;
 				dest = (Vector2)transform.position + Vector2.right;
 			}
-			if (movementDir == Direction.Down && MazeScript.validPacManMove (transform.position, Direction.Down)) {
+			if (movementDir == Direction.Down && maze.validPacManMove (transform.position, Direction.Down)) {
 				destTile.y--;
 				dest = (Vector2)transform.position - Vector2.up;
 			}
-			if (movementDir == Direction.Left && MazeScript.validPacManMove (transform.position, Direction.Left)) {
+			if (movementDir == Direction.Left && maze.validPacManMove (transform.position, Direction.Left)) {
 				destTile.x--;
 				dest = (Vector2)transform.position - Vector2.right;
 			}
-		}
-	}
-
-	Direction pickRandomMove()
-	{
-		if (MazeScript.validPacManMove (transform.position, Direction.Up)) {
-			return Direction.Up;
-		} else if (MazeScript.validPacManMove (transform.position, Direction.Right)) {
-			return Direction.Right;
-		} else if (MazeScript.validPacManMove (transform.position, Direction.Down)) {
-			return Direction.Down;
-		} else if (MazeScript.validPacManMove (transform.position, Direction.Left)) {
-			return Direction.Left;
-		} else {
-			return Direction.None;
 		}
 	}
 
@@ -391,16 +370,16 @@ public class PacmanMove : MonoBehaviour {
 			//gerernate nodes children
 			//if node is not in visited list
 				//add children to froniter
-			if (MazeScript.validPacManMove (current, Direction.Up) && !visitedList.Any(n => n.vectorDirection == current + Vector2.up)) {
+			if (maze.validPacManMove (current, Direction.Up) && !visitedList.Any(n => n.vectorDirection == current + Vector2.up)) {
 				froniter.Add(new Node() { vectorDirection = current + Vector2.up, parent = currentNode });
 			}
-			if (MazeScript.validPacManMove (current, Direction.Right) && !visitedList.Any(n => n.vectorDirection == current + Vector2.right)) {
+			if (maze.validPacManMove (current, Direction.Right) && !visitedList.Any(n => n.vectorDirection == current + Vector2.right)) {
 				froniter.Add(new Node() { vectorDirection = current + Vector2.right, parent = currentNode });
 			}
-			if (MazeScript.validPacManMove (current, Direction.Down) && !visitedList.Any(n => n.vectorDirection == current - Vector2.up)) {
+			if (maze.validPacManMove (current, Direction.Down) && !visitedList.Any(n => n.vectorDirection == current - Vector2.up)) {
 				froniter.Add(new Node() { vectorDirection = current - Vector2.up, parent = currentNode });
 			}
-			if (MazeScript.validPacManMove (current, Direction.Left) && !visitedList.Any(n => n.vectorDirection == current - Vector2.right)) {
+			if (maze.validPacManMove (current, Direction.Left) && !visitedList.Any(n => n.vectorDirection == current - Vector2.right)) {
 				froniter.Add(new Node() { vectorDirection = current - Vector2.right, parent = currentNode });
 			}
 				
@@ -416,8 +395,8 @@ public class PacmanMove : MonoBehaviour {
     bool GhostIsThere()
     {
 		Vector2 pos = (Vector2)transform.position;
-		for (int i = 0; i < ghosts.Length; ++i) {
-			if (Vector2.Distance(pos, (Vector2)ghosts[i].transform.position) < 3)
+		foreach(var ghost in maze.ghosts) {
+			if (Vector2.Distance(pos, (Vector2)ghost.transform.position) < 3)
 				return true;
 		}
 		return false;
@@ -428,60 +407,36 @@ public class PacmanMove : MonoBehaviour {
 		var values = new float[4];
 		float max = 0;
 		//find closest ghost
-		GameObject closestGhost = ghosts.FirstOrDefault(g => Vector2.Distance (transform.position, (Vector2)g.transform.position) < 3);
+		GameObject closestGhost = maze.ghosts.FirstOrDefault(g => Vector2.Distance (transform.position, (Vector2)g.transform.position) < 3);
 		//make move that creates the most distance between ghosts
 		if (closestGhost != null) {
-			if (MazeScript.validPacManMove (transform.position, Direction.Up)) {
+			if (maze.validPacManMove (transform.position, Direction.Up)) {
 				values [0] = Vector2.Distance ((Vector2)transform.position + Vector2.up, (Vector2)closestGhost.transform.position);
 			}
-			if (MazeScript.validPacManMove (transform.position, Direction.Down)) {
+			if (maze.validPacManMove (transform.position, Direction.Down)) {
 				values [1] = Vector2.Distance ((Vector2)transform.position - Vector2.up, (Vector2)closestGhost.transform.position);
 			}
-			if (MazeScript.validPacManMove (transform.position, Direction.Right)) {
+			if (maze.validPacManMove (transform.position, Direction.Right)) {
 				values [2] = Vector2.Distance ((Vector2)transform.position + Vector2.right, (Vector2)closestGhost.transform.position);
 			}
-			if (MazeScript.validPacManMove (transform.position, Direction.Left)) {
+			if (maze.validPacManMove (transform.position, Direction.Left)) {
 				values [3] = Vector2.Distance ((Vector2)transform.position - Vector2.right, (Vector2)closestGhost.transform.position);
 			}
 		}
 		//make that move that create the most distance
 		max = values.Max();
-		if (max == values[0] && MazeScript.validPacManMove (transform.position, Direction.Up)) {
+		if (max == values[0] && maze.validPacManMove (transform.position, Direction.Up)) {
 			destTile.y++;
 			dest = (Vector2)transform.position + Vector2.up;
-		} else if (max == values[1] && MazeScript.validPacManMove (transform.position, Direction.Down)) {
+		} else if (max == values[1] && maze.validPacManMove (transform.position, Direction.Down)) {
 			destTile.y--;
 			dest = (Vector2)transform.position - Vector2.up;
-		} else if (max == values[2] && MazeScript.validPacManMove (transform.position, Direction.Right)) {
+		} else if (max == values[2] && maze.validPacManMove (transform.position, Direction.Right)) {
 			destTile.x++;
 			dest = (Vector2)transform.position + Vector2.right;
-		} else if (max == values[3] && MazeScript.validPacManMove (transform.position, Direction.Left)) {
+		} else if (max == values[3] && maze.validPacManMove (transform.position, Direction.Left)) {
 			destTile.x--;
 			dest = (Vector2)transform.position - Vector2.right;
 		}
-	}
-
-	//maybe uses path finding
-	bool getsCloserToFood(PacmanMove.Direction dir)
-	{
-		//look at all four directions
-		//which direction bring me closer
-		Vector2 direction;
-		if (dir == Direction.Up) {
-			direction = Vector2.up;
-		} else if (dir == Direction.Down) {
-			direction = (-Vector2.up);
-		} else if (dir == Direction.Right) {
-			direction = Vector2.right;
-		} else if (dir == Direction.Left) {
-			direction = (-Vector2.right);
-		} else {
-			direction = Vector2.zero;
-		}
-		Vector2 pos = (Vector2)transform.position + direction;
-		if (Vector2.Distance (transform.position, targetFood.transform.position) > Vector2.Distance (pos, targetFood.transform.position))
-			return true;
-		else
-			return false;
 	}
 }
