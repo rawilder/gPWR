@@ -15,6 +15,7 @@ public class PacmanMove : MonoBehaviour {
 	public InkyMove inky;
 	public PinkyMove pinky;
 	public GhostMove blinky;
+	public Sprite scared;
 
 	public static bool isPlayer1Turn = true;
 	public static float turnDuration = 60.0f; //length of turn in seconds
@@ -28,6 +29,8 @@ public class PacmanMove : MonoBehaviour {
 	public static bool pacmanEaten = false;
 	float eatenTimeDelay = 0.5f; //the amount of time the player is frozen after being eaten
 	float eatenDelayRemaining = 0;
+	float flickerTime = .1f;
+	float flickerTimeRemaining;
 
 	Vector2 origin;
 
@@ -206,6 +209,29 @@ public class PacmanMove : MonoBehaviour {
 		if (powerMode) {
 			if(powerModeTimeRemaining > 0){
 				powerModeTimeRemaining -= Time.deltaTime;
+				//in the last 2 seconds of power mode, make the ghost flicker
+				if(powerModeTimeRemaining < 2){
+
+					if(flickerTimeRemaining > 0){
+						flickerTimeRemaining -= Time.deltaTime;
+					}
+					else{
+						flickerTimeRemaining = flickerTime;
+						foreach(var ghost in maze.ghosts)
+						{
+							if(ghost.GetComponent<GhostMove>().isScared == true){
+								if(ghost.GetComponent<Animator>().enabled == false){
+									ghost.GetComponent<Animator>().enabled = true;
+								}
+								else{
+									ghost.GetComponent<SpriteRenderer>().sprite = scared;
+									ghost.GetComponent<Animator>().enabled = false;
+								}
+							}
+						}
+					}
+
+				}
 			}
 			else{
 				powerMode = false;
@@ -231,6 +257,7 @@ public class PacmanMove : MonoBehaviour {
                 {
                     ghostMove.killGhost();
                     player1Score += 100;
+					flickerTimeRemaining = flickerTime;
                 }
                 else
                 {
