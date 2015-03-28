@@ -33,8 +33,9 @@ public class PacmanMove : MonoBehaviour {
 
 	Vector2 origin;
 
-	GameObject[] dots;
-	List<GameObject> dotList;
+	public static GameObject[] dots;
+	public static GameObject[] powerDot;
+	public static List<GameObject> dotList;
 	GameObject[] ghosts;
 	GameObject targetFood = null;
 	List<Direction> queuedMovements;
@@ -51,8 +52,10 @@ public class PacmanMove : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		powerDot = GameObject.FindGameObjectsWithTag("powerDot");
 		dots = GameObject.FindGameObjectsWithTag("dot");
 		dotList = new List<GameObject> (dots);
+		dotList.AddRange (powerDot);
 		ghosts = GameObject.FindGameObjectsWithTag("ghost");
 		queuedMovements = new List<Direction> ();
 

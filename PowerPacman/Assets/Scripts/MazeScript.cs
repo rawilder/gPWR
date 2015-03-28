@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Position : IEquatable<Position>{
 	public int x;
@@ -300,6 +301,8 @@ public class MazeScript : MonoBehaviour {
 
 		dotsRemaining = dotsList.Length;
 		powerDotsRemaining = powerDotsList.Length;
+		PacmanMove.dotList = new List<GameObject> (PacmanMove.dots);
+		PacmanMove.dotList.AddRange (PacmanMove.powerDot);
 
 	}
 }
