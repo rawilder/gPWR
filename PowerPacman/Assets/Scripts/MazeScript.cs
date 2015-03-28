@@ -45,7 +45,7 @@ public class Node {
 		var path = new List<PacmanMove.Direction> ();
 		Node node = this;
 		while (node.parent != null) {
-			path.Add(covertVectorToDirection(node));
+			path.Insert (0, covertVectorToDirection(node));
 			node = node.parent;
 		}
 		return path;

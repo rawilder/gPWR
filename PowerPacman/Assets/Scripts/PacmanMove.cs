@@ -317,7 +317,7 @@ public class PacmanMove : MonoBehaviour {
 		Debug.Log (targetFood.transform.position);
 		Debug.Log (transform.position);
 		if (queuedMovements.Count == 0) {
-			queuedMovements = AStarcaulations (targetFood);
+			queuedMovements = BFScaulations (targetFood);
 		}
 		movementDir = queuedMovements.FirstOrDefault ();
 		if (queuedMovements.Count != 0) {
@@ -359,7 +359,7 @@ public class PacmanMove : MonoBehaviour {
 		}
 	}
 
-	List<Direction> AStarcaulations(GameObject targetFruit)
+	List<Direction> BFScaulations(GameObject targetFruit)
 	{
 		var froniter = new List<Node> ();
 		var visitedList = new List<Node> ();
@@ -375,7 +375,8 @@ public class PacmanMove : MonoBehaviour {
 			//if node is targetFruit
 			if(current.x == targetFruit.transform.position.x && current.y == targetFruit.transform.position.y) {
 				//return the Vectors coverted into Directions
-				return currentNode.convertVectorPathToDirections();
+				path = currentNode.convertVectorPathToDirections();
+				break;
 			}
 			//gerernate nodes children
 			//if node is not in visited list
