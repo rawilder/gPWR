@@ -3,10 +3,9 @@ using System.Collections;
 
 public class PowerDot : MonoBehaviour {
 
+	/*
 	void OnTriggerEnter2D(Collider2D co) {
-		Debug.Log ("Collision detected");
 		if (co.name == "pacman") {
-			Debug.Log("Picked up power dot");
 			PacmanMove.powerMode = true;
 			PacmanMove.player1Score += 20;
 			PacmanMove.powerModeTimeRemaining = PacmanMove.powerModeDuration;
@@ -16,4 +15,5 @@ public class PowerDot : MonoBehaviour {
 		}
 		//scoring system would be here
 	}
+	*/
 }

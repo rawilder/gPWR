@@ -1,19 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+using System.Collections.Generic;
 
 public class GhostMove : MonoBehaviour {
-	public Transform[] waypoints;
-	int cur = 0;
 	public float speed = 0.3f;
 
 	float eatenDelayRemaining = 0.0f;
 
-	public static float eatenDelay = 3.0f;
+	public static float eatenDelay = 1.0f;
 
 	Vector2 origin;
+	public Vector2 tilePosition;
+	public PacmanMove.Direction moveDir = PacmanMove.Direction.None;
+    public bool isScared;
+	
+	Vector2 dest;
+    private MazeScript maze;
 	
 	void Start(){
 		origin = transform.position;
+		dest = origin;
+        maze = GameObject.FindGameObjectWithTag("maze").GetComponent<MazeScript>();
+        isScared = false;
 	}
 
 	void FixedUpdate() {
@@ -21,38 +30,93 @@ public class GhostMove : MonoBehaviour {
 		if (eatenDelayRemaining > 0) {
 			eatenDelayRemaining -= Time.deltaTime;
 		} else {
-			/// Waypoint not reached yet? then move closer
-			if (transform.position != waypoints [cur].position) {
-				Vector2 p = Vector2.MoveTowards (transform.position,
-			                                waypoints [cur].position,
-			                                speed);
-				GetComponent<Rigidbody2D> ().MovePosition (p);
+			if((Vector2)transform.position == dest){
+				//check if the ghost is inside the pen
+                if (maze.isInGhostPen(transform.position))
+                {
+					//exit the pen
+					moveDir = PacmanMove.Direction.Up;
+					dest = new Vector2(14,20);
+				}
+				else{
+					
+					
+					/*-------------------------------------------------------*/
+					//this section is probably where actual intelligent path planning would go
+					
+					//dumb ai: check all directions to see if there is a turn that could be made
+                    List<bool> availableDirections = maze.getAvailableDirections(transform.position);
+					for(int i = 0; i < 4; i++){
+						//if there is an available direction to travel
+						if(availableDirections[i]){
+							//take this turn with a 25% probability
+							
+							if(UnityEngine.Random.value <= .25){
+								//dont allow him to reverse direction
+								if(i == 0 && moveDir != PacmanMove.Direction.Down) moveDir = PacmanMove.Direction.Up;
+								if(i == 1 && moveDir != PacmanMove.Direction.Left) moveDir = PacmanMove.Direction.Right;
+								if(i == 2 && moveDir != PacmanMove.Direction.Up) moveDir = PacmanMove.Direction.Down;
+								if(i == 3 && moveDir != PacmanMove.Direction.Right) moveDir = PacmanMove.Direction.Left;
+							}
+						}
+					}
+					
+					/*-------------------------------------------------------*/
+
+                    if (moveDir == PacmanMove.Direction.Up && maze.validPacManMove(transform.position, PacmanMove.Direction.Up))
+                    {
+						dest = (Vector2)transform.position + Vector2.up;
+					}
+                    if (moveDir == PacmanMove.Direction.Right && maze.validPacManMove(transform.position, PacmanMove.Direction.Right))
+                    {
+						dest = (Vector2)transform.position + Vector2.right;
+					}
+                    if (moveDir == PacmanMove.Direction.Down && maze.validPacManMove(transform.position, PacmanMove.Direction.Down))
+                    {
+						dest = (Vector2)transform.position - Vector2.up;
+					}
+                    if (moveDir == PacmanMove.Direction.Left && maze.validPacManMove(transform.position, PacmanMove.Direction.Left))
+                    {
+						dest = (Vector2)transform.position - Vector2.right;
+					}
+				}
 			}
-		// Waypoint reached, select next one
-		else
-				cur = (cur + 1) % waypoints.Length;
-		
+
+			//set the movement direction for the sprite
+			Vector2 dir = new Vector2(0,0);
+			if (moveDir == PacmanMove.Direction.Up) {
+				dir.y = 1;
+			}
+			if (moveDir == PacmanMove.Direction.Down) {
+				dir.y = -1;
+			}
+			if (moveDir == PacmanMove.Direction.Right) {
+				dir.x = 1;
+			}
+			if (moveDir == PacmanMove.Direction.Left) {
+				dir.x = -1;
+			}
+			
 			// Animation
-			Vector2 dir = waypoints [cur].position - transform.position;
 			GetComponent<Animator> ().SetFloat ("DirX", dir.x);
 			GetComponent<Animator> ().SetFloat ("DirY", dir.y);
+			
+			if(moveDir != PacmanMove.Direction.None){
+				Vector2 p = Vector2.MoveTowards(transform.position, dest, speed*Time.deltaTime);
+				transform.position = p;
+			}
+
+			tilePosition.x = (int)Math.Round(transform.position.x,0);
+			tilePosition.y = (int)Math.Round(transform.position.y,0);
 		}
 	}
 
-	void OnTriggerEnter2D(Collider2D co) {
-		if (co.name == "pacman") {
-			
-			if(PacmanMove.powerMode){
-				transform.position = origin;
-				cur = 0;
-				eatenDelayRemaining = GhostMove.eatenDelay;
-				PacmanMove.player1Score += 100;
-			}
-			else{
-//				Destroy (co.gameObject);
-				PacmanMove.pacmanEaten = true;
-			}
-		}
-		//this is where we can decrease lives or show a game over screen
+	public void killGhost(){
+		transform.position = origin;
+		tilePosition = origin;
+		dest = origin;
+		eatenDelayRemaining = GhostMove.eatenDelay;
+        GetComponent<Animator>().enabled = true;
+        isScared = false;
 	}
 }
