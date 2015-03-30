@@ -12,6 +12,7 @@ TagManager:
   - clyde
   - maze
   - cherry
+  - subjectIdInput
   layers:
   - Default
   - TransparentFX

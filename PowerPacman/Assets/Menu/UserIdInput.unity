@@ -304,6 +304,7 @@ GameObject:
   - 114: {fileID: 875166184}
   - 114: {fileID: 875166183}
   - 114: {fileID: 875166186}
+  - 114: {fileID: 875166187}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -394,6 +395,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83853c0987ce2f84582a1dcb765f53c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &875166187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 875166181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e260191e31e184449b4c01685a45e6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &923386658
@@ -688,13 +700,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 875166186}
-        m_MethodName: load
-        m_Mode: 3
+        m_MethodName: checkIdInputAndLoad
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine, Version=0.0.0.0,
             Culture=neutral, PublicKeyToken=null
-          m_IntArgument: 1
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -740,8 +752,8 @@ GameObject:
   - 114: {fileID: 2146002209}
   - 114: {fileID: 2146002208}
   m_Layer: 5
-  m_Name: InputField
-  m_TagString: Untagged
+  m_Name: SubjectIdField
+  m_TagString: subjectIdInput
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

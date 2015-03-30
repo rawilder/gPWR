@@ -183,6 +183,8 @@ public class MazeScript : MonoBehaviour {
 		cherryObject.SetActive (false);
 
         cherryRespawnTimeRemaining = cherryRespawnTime;
+
+		DataScript.exportData ();	//test the data export
 	}
 
 	void FixedUpdate(){
