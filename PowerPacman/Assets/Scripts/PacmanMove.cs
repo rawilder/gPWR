@@ -178,6 +178,7 @@ public class PacmanMove : MonoBehaviour {
 		}
 
 		// Animation Parameters
+		/*
 		Vector2 dir = new Vector2 ();
 		if (movementDir == Direction.Up) {
 			dir.y = 1;
@@ -194,7 +195,8 @@ public class PacmanMove : MonoBehaviour {
 		if (movementDir == Direction.None) {
 			//full circle?
 		}
-		//Vector2 dir = dest - (Vector2)transform.position;
+		*/
+		Vector2 dir = dest - (Vector2)transform.position;
 		GetComponent<Animator>().SetFloat("DirX", dir.x);
 		GetComponent<Animator>().SetFloat("DirY", dir.y);
 
