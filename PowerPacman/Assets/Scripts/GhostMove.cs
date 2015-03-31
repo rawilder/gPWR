@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 public class GhostMove : MonoBehaviour {
 	public float speed = 0.3f;
-
 	float eatenDelayRemaining = 0.0f;
 
 	public static float eatenDelay = 1.0f;
@@ -16,16 +15,28 @@ public class GhostMove : MonoBehaviour {
     public bool isScared;
 	
 	Vector2 dest;
+	public GameObject m; //the maze gameobject
     private MazeScript maze;
 	
 	void Start(){
 		origin = transform.localPosition;
 		dest = origin;
-        maze = GameObject.FindGameObjectWithTag("maze").GetComponent<MazeScript>();
+        //maze = GameObject.FindGameObjectWithTag("maze").GetComponent<MazeScript>();
+		maze = m.GetComponent<MazeScript> ();
         isScared = false;
 	}
 
 	void FixedUpdate() {
+
+		if (maze.pacman.isAIControlled && TurnManagerScript.isPlayerTurn) {
+			//do nothing if these are AI ghosts and it is the other players turn
+			return;
+		}
+
+		if (!maze.pacman.isAIControlled && !TurnManagerScript.isPlayerTurn) {
+			//do nothing if these are ghosts for the real player, and it is the AI turn
+			return;
+		}
 
 		if (eatenDelayRemaining > 0) {
 			eatenDelayRemaining -= Time.deltaTime;
@@ -104,7 +115,6 @@ public class GhostMove : MonoBehaviour {
 			if(moveDir != PacmanMove.Direction.None){
 				Vector2 p = Vector2.MoveTowards(transform.localPosition, dest, speed*Time.deltaTime);
 				transform.localPosition = p;
-				//Debug.Log (transform.position);
 			}
 
 			tilePosition.x = (int)Math.Round(transform.localPosition.x,0);

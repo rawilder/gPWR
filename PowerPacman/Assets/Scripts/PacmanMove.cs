@@ -8,6 +8,7 @@ using System.Linq;
 public class PacmanMove : MonoBehaviour {
 
 	public string side;
+	public bool isAIControlled;
 	//public float speed = 0.4f;
 	public float speed = 11.0f; //11 tiles per second
 	Vector2 dest = Vector2.zero;
@@ -21,8 +22,8 @@ public class PacmanMove : MonoBehaviour {
 	public GhostMove blinky;
 	public Sprite scared;
 
-	public bool isPlayer1Turn = true;
-	public static float turnDuration = 60.0f; //length of turn in seconds
+	//public bool isPlayerTurn = true;
+	public static float turnDuration = 15.0f; //length of turn in seconds
 	public static float turnTimeRemaining = turnDuration;
 
 	public bool powerMode = false;  //flag for power mode (eating enemies)
@@ -79,6 +80,11 @@ public class PacmanMove : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 
+		if ((isAIControlled && TurnManagerScript.isPlayerTurn) || (!isAIControlled && !TurnManagerScript.isPlayerTurn)) {
+			//do nothing, wait your turn
+			return;
+		}
+
 		checkForGhostCollisions ();
 		checkPacDots();
 
@@ -102,7 +108,7 @@ public class PacmanMove : MonoBehaviour {
 			//Check for input if not moving
 			if((Vector2)transform.localPosition == dest)
             {
-				if(isPlayer1Turn) 
+				if(!isAIControlled) 
 				{
 	                if(queuedDir != Direction.None)
 	                {
@@ -226,15 +232,21 @@ public class PacmanMove : MonoBehaviour {
 		p1Score.text = "" + player1Score;
 
 		//decrease turn timer
-		if (isPlayer1Turn) {
-			if(turnTimeRemaining > 0){
-				turnTimeRemaining -= Time.deltaTime;
-				Text timeText = GameObject.Find(side+"/Top Canvas/TimeRemainingBox").GetComponent<Text>();
-				timeText.text = "" + turnTimeRemaining;
+		if(turnTimeRemaining > 0){
+			turnTimeRemaining -= Time.deltaTime;
+			Text timeText = GameObject.Find(side+"/Top Canvas/TimeRemainingBox").GetComponent<Text>();
+			timeText.text = "" + (int)Math.Ceiling (turnTimeRemaining);
+		}
+		else{
+			Text timeText = GameObject.Find(side+"/Top Canvas/TimeRemainingBox").GetComponent<Text>();
+			timeText.text = "0";
+			if(TurnManagerScript.isPlayerTurn){
+				TurnManagerScript.isPlayerTurn = false;
+				turnTimeRemaining = turnDuration;
 			}
 			else{
-				Text timeText = GameObject.Find(side+"/Top Canvas/TimeRemainingBox").GetComponent<Text>();
-				timeText.text = "0";        
+				TurnManagerScript.isPlayerTurn = true;
+				turnTimeRemaining = turnDuration;
 			}
 		}
 

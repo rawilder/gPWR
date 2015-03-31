@@ -185,7 +185,7 @@ public class MazeScript : MonoBehaviour {
 
 		dotsRemaining = dotsList.Length;
 		powerDotsRemaining = powerDotsList.Length;
-		cherryObject = GameObject.FindGameObjectWithTag ("cherry");
+		cherryObject = GameObject.FindGameObjectWithTag (side+"cherry");
 		cherryObject.SetActive (false);
 
         cherryRespawnTimeRemaining = cherryRespawnTime;
@@ -194,6 +194,17 @@ public class MazeScript : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
+
+		if (pacman.isAIControlled && TurnManagerScript.isPlayerTurn) {
+			//do nothing if these are AI ghosts and it is the other players turn
+			return;
+		}
+		
+		if (!pacman.isAIControlled && !TurnManagerScript.isPlayerTurn) {
+			//do nothing if these are ghosts for the real player, and it is the AI turn
+			return;
+		}
+
 		if (cherryRespawnTimeRemaining < 0) {
 			respawnCherry ();
 		}

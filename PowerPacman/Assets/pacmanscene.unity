@@ -1847,6 +1847,45 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6e7879664a92c314c9af371efab5831d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!1 &101659501
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 101659503}
+  - 114: {fileID: 101659502}
+  m_Layer: 0
+  m_Name: TurnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &101659502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 101659501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ef1945e5544f9f4982a473482ba0176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &101659503
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 101659501}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 27.5346699, y: 12.2288485, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
 --- !u!1 &103786279
 GameObject:
   m_ObjectHideFlags: 0
@@ -6056,6 +6095,7 @@ MonoBehaviour:
   tilePosition: {x: 0, y: 0}
   moveDir: 0
   isScared: 0
+  m: {fileID: 1609881622}
 --- !u!50 &265155937
 Rigidbody2D:
   m_ObjectHideFlags: 0
@@ -6217,6 +6257,7 @@ MonoBehaviour:
   tilePosition: {x: 0, y: 0}
   moveDir: 0
   isScared: 0
+  m: {fileID: 902465438}
 --- !u!50 &268614860
 Rigidbody2D:
   m_ObjectHideFlags: 0
@@ -10512,7 +10553,7 @@ GameObject:
   - 212: {fileID: 477037058}
   m_Layer: 0
   m_Name: cherry
-  m_TagString: cherry
+  m_TagString: LeftSidecherry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20894,6 +20935,7 @@ MonoBehaviour:
   tilePosition: {x: 0, y: 0}
   moveDir: 0
   isScared: 0
+  m: {fileID: 1609881622}
 --- !u!50 &865247924
 Rigidbody2D:
   m_ObjectHideFlags: 0
@@ -20976,7 +21018,7 @@ GameObject:
   - 212: {fileID: 866331674}
   m_Layer: 0
   m_Name: cherry
-  m_TagString: cherry
+  m_TagString: RightSidecherry
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23233,6 +23275,7 @@ MonoBehaviour:
   tilePosition: {x: 0, y: 0}
   moveDir: 0
   isScared: 0
+  m: {fileID: 902465438}
 --- !u!1 &929551923
 GameObject:
   m_ObjectHideFlags: 0
@@ -24628,6 +24671,7 @@ MonoBehaviour:
   tilePosition: {x: 0, y: 0}
   moveDir: 0
   isScared: 0
+  m: {fileID: 902465438}
 --- !u!50 &984248773
 Rigidbody2D:
   m_ObjectHideFlags: 0
@@ -31634,13 +31678,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   side: RightSide
+  isAIControlled: 0
   speed: 11
   clyde: {fileID: 268614859}
   inky: {fileID: 1472432024}
   pinky: {fileID: 984248772}
   blinky: {fileID: 928945275}
   scared: {fileID: 21300000, guid: f130e68f50659b042a750976fe6a506e, type: 3}
-  isPlayer1Turn: 1
   powerMode: 0
   powerModeDuration: 5
   powerModeTimeRemaining: 0
@@ -37171,6 +37215,7 @@ MonoBehaviour:
   tilePosition: {x: 0, y: 0}
   moveDir: 0
   isScared: 0
+  m: {fileID: 902465438}
 --- !u!50 &1472432025
 Rigidbody2D:
   m_ObjectHideFlags: 0
@@ -39326,6 +39371,7 @@ MonoBehaviour:
   tilePosition: {x: 0, y: 0}
   moveDir: 0
   isScared: 0
+  m: {fileID: 1609881622}
 --- !u!50 &1565676230
 Rigidbody2D:
   m_ObjectHideFlags: 0
@@ -39761,13 +39807,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   side: LeftSide
+  isAIControlled: 1
   speed: 11
   clyde: {fileID: 2065331599}
   inky: {fileID: 865247923}
   pinky: {fileID: 1565676229}
   blinky: {fileID: 265155936}
   scared: {fileID: 21300000, guid: f130e68f50659b042a750976fe6a506e, type: 3}
-  isPlayer1Turn: 0
   powerMode: 0
   powerModeDuration: 5
   powerModeTimeRemaining: 0
@@ -55329,6 +55375,7 @@ MonoBehaviour:
   tilePosition: {x: 0, y: 0}
   moveDir: 0
   isScared: 0
+  m: {fileID: 1609881622}
 --- !u!50 &2065331600
 Rigidbody2D:
   m_ObjectHideFlags: 0

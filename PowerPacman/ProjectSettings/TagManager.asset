@@ -27,6 +27,8 @@ TagManager:
   - LeftSidepinky
   - LeftSideclyde
   - LeftSideinky
+  - RightSidecherry
+  - LeftSidecherry
   layers:
   - Default
   - TransparentFX
