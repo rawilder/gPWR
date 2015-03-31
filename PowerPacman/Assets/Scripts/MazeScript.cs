@@ -72,8 +72,13 @@ public class Node {
 
 public class MazeScript : MonoBehaviour {
 
+	public string side;
+
 	int dotPointValue = 1;
 	int powerDotPointValue = 20;
+
+	public int offsetX;
+	public int offsetY;
 
 	public  int dotsRemaining;
 	public  int powerDotsRemaining;
@@ -108,7 +113,7 @@ public class MazeScript : MonoBehaviour {
 	//	direction down = x-1,y
 	//	direction right = x,y+1
 	//	direction left = x,y-1
-	static int[,] map = new int[,]{
+	int[,] map = new int[,]{
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 		{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
 		{0,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1},
@@ -150,6 +155,7 @@ public class MazeScript : MonoBehaviour {
 
 	GameObject[] dotsList;
 	GameObject[] powerDotsList;
+	public PacmanMove pacman;
 
 	Vector2 cherryLocation = new Vector2(14,11);
 	float cherryRespawnTime = 10.0f;
@@ -160,22 +166,22 @@ public class MazeScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//initialize the associate arrays
-		dotsList = GameObject.FindGameObjectsWithTag("dot");
-		powerDotsList = GameObject.FindGameObjectsWithTag("powerDot");
+		dotsList = GameObject.FindGameObjectsWithTag(side+"Dot");
+		powerDotsList = GameObject.FindGameObjectsWithTag(side+"PowerDot");
 		for(int i = 0; i < dotsList.GetLength(0); i++){
-			Position p = new Position((int)dotsList[i].transform.position.x, (int)dotsList[i].transform.position.y);
+			Position p = new Position((int)dotsList[i].transform.localPosition.x, (int)dotsList[i].transform.localPosition.y);
 			dots[p] = dotsList[i];
 		}
 
 		for (int i = 0; i < powerDotsList.GetLength(0); i++) {
-			Position p = new Position((int)powerDotsList[i].transform.position.x, (int)powerDotsList[i].transform.position.y);
+			Position p = new Position((int)powerDotsList[i].transform.localPosition.x, (int)powerDotsList[i].transform.localPosition.y);
 			powerDots[p] = powerDotsList[i];
 		}
 
-        ghosts.Add(GameObject.FindGameObjectWithTag("blinky"));
-        ghosts.Add(GameObject.FindGameObjectWithTag("pinky"));
-        ghosts.Add(GameObject.FindGameObjectWithTag("inky"));
-        ghosts.Add(GameObject.FindGameObjectWithTag("clyde"));
+        ghosts.Add(GameObject.FindGameObjectWithTag(side+"blinky"));
+        ghosts.Add(GameObject.FindGameObjectWithTag(side+"pinky"));
+        ghosts.Add(GameObject.FindGameObjectWithTag(side+"inky"));
+        ghosts.Add(GameObject.FindGameObjectWithTag(side+"clyde"));
 
 		dotsRemaining = dotsList.Length;
 		powerDotsRemaining = powerDotsList.Length;
@@ -269,7 +275,7 @@ public class MazeScript : MonoBehaviour {
 		return map [y, x];
 	}
 
-	static void setValue(Vector2 position, int value){
+	void setValue(Vector2 position, int value){
 		//might want to make sure nothing but dots are being changed
 		int x = (int)Math.Round (position.x, 0);
 		int y = (int)Math.Round (position.y, 0);
@@ -316,14 +322,14 @@ public class MazeScript : MonoBehaviour {
 		//just a cherry
 		if (value == justCherry) {
 			setValue(position,noDotNoCherry);
-			PacmanMove.player1Score+=cherryValue;
+			pacman.player1Score+=cherryValue;
 			cherryEaten = true;
 			cherryRespawnTimeRemaining = cherryRespawnTime;
 			cherryObject.SetActive(false);
 		}
 		if (value == dotAndCherry) {
 			setValue(position,noDotNoCherry);
-			PacmanMove.player1Score += (cherryValue + dotPointValue);
+			pacman.player1Score += (cherryValue + dotPointValue);
 			cherryEaten = true;
 			cherryRespawnTimeRemaining = cherryRespawnTime;
 			cherryObject.SetActive(false);
@@ -336,17 +342,17 @@ public class MazeScript : MonoBehaviour {
 			//set the game object to not active
 			Position p = new Position((int)position.x, (int)position.y);
 			dots[p].SetActive(false);
-			PacmanMove.player1Score+= dotPointValue;
+			pacman.player1Score += dotPointValue;
 			dotsRemaining--;
 		}
 		else if(isInPowerDotTile(position)){
 			setValue(position,6);
 			Position p = new Position((int)position.x, (int)position.y);
 			powerDots[p].SetActive(false);
-			PacmanMove.player1Score += powerDotPointValue;
+			pacman.player1Score += powerDotPointValue;
 			powerDotsRemaining--;
-			PacmanMove.powerMode = true;
-			PacmanMove.powerModeTimeRemaining = PacmanMove.powerModeDuration;
+			pacman.powerMode = true;
+			pacman.powerModeTimeRemaining = pacman.powerModeDuration;
 
             //change ghosts
             foreach(var ghost in ghosts)
@@ -366,8 +372,8 @@ public class MazeScript : MonoBehaviour {
 	public void restoreDots(){
 
 		for (int i = 0; i < dotsList.Length; i++) {
-			int x = (int)dotsList[i].transform.position.x;
-			int y = (int)dotsList[i].transform.position.y;
+			int x = (int)dotsList[i].transform.localPosition.x;
+			int y = (int)dotsList[i].transform.localPosition.y;
 			Position p = new Position(x,y);
 			Vector2 v = new Vector2(x,y);
 
@@ -376,8 +382,8 @@ public class MazeScript : MonoBehaviour {
 		}
 
 		for (int i = 0; i < powerDotsList.Length; i++) {
-			int x = (int)powerDotsList[i].transform.position.x;
-			int y = (int)powerDotsList[i].transform.position.y;
+			int x = (int)powerDotsList[i].transform.localPosition.x;
+			int y = (int)powerDotsList[i].transform.localPosition.y;
 			Position p = new Position(x,y);
 			Vector2 v = new Vector2(x,y);
 			setValue(v,5);
@@ -386,8 +392,8 @@ public class MazeScript : MonoBehaviour {
 
 		dotsRemaining = dotsList.Length;
 		powerDotsRemaining = powerDotsList.Length;
-		PacmanMove.dotList = new List<GameObject> (PacmanMove.dots);
-		PacmanMove.dotList.AddRange (PacmanMove.powerDot);
+		pacman.dotList = new List<GameObject> (pacman.dots);
+		pacman.dotList.AddRange (pacman.powerDot);
 
 	}
 

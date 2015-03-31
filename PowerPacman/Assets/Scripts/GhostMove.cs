@@ -19,7 +19,7 @@ public class GhostMove : MonoBehaviour {
     private MazeScript maze;
 	
 	void Start(){
-		origin = transform.position;
+		origin = transform.localPosition;
 		dest = origin;
         maze = GameObject.FindGameObjectWithTag("maze").GetComponent<MazeScript>();
         isScared = false;
@@ -30,9 +30,9 @@ public class GhostMove : MonoBehaviour {
 		if (eatenDelayRemaining > 0) {
 			eatenDelayRemaining -= Time.deltaTime;
 		} else {
-			if((Vector2)transform.position == dest){
+			if((Vector2)transform.localPosition == dest){
 				//check if the ghost is inside the pen
-                if (maze.isInGhostPen(transform.position))
+                if (maze.isInGhostPen(transform.localPosition))
                 {
 					//exit the pen
 					moveDir = PacmanMove.Direction.Up;
@@ -45,7 +45,7 @@ public class GhostMove : MonoBehaviour {
 					//this section is probably where actual intelligent path planning would go
 					
 					//dumb ai: check all directions to see if there is a turn that could be made
-                    List<bool> availableDirections = maze.getAvailableDirections(transform.position);
+                    List<bool> availableDirections = maze.getAvailableDirections(transform.localPosition);
 					for(int i = 0; i < 4; i++){
 						//if there is an available direction to travel
 						if(availableDirections[i]){
@@ -63,21 +63,21 @@ public class GhostMove : MonoBehaviour {
 					
 					/*-------------------------------------------------------*/
 
-                    if (moveDir == PacmanMove.Direction.Up && maze.validPacManMove(transform.position, PacmanMove.Direction.Up))
+                    if (moveDir == PacmanMove.Direction.Up && maze.validPacManMove(transform.localPosition, PacmanMove.Direction.Up))
                     {
-						dest = (Vector2)transform.position + Vector2.up;
+						dest = (Vector2)transform.localPosition + Vector2.up;
 					}
-                    if (moveDir == PacmanMove.Direction.Right && maze.validPacManMove(transform.position, PacmanMove.Direction.Right))
+					if (moveDir == PacmanMove.Direction.Right && maze.validPacManMove(transform.localPosition, PacmanMove.Direction.Right))
                     {
-						dest = (Vector2)transform.position + Vector2.right;
+						dest = (Vector2)transform.localPosition + Vector2.right;
 					}
-                    if (moveDir == PacmanMove.Direction.Down && maze.validPacManMove(transform.position, PacmanMove.Direction.Down))
+					if (moveDir == PacmanMove.Direction.Down && maze.validPacManMove(transform.localPosition, PacmanMove.Direction.Down))
                     {
-						dest = (Vector2)transform.position - Vector2.up;
+						dest = (Vector2) transform.localPosition - Vector2.up;
 					}
-                    if (moveDir == PacmanMove.Direction.Left && maze.validPacManMove(transform.position, PacmanMove.Direction.Left))
+					if (moveDir == PacmanMove.Direction.Left && maze.validPacManMove(transform.localPosition, PacmanMove.Direction.Left))
                     {
-						dest = (Vector2)transform.position - Vector2.right;
+						dest = (Vector2)transform.localPosition - Vector2.right;
 					}
 				}
 			}
@@ -102,17 +102,18 @@ public class GhostMove : MonoBehaviour {
 			GetComponent<Animator> ().SetFloat ("DirY", dir.y);
 			
 			if(moveDir != PacmanMove.Direction.None){
-				Vector2 p = Vector2.MoveTowards(transform.position, dest, speed*Time.deltaTime);
-				transform.position = p;
+				Vector2 p = Vector2.MoveTowards(transform.localPosition, dest, speed*Time.deltaTime);
+				transform.localPosition = p;
+				//Debug.Log (transform.position);
 			}
 
-			tilePosition.x = (int)Math.Round(transform.position.x,0);
-			tilePosition.y = (int)Math.Round(transform.position.y,0);
+			tilePosition.x = (int)Math.Round(transform.localPosition.x,0);
+			tilePosition.y = (int)Math.Round(transform.localPosition.y,0);
 		}
 	}
 
 	public void killGhost(){
-		transform.position = origin;
+		transform.localPosition = origin;
 		tilePosition = origin;
 		dest = origin;
 		eatenDelayRemaining = GhostMove.eatenDelay;

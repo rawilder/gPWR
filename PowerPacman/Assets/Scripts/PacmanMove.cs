@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class PacmanMove : MonoBehaviour {
+
+	public string side;
 	//public float speed = 0.4f;
 	public float speed = 11.0f; //11 tiles per second
 	Vector2 dest = Vector2.zero;
@@ -19,16 +21,16 @@ public class PacmanMove : MonoBehaviour {
 	public GhostMove blinky;
 	public Sprite scared;
 
-	public static bool isPlayer1Turn = false;
+	public bool isPlayer1Turn = true;
 	public static float turnDuration = 60.0f; //length of turn in seconds
 	public static float turnTimeRemaining = turnDuration;
 
-	public static bool powerMode = false;  //flag for power mode (eating enemies)
-	public static float powerModeDuration = 5.0f; //number of seconds to stay in power mode
-	public static float powerModeTimeRemaining = powerModeDuration;
+	public bool powerMode = false;  //flag for power mode (eating enemies)
+	public float powerModeDuration = 5.0f; //number of seconds to stay in power mode
+	public float powerModeTimeRemaining;
 
-	public static int player1Score = 0;
-	public static bool pacmanEaten = false;
+	public int player1Score = 0;
+	public bool pacmanEaten = false;
 	float eatenTimeDelay = 0.5f; //the amount of time the player is frozen after being eaten
 	float eatenDelayRemaining = 0;
 	float flickerTime = .1f;
@@ -36,16 +38,17 @@ public class PacmanMove : MonoBehaviour {
 
 	Vector2 origin;
 
-	public static GameObject[] dots;
-	public static GameObject[] powerDot;
-	public static List<GameObject> dotList;
+	public GameObject[] dots;
+	public GameObject[] powerDot;
+	public List<GameObject> dotList;
 	GameObject targetFood = null;
 	List<Direction> queuedMovements;
 
-	public static int dotsRemaining;
+	public int dotsRemaining;
 
     private Direction movementDir;
     private Direction queuedDir;
+	public GameObject m;
     private MazeScript maze;
 
 	Vector2 position;
@@ -55,18 +58,22 @@ public class PacmanMove : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		powerDot = GameObject.FindGameObjectsWithTag("powerDot");
-		dots = GameObject.FindGameObjectsWithTag("dot");
+		powerDot = GameObject.FindGameObjectsWithTag(side+"PowerDot");
+		dots = GameObject.FindGameObjectsWithTag(side+"Dot");
 		dotList = new List<GameObject> (dots);
 		dotList.AddRange (powerDot);
 		queuedMovements = new List<Direction> ();
 
-		dest = transform.position;
-		destTile = transform.position;
-		origin = transform.position;
+		powerModeTimeRemaining = powerModeDuration;
+		//player1Score = 0;
+
+		dest = transform.localPosition;
+		destTile = transform.localPosition;
+		origin = transform.localPosition;
 		tilePosition = new Vector2 (14, 14);
         queuedDir = Direction.None;
-        maze = GameObject.FindGameObjectWithTag("maze").GetComponent<MazeScript>();
+        //maze = GameObject.FindGameObjectWithTag("maze").GetComponent<MazeScript>();
+		maze = m.GetComponent<MazeScript> ();
 	}
 	
 	// Update is called once per frame
@@ -76,10 +83,10 @@ public class PacmanMove : MonoBehaviour {
 		checkPacDots();
 
 		if (pacmanEaten) {
-			transform.position = origin;
+			transform.localPosition = origin;
 			tilePosition = origin;
-			dest = transform.position;
-			destTile = transform.position;
+			dest = transform.localPosition;
+			destTile = transform.localPosition;
 			pacmanEaten = false;
 			eatenDelayRemaining = eatenTimeDelay;
             movementDir = Direction.None;
@@ -93,7 +100,7 @@ public class PacmanMove : MonoBehaviour {
 			eatenDelayRemaining -= Time.deltaTime;
 		} else {
 			//Check for input if not moving
-			if((Vector2)transform.position == dest)
+			if((Vector2)transform.localPosition == dest)
             {
 				if(isPlayer1Turn) 
 				{
@@ -104,40 +111,40 @@ public class PacmanMove : MonoBehaviour {
 	                }
 	                else
 	                {
-	                    if (Input.GetKey(KeyCode.UpArrow) && maze.validPacManMove(transform.position, Direction.Up))
+						if (Input.GetKey(KeyCode.UpArrow) && maze.validPacManMove(transform.localPosition, Direction.Up))
 	                    {
 	                        movementDir = Direction.Up;
 	                    }
-						if (Input.GetKey(KeyCode.RightArrow) && maze.validPacManMove(transform.position, Direction.Right))
+						if (Input.GetKey(KeyCode.RightArrow) && maze.validPacManMove(transform.localPosition, Direction.Right))
 	                    {
 	                        movementDir = Direction.Right;
 	                    }  
-						if (Input.GetKey(KeyCode.DownArrow) && maze.validPacManMove(transform.position, Direction.Down))
+						if (Input.GetKey(KeyCode.DownArrow) && maze.validPacManMove(transform.localPosition, Direction.Down))
 	                    {
 	                        movementDir = Direction.Down;
 	                    }
-						if (Input.GetKey(KeyCode.LeftArrow) && maze.validPacManMove(transform.position, Direction.Left))
+						if (Input.GetKey(KeyCode.LeftArrow) && maze.validPacManMove(transform.localPosition, Direction.Left))
 	                    { 
 	                        movementDir = Direction.Left;
 	                    }
-						if (movementDir == Direction.Up && maze.validPacManMove(transform.position, Direction.Up))
+						if (movementDir == Direction.Up && maze.validPacManMove(transform.localPosition, Direction.Up))
 	                    {
-	                        dest = (Vector2)transform.position + Vector2.up;
+							dest = (Vector2)transform.localPosition + Vector2.up;
 	                        destTile.y++;
 	                    }
-						if (movementDir == Direction.Right && maze.validPacManMove(transform.position, Direction.Right))
+						if (movementDir == Direction.Right && maze.validPacManMove(transform.localPosition, Direction.Right))
 	                    {
-	                        dest = (Vector2)transform.position + Vector2.right;
+							dest = (Vector2)transform.localPosition + Vector2.right;
 	                        destTile.x++;
 	                    }
-						if (movementDir == Direction.Down && maze.validPacManMove(transform.position, Direction.Down))
+						if (movementDir == Direction.Down && maze.validPacManMove(transform.localPosition, Direction.Down))
 	                    {
-	                        dest = (Vector2)transform.position - Vector2.up;
+							dest = (Vector2)transform.localPosition - Vector2.up;
 	                        destTile.y--;
 	                    }
-						if (movementDir == Direction.Left && maze.validPacManMove(transform.position, Direction.Left))
+						if (movementDir == Direction.Left && maze.validPacManMove(transform.localPosition, Direction.Left))
 	                    {
-	                        dest = (Vector2)transform.position - Vector2.right;
+							dest = (Vector2)transform.localPosition - Vector2.right;
 	                        destTile.x--;
 	                    }
 	                }
@@ -154,7 +161,7 @@ public class PacmanMove : MonoBehaviour {
 			}
 			else{
 				//handle corners?
-				if(Math.Abs (transform.position.x - dest.x) < corneringDistance && Math.Abs (transform.position.y - dest.y) < corneringDistance)
+				if(Math.Abs (transform.localPosition.x - dest.x) < corneringDistance && Math.Abs (transform.localPosition.y - dest.y) < corneringDistance)
                 {
 					//The player is close to the destination, might be close to a corner
                     if (Input.GetKey(KeyCode.UpArrow) && maze.validPacManMove(dest, Direction.Up))
@@ -196,37 +203,37 @@ public class PacmanMove : MonoBehaviour {
 			//full circle?
 		}
 		*/
-		Vector2 dir = dest - (Vector2)transform.position;
+		Vector2 dir = dest - (Vector2)transform.localPosition;
 		GetComponent<Animator>().SetFloat("DirX", dir.x);
 		GetComponent<Animator>().SetFloat("DirY", dir.y);
 
-		if (maze.validPacManMove (transform.position, movementDir) || (Vector2)transform.position != tilePosition) {
-			Vector2 p = Vector2.MoveTowards(transform.position, destTile, speed*Time.deltaTime);
-			transform.position = p;
+		if (maze.validPacManMove (transform.localPosition, movementDir) || (Vector2)transform.localPosition != tilePosition) {
+			Vector2 p = Vector2.MoveTowards(transform.localPosition, destTile, speed*Time.deltaTime);
+			transform.localPosition = p;
 
 			//round to the nearest tile
-			tilePosition.x = (int)Math.Round(transform.position.x,0);
-			tilePosition.y = (int)Math.Round(transform.position.y,0);
+			tilePosition.x = (int)Math.Round(transform.localPosition.x,0);
+			tilePosition.y = (int)Math.Round(transform.localPosition.y,0);
 
 		} else {
 			//not a valid move
-			dest = transform.position;
+			dest = transform.localPosition;
 			destTile = tilePosition;
 		}
 
 		//update the score for player 1
-		Text p1Score = GameObject.Find ("Top Canvas/ScoreBox").GetComponent<Text> ();
+		Text p1Score = GameObject.Find (side+"/Top Canvas/ScoreBox").GetComponent<Text> ();
 		p1Score.text = "" + player1Score;
 
 		//decrease turn timer
 		if (isPlayer1Turn) {
 			if(turnTimeRemaining > 0){
 				turnTimeRemaining -= Time.deltaTime;
-				Text timeText = GameObject.Find("Top Canvas/TimeRemainingBox").GetComponent<Text>();
+				Text timeText = GameObject.Find(side+"/Top Canvas/TimeRemainingBox").GetComponent<Text>();
 				timeText.text = "" + turnTimeRemaining;
 			}
 			else{
-				Text timeText = GameObject.Find("Top Canvas/TimeRemainingBox").GetComponent<Text>();
+				Text timeText = GameObject.Find(side+"/Top Canvas/TimeRemainingBox").GetComponent<Text>();
 				timeText.text = "0";        
 			}
 		}
@@ -304,7 +311,7 @@ public class PacmanMove : MonoBehaviour {
 
 	bool valid(Vector2 dir) {
 		// Cast Line from 'next to Pac-Man' to 'Pac-Man'
-		Vector2 pos = transform.position;
+		Vector2 pos = transform.localPosition;
 		RaycastHit2D hit = Physics2D.Linecast(pos + dir, pos);
 		return (hit.collider == GetComponent<Collider2D>());
 	}
@@ -314,14 +321,14 @@ public class PacmanMove : MonoBehaviour {
 	{
 		//find closestFood
 		if (targetFood != null) {
-			if ((targetFood.transform.position.x == transform.position.x) && (targetFood.transform.position.y == transform.position.y)) {
+			if ((targetFood.transform.localPosition.x == transform.localPosition.x) && (targetFood.transform.localPosition.y == transform.localPosition.y)) {
 				dotList.Remove (targetFood);
 				targetFood = null;
 				queuedMovements.Clear ();
 			}
 		}
 		if(targetFood == null) {
-			targetFood = dotList.Aggregate ((d1, d2) => Vector2.Distance (transform.position, (Vector2)d1.transform.position) < Vector2.Distance (transform.position, (Vector2)d2.transform.position) ? d1 : d2);
+			targetFood = dotList.Aggregate ((d1, d2) => Vector2.Distance (transform.localPosition, (Vector2)d1.transform.localPosition) < Vector2.Distance (transform.localPosition, (Vector2)d2.transform.localPosition) ? d1 : d2);
 		}
 		if (queuedMovements.Count == 0) {
 			queuedMovements = BFScaulations (targetFood);
@@ -331,21 +338,21 @@ public class PacmanMove : MonoBehaviour {
 			queuedMovements.RemoveAt (0);
 		}
 		if (movementDir != Direction.None) {
-			if (movementDir == Direction.Up && maze.validPacManMove (transform.position, Direction.Up)) {
+			if (movementDir == Direction.Up && maze.validPacManMove (transform.localPosition, Direction.Up)) {
 				destTile.y++;
-				dest = (Vector2)transform.position + Vector2.up;
+				dest = (Vector2)transform.localPosition + Vector2.up;
 			}
-			if (movementDir == Direction.Right && maze.validPacManMove (transform.position, Direction.Right)) {
+			if (movementDir == Direction.Right && maze.validPacManMove (transform.localPosition, Direction.Right)) {
 				destTile.x++;
-				dest = (Vector2)transform.position + Vector2.right;
+				dest = (Vector2)transform.localPosition + Vector2.right;
 			}
-			if (movementDir == Direction.Down && maze.validPacManMove (transform.position, Direction.Down)) {
+			if (movementDir == Direction.Down && maze.validPacManMove (transform.localPosition, Direction.Down)) {
 				destTile.y--;
-				dest = (Vector2)transform.position - Vector2.up;
+				dest = (Vector2)transform.localPosition - Vector2.up;
 			}
-			if (movementDir == Direction.Left && maze.validPacManMove (transform.position, Direction.Left)) {
+			if (movementDir == Direction.Left && maze.validPacManMove (transform.localPosition, Direction.Left)) {
 				destTile.x--;
-				dest = (Vector2)transform.position - Vector2.right;
+				dest = (Vector2)transform.localPosition - Vector2.right;
 			}
 		}
 	}
@@ -354,7 +361,7 @@ public class PacmanMove : MonoBehaviour {
 	{
 		var froniter = new List<Node> ();
 		var visitedList = new List<Node> ();
-		froniter.Add (new Node() { vectorDirection = transform.position, parent = null });
+		froniter.Add (new Node() { vectorDirection = transform.localPosition, parent = null });
 		Node currentNode;
 		Vector2 current = Vector2.zero;
 		var path = new List<Direction> ();
@@ -364,7 +371,7 @@ public class PacmanMove : MonoBehaviour {
 			currentNode = froniter.First ();
 			current = currentNode.vectorDirection;
 			//if node is targetFruit
-			if(current.x == targetFruit.transform.position.x && current.y == targetFruit.transform.position.y) {
+			if(current.x == targetFruit.transform.localPosition.x && current.y == targetFruit.transform.localPosition.y) {
 				//return the Vectors coverted into Directions
 				path = currentNode.convertVectorPathToDirections();
 				break;
@@ -396,9 +403,9 @@ public class PacmanMove : MonoBehaviour {
 
     bool GhostIsThere()
     {
-		Vector2 pos = (Vector2)transform.position;
+		Vector2 pos = (Vector2)transform.localPosition;
 		foreach(var ghost in maze.ghosts) {
-			if (Vector2.Distance(pos, (Vector2)ghost.transform.position) < 3)
+			if (Vector2.Distance(pos, (Vector2)ghost.transform.localPosition) < 3)
 				return true;
 		}
 		return false;
@@ -409,36 +416,36 @@ public class PacmanMove : MonoBehaviour {
 		var values = new float[4];
 		float max = 0;
 		//find closest ghost
-		GameObject closestGhost = maze.ghosts.FirstOrDefault(g => Vector2.Distance (transform.position, (Vector2)g.transform.position) < 3);
+		GameObject closestGhost = maze.ghosts.FirstOrDefault(g => Vector2.Distance (transform.localPosition, (Vector2)g.transform.localPosition) < 3);
 		//make move that creates the most distance between ghosts
 		if (closestGhost != null) {
-			if (maze.validPacManMove (transform.position, Direction.Up)) {
-				values [0] = Vector2.Distance ((Vector2)transform.position + Vector2.up, (Vector2)closestGhost.transform.position);
+			if (maze.validPacManMove (transform.localPosition, Direction.Up)) {
+				values [0] = Vector2.Distance ((Vector2)transform.localPosition + Vector2.up, (Vector2)closestGhost.transform.localPosition);
 			}
-			if (maze.validPacManMove (transform.position, Direction.Down)) {
-				values [1] = Vector2.Distance ((Vector2)transform.position - Vector2.up, (Vector2)closestGhost.transform.position);
+			if (maze.validPacManMove (transform.localPosition, Direction.Down)) {
+				values [1] = Vector2.Distance ((Vector2)transform.localPosition - Vector2.up, (Vector2)closestGhost.transform.localPosition);
 			}
-			if (maze.validPacManMove (transform.position, Direction.Right)) {
-				values [2] = Vector2.Distance ((Vector2)transform.position + Vector2.right, (Vector2)closestGhost.transform.position);
+			if (maze.validPacManMove (transform.localPosition, Direction.Right)) {
+				values [2] = Vector2.Distance ((Vector2)transform.localPosition + Vector2.right, (Vector2)closestGhost.transform.localPosition);
 			}
-			if (maze.validPacManMove (transform.position, Direction.Left)) {
-				values [3] = Vector2.Distance ((Vector2)transform.position - Vector2.right, (Vector2)closestGhost.transform.position);
+			if (maze.validPacManMove (transform.localPosition, Direction.Left)) {
+				values [3] = Vector2.Distance ((Vector2)transform.localPosition - Vector2.right, (Vector2)closestGhost.transform.localPosition);
 			}
 		}
 		//make that move that create the most distance
 		max = values.Max();
-		if (max == values[0] && maze.validPacManMove (transform.position, Direction.Up)) {
+		if (max == values[0] && maze.validPacManMove (transform.localPosition, Direction.Up)) {
 			destTile.y++;
-			dest = (Vector2)transform.position + Vector2.up;
-		} else if (max == values[1] && maze.validPacManMove (transform.position, Direction.Down)) {
+			dest = (Vector2)transform.localPosition + Vector2.up;
+		} else if (max == values[1] && maze.validPacManMove (transform.localPosition, Direction.Down)) {
 			destTile.y--;
-			dest = (Vector2)transform.position - Vector2.up;
-		} else if (max == values[2] && maze.validPacManMove (transform.position, Direction.Right)) {
+			dest = (Vector2)transform.localPosition - Vector2.up;
+		} else if (max == values[2] && maze.validPacManMove (transform.localPosition, Direction.Right)) {
 			destTile.x++;
-			dest = (Vector2)transform.position + Vector2.right;
-		} else if (max == values[3] && maze.validPacManMove (transform.position, Direction.Left)) {
+			dest = (Vector2)transform.localPosition + Vector2.right;
+		} else if (max == values[3] && maze.validPacManMove (transform.localPosition, Direction.Left)) {
 			destTile.x--;
-			dest = (Vector2)transform.position - Vector2.right;
+			dest = (Vector2)transform.localPosition - Vector2.right;
 		}
 	}
 }

@@ -13,6 +13,20 @@ TagManager:
   - maze
   - cherry
   - subjectIdInput
+  - LeftSidePowerDot
+  - RightSidePowerDot
+  - LeftSideDot
+  - RightSideDot
+  - LeftSideMaze
+  - RightSideMaze
+  - RightSideblinky
+  - RightSidepinky
+  - RightSideinky
+  - RightSideclyde
+  - LeftSideblinky
+  - LeftSidepinky
+  - LeftSideclyde
+  - LeftSideinky
   layers:
   - Default
   - TransparentFX
