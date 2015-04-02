@@ -244,14 +244,8 @@ public class PacmanMove : MonoBehaviour {
 		else{
 			Text timeText = GameObject.Find(side+"/Top Canvas/TimeRemainingBox").GetComponent<Text>();
 			timeText.text = "0";
-			if(TurnManagerScript.isPlayerTurn){
-				TurnManagerScript.isPlayerTurn = false;
-				turnTimeRemaining = turnDuration;
-			}
-			else{
-				TurnManagerScript.isPlayerTurn = true;
-				turnTimeRemaining = turnDuration;
-			}
+			TurnManagerScript.switchingTurnsStage = true;
+			turnTimeRemaining = turnDuration;
 		}
 
 		//if powermode, decrease timer

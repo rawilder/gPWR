@@ -23933,8 +23933,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 6.69999981, y: 0}
-  m_SizeDelta: {x: 120, y: 60}
+  m_AnchoredPosition: {x: 6.69999981, y: -17.1000004}
+  m_SizeDelta: {x: 120, y: 35}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &944434940
 MonoBehaviour:
@@ -38427,7 +38427,7 @@ GameObject:
   - 222: {fileID: 1517807057}
   - 114: {fileID: 1517807056}
   m_Layer: 5
-  m_Name: BeginningText
+  m_Name: MessageText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38480,7 +38480,7 @@ RectTransform:
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: 6.69999981, y: 46.5999985}
-  m_SizeDelta: {x: 120, y: 60}
+  m_SizeDelta: {x: 120, y: 90}
   m_Pivot: {x: .5, y: .5}
 --- !u!1 &1526171014
 GameObject:
