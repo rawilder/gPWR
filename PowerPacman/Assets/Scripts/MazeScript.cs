@@ -202,13 +202,15 @@ public class MazeScript : MonoBehaviour {
 
 		if (pacman.isAIControlled && TurnManagerScript.isPlayerTurn) {
 			//do nothing if these are AI ghosts and it is the other players turn
-			screen.gameObject.SetActive(true);
+			if(!screen.gameObject.activeSelf)
+				screen.gameObject.SetActive(true);
 			return;
 		}
 		
 		if (!pacman.isAIControlled && !TurnManagerScript.isPlayerTurn) {
 			//do nothing if these are ghosts for the real player, and it is the AI turn
-			screen.gameObject.SetActive(true);
+			if(!screen.gameObject.activeSelf)
+				screen.gameObject.SetActive(true);
 			return;
 		}
 
