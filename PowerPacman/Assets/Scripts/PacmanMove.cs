@@ -80,6 +80,10 @@ public class PacmanMove : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 
+		//if (TurnManagerScript.paused) {
+		//	return;
+		//}
+
 		if ((isAIControlled && TurnManagerScript.isPlayerTurn) || (!isAIControlled && !TurnManagerScript.isPlayerTurn)) {
 			//do nothing, wait your turn
 			return;
