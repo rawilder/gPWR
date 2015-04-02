@@ -200,6 +200,10 @@ public class MazeScript : MonoBehaviour {
 
 	void FixedUpdate(){
 
+		if (TurnManagerScript.paused) {
+			return;
+		}
+
 		if (pacman.isAIControlled && TurnManagerScript.isPlayerTurn) {
 			//do nothing if these are AI ghosts and it is the other players turn
 			if(!screen.gameObject.activeSelf)
