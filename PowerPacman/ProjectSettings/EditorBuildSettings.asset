@@ -11,3 +11,17 @@ EditorBuildSettings:
     path: Assets/Menu/Tutorial.unity
   - enabled: 1
     path: Assets/pacmanscene.unity
+  - enabled: 1
+    path: Assets/Menu/Tutorial2.unity
+  - enabled: 1
+    path: Assets/Menu/Tutorial3.unity
+  - enabled: 1
+    path: Assets/Menu/Tutorial4Connecting.unity
+  - enabled: 0
+    path: Assets/Menu/Tutorial4Connecting.unity
+  - enabled: 1
+    path: Assets/Menu/Tutorial5.unity
+  - enabled: 1
+    path: Assets/Menu/Tutorial6.unity
+  - enabled: 1
+    path: Assets/Menu/Tutorial7.unity
