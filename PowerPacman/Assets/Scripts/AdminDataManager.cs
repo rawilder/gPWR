@@ -205,4 +205,20 @@ public class AdminDataManager : MonoBehaviour {
 		}
 
 	}
+
+	public void deleteCurrentScenario(){
+
+		Debug.Log ("Count before: " + scenList.Scenarios.Count);
+
+		for(int i = 0; i < scenList.Scenarios.Count; i++){
+
+			if(scenList.Scenarios[i].name == tempScenario.name){
+				scenList.Scenarios.Remove(scenList.Scenarios[i]);
+				break;
+			}
+		}
+		Debug.Log ("Count after: " + scenList.Scenarios.Count);
+
+		updateDropdown ();
+	}
 }
