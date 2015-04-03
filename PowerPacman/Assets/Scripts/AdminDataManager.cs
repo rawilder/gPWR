@@ -16,6 +16,16 @@ public class Scenario{
 	public int turnTime; //the time in seconds that each turn lasts
 	public int totalTime; //the time in minutes that the two players spend taking turns
 
+	public bool pSpeedIncreaseAvailable;
+	public bool gSpeedDecreaseAvailable;
+	public bool fRespawnAvailable;
+	public bool longerPowerModeAvailable;
+	public bool powerballRespawnAvailable;
+	public bool gRespawnAvailable;
+	public bool gDumbAvailale;
+	public bool gFewerAvailable;
+	public bool hpStealsTurnsAvailable;//not an allocatable powerup, but it is an ability
+	
 	public Scenario(){
 		name = "";
 		id = 0;
@@ -23,6 +33,18 @@ public class Scenario{
 		playerHasHighPower = false;
 		turnTime = 30;	//default
 		totalTime = 10;	//default
+
+
+		bool pSpeedIncreaseAvailable = false;
+		bool gSpeedDecreaseAvailable = false;
+		bool fRespawnAvailable = false;
+		bool longerPowerModeAvailable = false;
+		bool powerballRespawnAvailable = false;
+		bool gRespawnAvailable = false;
+		bool gDumbAvailale = false;
+		bool gFewerAvailable = false;
+		bool hpStealsTurnsAvailable = false;
+
 	}
 
 	public Scenario(Scenario s){
@@ -32,6 +54,16 @@ public class Scenario{
 		playerHasHighPower = s.playerHasHighPower;
 		turnTime = s.turnTime;
 		totalTime = s.totalTime;
+
+		pSpeedIncreaseAvailable = s.pSpeedIncreaseAvailable;
+		gSpeedDecreaseAvailable = s.gSpeedDecreaseAvailable;
+		fRespawnAvailable = s.fRespawnAvailable;
+		longerPowerModeAvailable = s.longerPowerModeAvailable;
+		powerballRespawnAvailable = s.powerballRespawnAvailable;
+		gRespawnAvailable = s.gRespawnAvailable;
+		gDumbAvailale = s.gDumbAvailale;
+		gFewerAvailable = s.gFewerAvailable;
+		hpStealsTurnsAvailable = s.hpStealsTurnsAvailable;
 	}
 }
 
@@ -61,6 +93,17 @@ public class AdminDataManager : MonoBehaviour {
 	Toggle controlToggle;
 	Toggle playerAllocatesToggle;
 
+	//power up toggles
+	Toggle pSpeed;
+	Toggle gSpeed;
+	Toggle fRespawn;
+	Toggle longerPowerMode;
+	Toggle powerballRespawn;
+	Toggle gRespawn;
+	Toggle gDumb;
+	Toggle gFewer;
+	Toggle hpStealTurns;
+
 	List<GameObject> buttons = new List<GameObject>();
 
 	void Start () {
@@ -73,6 +116,17 @@ public class AdminDataManager : MonoBehaviour {
 		totalTimeBox = GameObject.Find ("TotalTimeInput").GetComponent<InputField> ();
 		controlToggle = GameObject.Find ("ControlToggle").GetComponent<Toggle> ();
 		playerAllocatesToggle = GameObject.Find ("AllocationToggle").GetComponent<Toggle> ();
+
+		pSpeed = GameObject.Find ("PlayerSpeedIncreaseToggle").GetComponent<Toggle> ();
+		gSpeed = GameObject.Find ("GhostSpeedDecreaseToggle").GetComponent<Toggle> ();
+		fRespawn = GameObject.Find ("FasterFruitToggle").GetComponent<Toggle> ();
+		longerPowerMode = GameObject.Find ("LongerPowerModeToggle").GetComponent<Toggle> ();
+		powerballRespawn = GameObject.Find ("PowerBallRespawnToggle").GetComponent<Toggle> ();
+		gRespawn = GameObject.Find ("GhostsRespawnSlowerToggle").GetComponent<Toggle> ();
+		gDumb = GameObject.Find ("DumbGhostsToggle").GetComponent<Toggle> ();
+		gFewer = GameObject.Find ("FewerGhostsToggle").GetComponent<Toggle> ();
+		hpStealTurns = GameObject.Find ("TurnTakingToggle").GetComponent<Toggle> ();
+
 
 		//check for scenario data file
 		if (!File.Exists (scenarioDataFileName)) {
@@ -171,6 +225,16 @@ public class AdminDataManager : MonoBehaviour {
 		tempScenario.turnTime = turn;
 		tempScenario.totalTime = total;
 
+		tempScenario.pSpeedIncreaseAvailable = pSpeed.isOn;
+		tempScenario.gSpeedDecreaseAvailable = gSpeed.isOn;
+		tempScenario.fRespawnAvailable = fRespawn.isOn;
+		tempScenario.longerPowerModeAvailable = longerPowerMode.isOn;
+		tempScenario.powerballRespawnAvailable = powerballRespawn.isOn;
+		tempScenario.gRespawnAvailable = gRespawn.isOn;
+		tempScenario.gDumbAvailale = gDumb.isOn;
+		tempScenario.gFewerAvailable = gFewer.isOn;
+		tempScenario.hpStealsTurnsAvailable = hpStealTurns.isOn;
+
 	}
 
 	void updateDropdown(){
@@ -193,6 +257,17 @@ public class AdminDataManager : MonoBehaviour {
 				playerAllocatesToggle.isOn = scenList.Scenarios[index].playerHasHighPower;
 				turnTimeBox.text = "" + scenList.Scenarios[index].turnTime;
 				totalTimeBox.text = "" + scenList.Scenarios[index].totalTime;
+
+				pSpeed.isOn = scenList.Scenarios[index].pSpeedIncreaseAvailable;
+				gSpeed.isOn = scenList.Scenarios[index].gSpeedDecreaseAvailable;
+				fRespawn.isOn = scenList.Scenarios[index].fRespawnAvailable;
+				longerPowerMode.isOn = scenList.Scenarios[index].longerPowerModeAvailable;
+				powerballRespawn.isOn = scenList.Scenarios[index].powerballRespawnAvailable;
+				gRespawn.isOn = scenList.Scenarios[index].gRespawnAvailable;
+				gDumb.isOn = scenList.Scenarios[index].gDumbAvailale;
+				gFewer.isOn = scenList.Scenarios[index].gFewerAvailable;
+				hpStealTurns.isOn = scenList.Scenarios[index].hpStealsTurnsAvailable;
+
 				tempScenario = new Scenario(scenList.Scenarios[index]);
 			}
 			);
