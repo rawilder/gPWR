@@ -13,12 +13,16 @@ public class Scenario{
 	public string name;
 	public bool control;
 	public bool playerHasHighPower;
+	public int turnTime; //the time in seconds that each turn lasts
+	public int totalTime; //the time in minutes that the two players spend taking turns
 
 	public Scenario(){
 		name = "";
 		id = 0;
 		control = false;
 		playerHasHighPower = false;
+		turnTime = 30;	//default
+		totalTime = 10;	//default
 	}
 
 	public Scenario(Scenario s){
@@ -26,6 +30,8 @@ public class Scenario{
 		id = s.id;
 		control = s.control;
 		playerHasHighPower = s.playerHasHighPower;
+		turnTime = s.turnTime;
+		totalTime = s.totalTime;
 	}
 }
 
@@ -50,6 +56,8 @@ public class AdminDataManager : MonoBehaviour {
 	ScenarioList scenList;
 	Scenario tempScenario; //the scenario that is currently open for editing, not saved in the list
 	InputField nameBox;
+	InputField turnTimeBox;
+	InputField totalTimeBox;
 	Toggle controlToggle;
 	Toggle playerAllocatesToggle;
 	
@@ -59,6 +67,8 @@ public class AdminDataManager : MonoBehaviour {
 		tempScenario = new Scenario ();
 		
 		nameBox = GameObject.Find ("NameInput").GetComponent<InputField> ();
+		turnTimeBox = GameObject.Find ("TurnTimeInput").GetComponent<InputField> ();
+		totalTimeBox = GameObject.Find ("TotalTimeInput").GetComponent<InputField> ();
 		controlToggle = GameObject.Find ("ControlToggle").GetComponent<Toggle> ();
 		playerAllocatesToggle = GameObject.Find ("AllocationToggle").GetComponent<Toggle> ();
 
@@ -90,6 +100,9 @@ public class AdminDataManager : MonoBehaviour {
 					nameBox.text = scenList.Scenarios[index].name;
 					controlToggle.isOn = scenList.Scenarios[index].control;
 					playerAllocatesToggle.isOn = scenList.Scenarios[index].playerHasHighPower;
+					turnTimeBox.text = "" + scenList.Scenarios[index].turnTime;
+					totalTimeBox.text = "" + scenList.Scenarios[index].totalTime;
+					tempScenario = new Scenario(scenList.Scenarios[index]);
 					Debug.Log ("Loading scenario");
 				}
 			);
@@ -153,6 +166,26 @@ public class AdminDataManager : MonoBehaviour {
 		tempScenario.name = nameBox.text;
 		tempScenario.control = controlToggle.isOn;
 		tempScenario.playerHasHighPower = playerAllocatesToggle.isOn;
+
+		int turn = 30;
+		int total = 10;
+		//validate the int boxes
+		try{
+			turn = Convert.ToInt32(turnTimeBox.text);
+		}
+		catch(FormatException){
+			turnTimeBox.text = "" + tempScenario.turnTime;
+		}
+
+		try{
+			total = Convert.ToInt32(totalTimeBox.text);
+		}
+		catch(FormatException){
+			totalTimeBox.text = "" + tempScenario.totalTime;
+		}
+
+		tempScenario.turnTime = turn;
+		tempScenario.totalTime = total;
 
 	}
 }
