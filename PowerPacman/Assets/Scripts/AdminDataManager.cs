@@ -11,15 +11,21 @@ public class Scenario{
 	//more to come
 	public int id;
 	public string name;
+	public bool control;
+	public bool playerHasHighPower;
 
 	public Scenario(){
 		name = "";
 		id = 0;
+		control = false;
+		playerHasHighPower = false;
 	}
 
 	public Scenario(Scenario s){
 		name = s.name;
 		id = s.id;
+		control = s.control;
+		playerHasHighPower = s.playerHasHighPower;
 	}
 }
 
@@ -44,6 +50,8 @@ public class AdminDataManager : MonoBehaviour {
 	ScenarioList scenList;
 	Scenario tempScenario; //the scenario that is currently open for editing, not saved in the list
 	InputField nameBox;
+	Toggle controlToggle;
+	Toggle playerAllocatesToggle;
 	
 	void Start () {
 	
@@ -51,6 +59,8 @@ public class AdminDataManager : MonoBehaviour {
 		tempScenario = new Scenario ();
 		
 		nameBox = GameObject.Find ("NameInput").GetComponent<InputField> ();
+		controlToggle = GameObject.Find ("ControlToggle").GetComponent<Toggle> ();
+		playerAllocatesToggle = GameObject.Find ("AllocationToggle").GetComponent<Toggle> ();
 
 		//check for scenario data file
 		if (!File.Exists (scenarioDataFileName)) {
@@ -78,6 +88,8 @@ public class AdminDataManager : MonoBehaviour {
 				() => {
 					//TODO populate all fields
 					nameBox.text = scenList.Scenarios[index].name;
+					controlToggle.isOn = scenList.Scenarios[index].control;
+					playerAllocatesToggle.isOn = scenList.Scenarios[index].playerHasHighPower;
 					Debug.Log ("Loading scenario");
 				}
 			);
@@ -88,7 +100,7 @@ public class AdminDataManager : MonoBehaviour {
 
 	public void saveChanges(){
 
-		updateName ();
+		updateTempScenario ();
 
 		Debug.Log (tempScenario.name);
 
@@ -128,16 +140,19 @@ public class AdminDataManager : MonoBehaviour {
 
 		tempScenario = new Scenario ();
 
-		tempScenario.id = 5;
+		//TODO pick new id
+		tempScenario.id = 0;
 		tempScenario.name = "New Scenario";
 
 		nameBox.text = tempScenario.name;
 
 	}
 
-	public void updateName(){
+	public void updateTempScenario(){
 
 		tempScenario.name = nameBox.text;
+		tempScenario.control = controlToggle.isOn;
+		tempScenario.playerHasHighPower = playerAllocatesToggle.isOn;
 
 	}
 }

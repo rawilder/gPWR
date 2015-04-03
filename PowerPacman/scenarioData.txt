@@ -2,8 +2,28 @@
 <ScenarioList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Scenarios>
     <Scenario>
-      <id>5</id>
+      <id>0</id>
       <name>New Scenario</name>
+      <control>true</control>
+      <playerHasHighPower>true</playerHasHighPower>
+    </Scenario>
+    <Scenario>
+      <id>0</id>
+      <name>New Scenario2</name>
+      <control>false</control>
+      <playerHasHighPower>true</playerHasHighPower>
+    </Scenario>
+    <Scenario>
+      <id>0</id>
+      <name>New Scenario3</name>
+      <control>true</control>
+      <playerHasHighPower>false</playerHasHighPower>
+    </Scenario>
+    <Scenario>
+      <id>0</id>
+      <name>New Scenario4</name>
+      <control>false</control>
+      <playerHasHighPower>false</playerHasHighPower>
     </Scenario>
   </Scenarios>
 </ScenarioList>
