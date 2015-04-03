@@ -100,8 +100,6 @@ public class AdminDataManager : MonoBehaviour {
 
 		updateTempScenario ();
 
-		Debug.Log (tempScenario.name);
-
 		if (tempScenario.name == "") {
 
 			//nothing to save
@@ -115,7 +113,6 @@ public class AdminDataManager : MonoBehaviour {
 
 			if(scenList.Scenarios[i].name == tempScenario.name){
 				//maybe have an overwrite notification?
-				//Debug.Log("overwiting " + scenList.Scenarios[i].name + " with " + tempScenario.name);
 				scenList.Scenarios[i] = new Scenario(tempScenario);
 				overwriting = true;
 				break;
@@ -197,7 +194,6 @@ public class AdminDataManager : MonoBehaviour {
 				turnTimeBox.text = "" + scenList.Scenarios[index].turnTime;
 				totalTimeBox.text = "" + scenList.Scenarios[index].totalTime;
 				tempScenario = new Scenario(scenList.Scenarios[index]);
-				Debug.Log ("Loading scenario");
 			}
 			);
 			button.transform.SetParent(dropdownPanel,false);
@@ -208,8 +204,6 @@ public class AdminDataManager : MonoBehaviour {
 
 	public void deleteCurrentScenario(){
 
-		Debug.Log ("Count before: " + scenList.Scenarios.Count);
-
 		for(int i = 0; i < scenList.Scenarios.Count; i++){
 
 			if(scenList.Scenarios[i].name == tempScenario.name){
@@ -217,7 +211,6 @@ public class AdminDataManager : MonoBehaviour {
 				break;
 			}
 		}
-		Debug.Log ("Count after: " + scenList.Scenarios.Count);
 
 		updateDropdown ();
 	}

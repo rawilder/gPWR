@@ -7,7 +7,15 @@
       <control>true</control>
       <playerHasHighPower>true</playerHasHighPower>
       <turnTime>30</turnTime>
-      <totalTime>10</totalTime>
+      <totalTime>15</totalTime>
+    </Scenario>
+    <Scenario>
+      <id>0</id>
+      <name>New Scenario2</name>
+      <control>true</control>
+      <playerHasHighPower>true</playerHasHighPower>
+      <turnTime>30</turnTime>
+      <totalTime>15</totalTime>
     </Scenario>
   </Scenarios>
 </ScenarioList>
