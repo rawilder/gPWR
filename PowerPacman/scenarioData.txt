@@ -17,5 +17,13 @@
       <turnTime>45</turnTime>
       <totalTime>10</totalTime>
     </Scenario>
+    <Scenario>
+      <id>0</id>
+      <name>New Scenario3</name>
+      <control>true</control>
+      <playerHasHighPower>false</playerHasHighPower>
+      <turnTime>50</turnTime>
+      <totalTime>10</totalTime>
+    </Scenario>
   </Scenarios>
 </ScenarioList>

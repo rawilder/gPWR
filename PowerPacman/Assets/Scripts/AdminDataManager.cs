@@ -60,7 +60,9 @@ public class AdminDataManager : MonoBehaviour {
 	InputField totalTimeBox;
 	Toggle controlToggle;
 	Toggle playerAllocatesToggle;
-	
+
+	List<GameObject> buttons = new List<GameObject>();
+
 	void Start () {
 	
 		scenList = new ScenarioList ();
@@ -90,24 +92,7 @@ public class AdminDataManager : MonoBehaviour {
 
 		//populate the drop down menu
 
-		for (int i = 0; i < scenList.Scenarios.Count; i++) {
-			GameObject button = (GameObject) Instantiate(DropDownPrefab);
-			button.GetComponentInChildren<Text>().text = scenList.Scenarios[i].name;
-			int index = i;
-			button.GetComponent<Button>().onClick.AddListener(
-				() => {
-					//TODO populate all fields
-					nameBox.text = scenList.Scenarios[index].name;
-					controlToggle.isOn = scenList.Scenarios[index].control;
-					playerAllocatesToggle.isOn = scenList.Scenarios[index].playerHasHighPower;
-					turnTimeBox.text = "" + scenList.Scenarios[index].turnTime;
-					totalTimeBox.text = "" + scenList.Scenarios[index].totalTime;
-					tempScenario = new Scenario(scenList.Scenarios[index]);
-					Debug.Log ("Loading scenario");
-				}
-			);
-			button.transform.SetParent(dropdownPanel,false);
-		}
+		updateDropdown ();
 
 	}
 
@@ -146,6 +131,8 @@ public class AdminDataManager : MonoBehaviour {
 		var stream = new FileStream (scenarioDataFileName, FileMode.Create);
 		serializer.Serialize (stream, scenList);
 		stream.Close ();
+
+		updateDropdown ();
 
 	}
 
@@ -186,6 +173,36 @@ public class AdminDataManager : MonoBehaviour {
 
 		tempScenario.turnTime = turn;
 		tempScenario.totalTime = total;
+
+	}
+
+	void updateDropdown(){
+
+		for (int i = 0; i < buttons.Count; i++) {
+			buttons[i].SetActive(false);
+		}
+
+		buttons.Clear ();
+
+		for (int i = 0; i < scenList.Scenarios.Count; i++) {
+			GameObject button = (GameObject) Instantiate(DropDownPrefab);
+			button.GetComponentInChildren<Text>().text = scenList.Scenarios[i].name;
+			int index = i;
+			button.GetComponent<Button>().onClick.AddListener(
+				() => {
+				//TODO populate all fields
+				nameBox.text = scenList.Scenarios[index].name;
+				controlToggle.isOn = scenList.Scenarios[index].control;
+				playerAllocatesToggle.isOn = scenList.Scenarios[index].playerHasHighPower;
+				turnTimeBox.text = "" + scenList.Scenarios[index].turnTime;
+				totalTimeBox.text = "" + scenList.Scenarios[index].totalTime;
+				tempScenario = new Scenario(scenList.Scenarios[index]);
+				Debug.Log ("Loading scenario");
+			}
+			);
+			button.transform.SetParent(dropdownPanel,false);
+			buttons.Add(button);
+		}
 
 	}
 }
