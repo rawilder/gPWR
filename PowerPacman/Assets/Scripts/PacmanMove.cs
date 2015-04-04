@@ -54,8 +54,10 @@ public class PacmanMove : MonoBehaviour {
 
 	Vector2 position;
 	Vector2 tilePosition;	//this is the tile that pacman currently occupies, his "center"
-
     public enum Direction { None, Up, Down, Left, Right };
+
+    // powerup bools
+    private bool PacmanSpeedPowerup { get; set; }
 
 	// Use this for initialization
 	void Start () {
@@ -75,6 +77,20 @@ public class PacmanMove : MonoBehaviour {
         queuedDir = Direction.None;
         //maze = GameObject.FindGameObjectWithTag("maze").GetComponent<MazeScript>();
 		maze = m.GetComponent<MazeScript> ();
+
+        // powerups testing
+	    // SpeedPowerup = true;
+
+        // powerups
+        // going to need to replace when powerup interface is in place
+        if (PacmanSpeedPowerup)
+	    {
+	        speed = 16;
+	    }
+
+
+
+
 	}
 	
 	// Update is called once per frame
