@@ -161,7 +161,7 @@ public class MazeScript : MonoBehaviour {
 	float cherryRespawnTime = 10.0f;
 	float cherryRespawnTimeRemaining;
 	bool cherryEaten = true;
-	GameObject cherryObject;
+	public GameObject cherryObject;
 
 	Transform screen;
 	

@@ -9,6 +9,7 @@ public class PacmanMove : MonoBehaviour {
 
 	public string side;
 	public bool isAIControlled;
+	public bool foodIsGhost;
 	//public float speed = 0.4f;
 	public float speed = 11.0f; //11 tiles per second
 	Vector2 dest = Vector2.zero;
@@ -64,6 +65,7 @@ public class PacmanMove : MonoBehaviour {
 		dotList = new List<GameObject> (dots);
 		dotList.AddRange (powerDot);
 		queuedMovements = new List<Direction> ();
+		foodIsGhost = false;
 
 		powerModeTimeRemaining = powerModeDuration;
 		//player1Score = 0;
@@ -161,7 +163,7 @@ public class PacmanMove : MonoBehaviour {
 				}
 				else 
 				{
-					if(!GhostIsThere() || maze.ghosts.First().GetComponent<GhostMove>().isScared == true)
+					if(!GhostIsThere() || maze.ghosts.Any(g => g.GetComponent<GhostMove>().isScared))
 						MoveTowardsFood();
 					else {
 						targetFood = null;
@@ -329,16 +331,31 @@ public class PacmanMove : MonoBehaviour {
 	//not checking if move is valid
 	void MoveTowardsFood()
 	{
-		//find closestFood
-		if (targetFood != null) {
-			if ((targetFood.transform.localPosition.x == transform.localPosition.x) && (targetFood.transform.localPosition.y == transform.localPosition.y)) {
-				dotList.Remove (targetFood);
-				targetFood = null;
-				queuedMovements.Clear ();
+		//if ghost is scared
+		if (!foodIsGhost && maze.ghosts.Any (g => g.GetComponent<GhostMove> ().isScared)) {
+			targetFood = maze.ghosts.Where (g => g.GetComponent<GhostMove> ().isScared)
+				.Aggregate ((g1, g2) => Vector2.Distance (transform.localPosition, (Vector2)g1.transform.localPosition) < Vector2.Distance (transform.localPosition, (Vector2)g2.transform.localPosition) ? g1 : g2);
+			foodIsGhost = true;
+		} else {
+			//find closestFood
+			if(maze.cherryObject.activeSelf) {
+				dotList.Add(maze.cherryObject);
 			}
-		}
-		if(targetFood == null) {
-			targetFood = dotList.Aggregate ((d1, d2) => Vector2.Distance (transform.localPosition, (Vector2)d1.transform.localPosition) < Vector2.Distance (transform.localPosition, (Vector2)d2.transform.localPosition) ? d1 : d2);
+			if (targetFood != null) {
+				if ((targetFood.transform.localPosition.x == transform.localPosition.x) && (targetFood.transform.localPosition.y == transform.localPosition.y)) {
+					if(foodIsGhost) {
+						targetFood = null;
+						foodIsGhost = false;
+					} else {
+						dotList.Remove (targetFood);
+						targetFood = null;
+						queuedMovements.Clear ();
+					}
+				}
+			}
+			if (targetFood == null) {
+				targetFood = dotList.Aggregate ((d1, d2) => Vector2.Distance (transform.localPosition, (Vector2)d1.transform.localPosition) < Vector2.Distance (transform.localPosition, (Vector2)d2.transform.localPosition) ? d1 : d2);
+			}
 		}
 		if (queuedMovements.Count == 0) {
 			queuedMovements = BFScaulations (targetFood);
