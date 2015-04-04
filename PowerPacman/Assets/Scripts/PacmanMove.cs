@@ -58,6 +58,7 @@ public class PacmanMove : MonoBehaviour {
 
     // powerup bools
     private bool PacmanSpeedPowerup { get; set; }
+    private bool PowerModeDurationPowerup { get; set; }
 
 	// Use this for initialization
 	void Start () {
@@ -80,6 +81,7 @@ public class PacmanMove : MonoBehaviour {
 
         // powerups testing
 	    // SpeedPowerup = true;
+        // PowerModeDurationPowerup = true;
 
         // powerups
         // going to need to replace when powerup interface is in place
@@ -88,7 +90,10 @@ public class PacmanMove : MonoBehaviour {
 	        speed = 16;
 	    }
 
-
+	    if (PowerModeDurationPowerup)
+	    {
+	        powerModeDuration = 10;
+	    }
 
 
 	}

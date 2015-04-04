@@ -29,7 +29,7 @@ public class GhostMove : MonoBehaviour {
         isScared = false;
 
         // powerups testing
-        GhostLowerSpeedPowerup = true;
+        // GhostLowerSpeedPowerup = true;
 
         //powerups 
 	    if (GhostLowerSpeedPowerup)
