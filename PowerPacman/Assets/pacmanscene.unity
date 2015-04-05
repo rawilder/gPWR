@@ -23063,6 +23063,8 @@ MonoBehaviour:
   powerDotsRemaining: 0
   ghostScared: {fileID: 21300000, guid: f130e68f50659b042a750976fe6a506e, type: 3}
   pacman: {fileID: 1226799133}
+  cherryLocation: {x: 14, y: 11}
+  cherryObject: {fileID: 0}
 --- !u!1 &907624352
 GameObject:
   m_ObjectHideFlags: 0
@@ -41328,6 +41330,8 @@ MonoBehaviour:
   powerDotsRemaining: 0
   ghostScared: {fileID: 21300000, guid: f130e68f50659b042a750976fe6a506e, type: 3}
   pacman: {fileID: 1593919682}
+  cherryLocation: {x: 14, y: 11}
+  cherryObject: {fileID: 0}
 --- !u!61 &1609881625
 BoxCollider2D:
   m_ObjectHideFlags: 0

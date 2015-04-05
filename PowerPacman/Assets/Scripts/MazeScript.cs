@@ -40,6 +40,7 @@ public class Node {
 	public Vector2 vectorDirection;
 	public Node parent;
 	public PacmanMove.Direction direction;
+	public float hueristic;
 
 	public List<PacmanMove.Direction> convertVectorPathToDirections()
 	{
@@ -157,7 +158,7 @@ public class MazeScript : MonoBehaviour {
 	GameObject[] powerDotsList;
 	public PacmanMove pacman;
 
-	Vector2 cherryLocation = new Vector2(14,11);
+	public Vector2 cherryLocation = new Vector2(14,11);
 	float cherryRespawnTime = 10.0f;
 	float cherryRespawnTimeRemaining;
 	bool cherryEaten = true;
