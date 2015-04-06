@@ -41,6 +41,8 @@ public class PacmanMove : MonoBehaviour {
 
 	public GameObject[] dots;
 	public GameObject[] powerDot;
+	GameObject cherry;
+	GameObject targetGhost;
 	public List<GameObject> dotList;
 	GameObject targetFood = null;
 	List<Direction> queuedMovements;
@@ -83,7 +85,6 @@ public class PacmanMove : MonoBehaviour {
 		origin = transform.localPosition;
 		tilePosition = new Vector2 (14, 14);
         queuedDir = Direction.None;
-        //maze = GameObject.FindGameObjectWithTag("maze").GetComponent<MazeScript>();
 		maze = m.GetComponent<MazeScript> ();
 
         // powerups testing
@@ -189,7 +190,7 @@ public class PacmanMove : MonoBehaviour {
 				}
 				else 
 				{
-					if(!GhostIsThere() || maze.ghosts.First().GetComponent<GhostMove>().isScared == true)
+					if(!GhostIsThere() || maze.ghosts.Any(g => g.GetComponent<GhostMove>().isScared))
 						MoveTowardsFood();
 					else {
 						targetFood = null;
@@ -379,19 +380,32 @@ public class PacmanMove : MonoBehaviour {
 	//not checking if move is valid
 	void MoveTowardsFood()
 	{
-		//find closestFood
+		if(maze.cherryObject.activeSelf && !dotList.Contains(cherry)) {
+			cherry = new GameObject();
+			cherry.transform.localPosition = maze.cherryLocation;
+			dotList.Add(cherry);
+		}
 		if (targetFood != null) {
-			if ((targetFood.transform.localPosition.x == transform.localPosition.x) && (targetFood.transform.localPosition.y == transform.localPosition.y)) {
+			if (((int)targetFood.transform.localPosition.x == transform.localPosition.x) && ((int)targetFood.transform.localPosition.y == transform.localPosition.y)) {
 				dotList.Remove (targetFood);
 				targetFood = null;
 				queuedMovements.Clear ();
 			}
 		}
-		if(targetFood == null) {
-			targetFood = dotList.Aggregate ((d1, d2) => Vector2.Distance (transform.localPosition, (Vector2)d1.transform.localPosition) < Vector2.Distance (transform.localPosition, (Vector2)d2.transform.localPosition) ? d1 : d2);
+		if (targetFood == null) {
+			if(CloseToCherry() && dotList.Contains(cherry)) {
+				targetFood = cherry;
+			} else if (GhostIsThere() && maze.ghosts.First().GetComponent<GhostMove> ().isScared) {
+				targetGhost = new GameObject();
+				targetGhost.transform.localPosition = maze.ghosts.Single(g => Vector2.Distance (transform.localPosition, (Vector2)g.transform.localPosition) < 3).transform.localPosition;
+				targetFood = targetGhost;
+				dotList.Add(targetFood);
+			} else {
+				targetFood = dotList.Aggregate ((d1, d2) => Vector2.Distance (transform.localPosition, (Vector2)d1.transform.localPosition) < Vector2.Distance (transform.localPosition, (Vector2)d2.transform.localPosition) ? d1 : d2);
+			}
 		}
 		if (queuedMovements.Count == 0) {
-			queuedMovements = BFScaulations (targetFood);
+			queuedMovements = AStarcaulations (targetFood);
 		}
 		movementDir = queuedMovements.FirstOrDefault ();
 		if (queuedMovements.Count != 0) {
@@ -417,21 +431,26 @@ public class PacmanMove : MonoBehaviour {
 		}
 	}
 
-	List<Direction> BFScaulations(GameObject targetFruit)
+	List<Direction> AStarcaulations(GameObject targetFruit)
 	{
 		var froniter = new List<Node> ();
 		var visitedList = new List<Node> ();
-		froniter.Add (new Node() { vectorDirection = transform.localPosition, parent = null });
+		froniter.Add (new Node() { 
+			vectorDirection = transform.localPosition, 
+			parent = null,
+			hueristic = Vector2.Distance (transform.localPosition, (Vector2)targetFruit.transform.localPosition)
+		});
 		Node currentNode;
 		Vector2 current = Vector2.zero;
 		var path = new List<Direction> ();
+		int distanceConstant = 1;
 
 		while (froniter.Any()) {
 			//find node with least distance in froniter
-			currentNode = froniter.First ();
+			currentNode = froniter.OrderBy(t => t.hueristic).First();
 			current = currentNode.vectorDirection;
 			//if node is targetFruit
-			if(current.x == targetFruit.transform.localPosition.x && current.y == targetFruit.transform.localPosition.y) {
+			if(current.x == (int)targetFruit.transform.localPosition.x && current.y == (int)targetFruit.transform.localPosition.y) {
 				//return the Vectors coverted into Directions
 				path = currentNode.convertVectorPathToDirections();
 				break;
@@ -440,16 +459,29 @@ public class PacmanMove : MonoBehaviour {
 			//if node is not in visited list
 				//add children to froniter
 			if (maze.validPacManMove (current, Direction.Up) && !visitedList.Any(n => n.vectorDirection == current + Vector2.up)) {
-				froniter.Add(new Node() { vectorDirection = current + Vector2.up, parent = currentNode });
+				froniter.Add(new Node() { 
+					vectorDirection = current + Vector2.up, 
+					parent = currentNode, 
+					hueristic = Vector2.Distance (current + Vector2.up, (Vector2)targetFruit.transform.localPosition) - distanceConstant
+				});
 			}
 			if (maze.validPacManMove (current, Direction.Right) && !visitedList.Any(n => n.vectorDirection == current + Vector2.right)) {
-				froniter.Add(new Node() { vectorDirection = current + Vector2.right, parent = currentNode });
+				froniter.Add(new Node() { 
+					vectorDirection = current + Vector2.right, 
+					parent = currentNode, 
+					hueristic = Vector2.Distance (current + Vector2.right, (Vector2)targetFruit.transform.localPosition) - distanceConstant });
 			}
 			if (maze.validPacManMove (current, Direction.Down) && !visitedList.Any(n => n.vectorDirection == current - Vector2.up)) {
-				froniter.Add(new Node() { vectorDirection = current - Vector2.up, parent = currentNode });
+				froniter.Add(new Node() { 
+					vectorDirection = current - Vector2.up, 
+					parent = currentNode, 
+					hueristic = Vector2.Distance (current - Vector2.up, (Vector2)targetFruit.transform.localPosition) - distanceConstant });
 			}
 			if (maze.validPacManMove (current, Direction.Left) && !visitedList.Any(n => n.vectorDirection == current - Vector2.right)) {
-				froniter.Add(new Node() { vectorDirection = current - Vector2.right, parent = currentNode });
+				froniter.Add(new Node() { 
+					vectorDirection = current - Vector2.right, 
+					parent = currentNode, 
+					hueristic = Vector2.Distance (current - Vector2.right, (Vector2)targetFruit.transform.localPosition) - distanceConstant });
 			}
 				
 			//remove current from froniter
@@ -459,6 +491,17 @@ public class PacmanMove : MonoBehaviour {
 		}
 
 		return path;
+	}
+
+	bool CloseToCherry()
+	{
+		Vector2 pos = (Vector2)transform.localPosition;
+		if (cherry == null)
+			return false;
+		if (Vector2.Distance (pos, (Vector2)cherry.transform.localPosition) < 3)
+			return true;
+		else
+			return false;
 	}
 
     bool GhostIsThere()
