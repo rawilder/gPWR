@@ -60,6 +60,13 @@ public class PacmanMove : MonoBehaviour {
     private bool PacmanSpeedPowerup { get; set; }
     private bool PowerModeDurationPowerup { get; set; }
 
+	public int ghostsEaten = 0;
+	public int dotsEaten = 0;
+	public int timesClearedMaze = 0;
+	public int timesEaten = 0;
+	public int cherriesEaten = 0;
+	public int powerDotsEaten = 0;
+
 	// Use this for initialization
 	void Start () {
 		powerDot = GameObject.FindGameObjectsWithTag(side+"PowerDot");
@@ -269,9 +276,21 @@ public class PacmanMove : MonoBehaviour {
 
 			if(isAIControlled){
 				DataScript.aiScore = player1Score;
+				DataScript.aiDotsEaten = dotsEaten;
+				DataScript.aiGhostsEaten = ghostsEaten;
+				DataScript.aiCherriesEaten = cherriesEaten;
+				DataScript.aiPowerDotsEaten = powerDotsEaten;
+				DataScript.aiTimesClearedMaze = timesClearedMaze;
+				DataScript.aiTimesEaten = timesEaten;
 			}
 			else{
 				DataScript.playerScore = player1Score;
+				DataScript.playerDotsEaten = dotsEaten;
+				DataScript.playerGhostsEaten = ghostsEaten;
+				DataScript.playerCherriesEaten = cherriesEaten;
+				DataScript.playerPowerDotsEaten = powerDotsEaten;
+				DataScript.playerTimesClearedMaze = timesClearedMaze;
+				DataScript.playerTimesEaten = timesEaten;
 			}
 
 			turnTimeRemaining = turnDuration;
@@ -329,10 +348,12 @@ public class PacmanMove : MonoBehaviour {
                 {
                     ghostMove.killGhost();
                     player1Score += 100;
+					ghostsEaten++;
 					flickerTimeRemaining = flickerTime;
                 }
                 else
                 {
+					timesEaten++;
                     pacmanEaten = true;
                     return;
                 }

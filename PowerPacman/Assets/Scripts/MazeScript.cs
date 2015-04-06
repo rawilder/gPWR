@@ -194,8 +194,6 @@ public class MazeScript : MonoBehaviour {
 		cherryObject.SetActive (false);
 
         cherryRespawnTimeRemaining = cherryRespawnTime;
-
-		DataScript.exportData ();	//test the data export
 	}
 
 	void FixedUpdate(){
@@ -354,6 +352,7 @@ public class MazeScript : MonoBehaviour {
 			pacman.player1Score+=cherryValue;
 			cherryEaten = true;
 			cherryRespawnTimeRemaining = cherryRespawnTime;
+			pacman.cherriesEaten++;
 			cherryObject.SetActive(false);
 		}
 		if (value == dotAndCherry) {
@@ -365,6 +364,8 @@ public class MazeScript : MonoBehaviour {
 			Position p = new Position((int)position.x, (int)position.y);
 			dots[p].SetActive(false);
 			dotsRemaining--;
+			pacman.dotsEaten++;
+			pacman.cherriesEaten++;
 		}
 		if(isInDotTile(position)){
 			setValue(position,noDotNoCherry);
@@ -373,6 +374,7 @@ public class MazeScript : MonoBehaviour {
 			dots[p].SetActive(false);
 			pacman.player1Score += dotPointValue;
 			dotsRemaining--;
+			pacman.dotsEaten++;
 		}
 		else if(isInPowerDotTile(position)){
 			setValue(position,6);
@@ -382,7 +384,7 @@ public class MazeScript : MonoBehaviour {
 			powerDotsRemaining--;
 			pacman.powerMode = true;
 			pacman.powerModeTimeRemaining = pacman.powerModeDuration;
-
+			pacman.powerDotsEaten++;
             //change ghosts
             foreach(var ghost in ghosts)
             {
@@ -399,7 +401,7 @@ public class MazeScript : MonoBehaviour {
 	}
 
 	public void restoreDots(){
-
+		pacman.timesClearedMaze++;
 		for (int i = 0; i < dotsList.Length; i++) {
 			int x = (int)dotsList[i].transform.localPosition.x;
 			int y = (int)dotsList[i].transform.localPosition.y;

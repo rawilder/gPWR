@@ -1,0 +1,5 @@
+Date,Time,PlayerId,ComputerId,PlayerScore,aiScore,totalScore,playerGhostsEaten,aiGhostsEaten,playerDotsEaten,aiDotsEaten,playerTimesClearedMaze,aiTimesClearedMaze,playerTimesEaten,aiTimesEaten,playerCherriesEaten,aiCherriesEaten,playerPowerDotsEaten,aiPowerDotsEaten
+4/5/2015,22:45:37 PM,123,2,370,155,525,1,0,150,115,0,0,1,1,1,0,1,2
+4/5/2015,22:47:35 PM,0,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+4/5/2015,22:49:23 PM,456,6,499,190,689,1,0,159,130,0,0,2,0,2,0,2,3
+4/5/2015,22:52:08 PM,789,9,570,163,733,2,0,150,123,0,0,1,0,2,0,1,2
