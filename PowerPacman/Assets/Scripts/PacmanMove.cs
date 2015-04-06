@@ -266,6 +266,14 @@ public class PacmanMove : MonoBehaviour {
 			Text timeText = GameObject.Find(side+"/Top Canvas/TimeRemainingBox").GetComponent<Text>();
 			timeText.text = "0";
 			TurnManagerScript.switchingTurnsStage = true;
+
+			if(isAIControlled){
+				DataScript.aiScore = player1Score;
+			}
+			else{
+				DataScript.playerScore = player1Score;
+			}
+
 			turnTimeRemaining = turnDuration;
 		}
 
