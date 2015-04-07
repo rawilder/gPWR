@@ -17,9 +17,6 @@ public class GhostMove : MonoBehaviour {
 	Vector2 dest;
 	public GameObject m; //the maze gameobject
     private MazeScript maze;
-	
-    // powerups
-    private bool GhostLowerSpeedPowerup { get; set; }
 
 	void Start(){
 		origin = transform.localPosition;
@@ -27,15 +24,6 @@ public class GhostMove : MonoBehaviour {
         //maze = GameObject.FindGameObjectWithTag("maze").GetComponent<MazeScript>();
 		maze = m.GetComponent<MazeScript> ();
         isScared = false;
-
-        // powerups testing
-        // GhostLowerSpeedPowerup = true;
-
-        //powerups 
-	    if (GhostLowerSpeedPowerup)
-	    {
-	        speed = 5;
-	    }
 
 	}
 

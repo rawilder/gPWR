@@ -61,6 +61,7 @@ public class PacmanMove : MonoBehaviour {
     // powerup bools
     private bool PacmanSpeedPowerup { get; set; }
     private bool PowerModeDurationPowerup { get; set; }
+	private bool GhostLowerSpeedPowerup { get; set; }
 
 	public int ghostsEaten = 0;
 	public int dotsEaten = 0;
@@ -90,6 +91,9 @@ public class PacmanMove : MonoBehaviour {
         // powerups testing
 	    // SpeedPowerup = true;
         // PowerModeDurationPowerup = true;
+		if (isAIControlled) {
+			GhostLowerSpeedPowerup = true;
+		}
 
         // powerups
         // going to need to replace when powerup interface is in place
@@ -103,11 +107,17 @@ public class PacmanMove : MonoBehaviour {
 	        powerModeDuration = 10;
 	    }
 
-
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+
+		//this is needed here rather than start to be sure that maze.ghosts is populated before this is run
+		if (GhostLowerSpeedPowerup) {
+			foreach(var ghost in maze.ghosts){
+				ghost.GetComponent<GhostMove>().speed = 7.5f;
+			}
+		}
 
 		if (TurnManagerScript.paused) {
 			return;
