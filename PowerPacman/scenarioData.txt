@@ -4,42 +4,8 @@
     <Scenario>
       <id>0</id>
       <name>New Scenario</name>
-      <control>true</control>
-      <playerHasHighPower>false</playerHasHighPower>
-      <turnTime>15</turnTime>
-      <totalTime>25</totalTime>
-      <pSpeedIncreaseAvailable>true</pSpeedIncreaseAvailable>
-      <gSpeedDecreaseAvailable>true</gSpeedDecreaseAvailable>
-      <fRespawnAvailable>true</fRespawnAvailable>
-      <longerPowerModeAvailable>true</longerPowerModeAvailable>
-      <powerballRespawnAvailable>false</powerballRespawnAvailable>
-      <gRespawnAvailable>false</gRespawnAvailable>
-      <gDumbAvailale>false</gDumbAvailale>
-      <gFewerAvailable>false</gFewerAvailable>
-      <hpStealsTurnsAvailable>false</hpStealsTurnsAvailable>
-    </Scenario>
-    <Scenario>
-      <id>0</id>
-      <name>New Scenario2</name>
-      <control>true</control>
-      <playerHasHighPower>false</playerHasHighPower>
-      <turnTime>15</turnTime>
-      <totalTime>25</totalTime>
-      <pSpeedIncreaseAvailable>true</pSpeedIncreaseAvailable>
-      <gSpeedDecreaseAvailable>true</gSpeedDecreaseAvailable>
-      <fRespawnAvailable>true</fRespawnAvailable>
-      <longerPowerModeAvailable>true</longerPowerModeAvailable>
-      <powerballRespawnAvailable>false</powerballRespawnAvailable>
-      <gRespawnAvailable>false</gRespawnAvailable>
-      <gDumbAvailale>true</gDumbAvailale>
-      <gFewerAvailable>false</gFewerAvailable>
-      <hpStealsTurnsAvailable>true</hpStealsTurnsAvailable>
-    </Scenario>
-    <Scenario>
-      <id>0</id>
-      <name>NewTestScenario</name>
       <control>false</control>
-      <playerHasHighPower>false</playerHasHighPower>
+      <playerHasHighPower>true</playerHasHighPower>
       <turnTime>30</turnTime>
       <totalTime>10</totalTime>
       <pSpeedIncreaseAvailable>true</pSpeedIncreaseAvailable>
@@ -51,6 +17,15 @@
       <gDumbAvailale>true</gDumbAvailale>
       <gFewerAvailable>true</gFewerAvailable>
       <hpStealsTurnsAvailable>true</hpStealsTurnsAvailable>
+      <AiAllocationIsRandom>true</AiAllocationIsRandom>
+      <AiAllocatePlayerSpeed>1</AiAllocatePlayerSpeed>
+      <AiAllocateGhostSpeed>0</AiAllocateGhostSpeed>
+      <AiAllocateFruitRespawn>1</AiAllocateFruitRespawn>
+      <AiAllocateLongerPowerMode>0</AiAllocateLongerPowerMode>
+      <AiAllocatePowerBallRespawn>1</AiAllocatePowerBallRespawn>
+      <AiAllocateGhostRespawn>0</AiAllocateGhostRespawn>
+      <AiAllocateDumbGhosts>1</AiAllocateDumbGhosts>
+      <AiAllocateFewerGhosts>0</AiAllocateFewerGhosts>
     </Scenario>
   </Scenarios>
 </ScenarioList>
