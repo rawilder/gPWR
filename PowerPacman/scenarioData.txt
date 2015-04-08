@@ -38,8 +38,8 @@
     <Scenario>
       <id>0</id>
       <name>NewTestScenario</name>
-      <control>true</control>
-      <playerHasHighPower>true</playerHasHighPower>
+      <control>false</control>
+      <playerHasHighPower>false</playerHasHighPower>
       <turnTime>30</turnTime>
       <totalTime>10</totalTime>
       <pSpeedIncreaseAvailable>true</pSpeedIncreaseAvailable>
