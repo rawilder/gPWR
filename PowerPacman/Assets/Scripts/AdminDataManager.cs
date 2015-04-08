@@ -79,7 +79,7 @@ public class ScenarioList{
 public class AdminDataManager : MonoBehaviour {
 
 	//should probably be in some folder somewhere
-	string scenarioDataFileName = "scenarioData.txt";
+	public static string scenarioDataFileName = "scenarioData.txt";
 
 	public Transform dropdownPanel;
 	

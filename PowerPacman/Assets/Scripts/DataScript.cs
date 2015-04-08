@@ -31,6 +31,8 @@ public class DataScript : MonoBehaviour {
 	public static int aiCherriesEaten = 0;
 	public static int aiPowerDotsEaten = 0;
 
+	public static Scenario scenario;
+
 	Text aiScoreText;
 	Text playerScoreText;
 	Text totalScoreText;

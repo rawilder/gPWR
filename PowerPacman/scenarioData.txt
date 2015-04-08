@@ -35,5 +35,22 @@
       <gFewerAvailable>false</gFewerAvailable>
       <hpStealsTurnsAvailable>true</hpStealsTurnsAvailable>
     </Scenario>
+    <Scenario>
+      <id>0</id>
+      <name>NewTestScenario</name>
+      <control>true</control>
+      <playerHasHighPower>true</playerHasHighPower>
+      <turnTime>30</turnTime>
+      <totalTime>10</totalTime>
+      <pSpeedIncreaseAvailable>true</pSpeedIncreaseAvailable>
+      <gSpeedDecreaseAvailable>true</gSpeedDecreaseAvailable>
+      <fRespawnAvailable>true</fRespawnAvailable>
+      <longerPowerModeAvailable>true</longerPowerModeAvailable>
+      <powerballRespawnAvailable>true</powerballRespawnAvailable>
+      <gRespawnAvailable>true</gRespawnAvailable>
+      <gDumbAvailale>true</gDumbAvailale>
+      <gFewerAvailable>true</gFewerAvailable>
+      <hpStealsTurnsAvailable>true</hpStealsTurnsAvailable>
+    </Scenario>
   </Scenarios>
 </ScenarioList>
