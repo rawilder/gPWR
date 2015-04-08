@@ -23,7 +23,7 @@ public class PacmanMove : MonoBehaviour {
 	public Sprite scared;
 
 	//public bool isPlayerTurn = true;
-	public static float turnDuration = 15.0f; //length of turn in seconds
+	public static float turnDuration = DataScript.scenario.turnTime; //length of turn in seconds
 	public static float turnTimeRemaining = turnDuration;
 
 	public bool powerMode = false;  //flag for power mode (eating enemies)
@@ -150,6 +150,8 @@ public class PacmanMove : MonoBehaviour {
 			//do nothing, wait your turn
 			return;
 		}
+
+		gameObject.GetComponent<Animator>().enabled = true;
 
 		checkForGhostCollisions ();
 		checkPacDots();
@@ -307,6 +309,8 @@ public class PacmanMove : MonoBehaviour {
 			Text timeText = GameObject.Find(side+"/Top Canvas/TimeRemainingBox").GetComponent<Text>();
 			timeText.text = "0";
 			TurnManagerScript.switchingTurnsStage = true;
+
+			gameObject.GetComponent<Animator>().enabled = false;
 
 			if(isAIControlled){
 				DataScript.aiScore = player1Score;

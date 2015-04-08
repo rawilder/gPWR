@@ -18,7 +18,7 @@ public class TurnManagerScript : MonoBehaviour {
 	public static float turnSwitchDelay = 5.0f;
 	public static float turnSwitchTimeRemaining = 0.0f;
 
-	int totalTimeLimit = 1; //minutes
+	int totalTimeLimit = DataScript.scenario.totalTime;
 
 	float totalTimeCounter = 0.0f;
 
@@ -74,6 +74,7 @@ public class TurnManagerScript : MonoBehaviour {
 				switchingTurnsStage = false;
 				turnSwitchTimeRemaining = turnSwitchDelay; //reset for next switch
 				messageText.text = "";
+				countdown.text = "";
 				paused = false;
 				if(isPlayerTurn){
 					isPlayerTurn = false;

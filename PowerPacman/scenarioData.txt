@@ -6,7 +6,7 @@
       <name>New Scenario</name>
       <control>false</control>
       <playerHasHighPower>false</playerHasHighPower>
-      <turnTime>30</turnTime>
+      <turnTime>10</turnTime>
       <totalTime>10</totalTime>
       <pSpeedIncreaseAvailable>true</pSpeedIncreaseAvailable>
       <gSpeedDecreaseAvailable>true</gSpeedDecreaseAvailable>
