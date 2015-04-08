@@ -361,15 +361,15 @@ MonoBehaviour:
   m_Color: {r: .855679631, g: .867647052, b: 0, a: 1}
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 45
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_RichText: 1
-    m_HorizontalOverflow: 1
-    m_VerticalOverflow: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Welcome to Two Player Pacman
 --- !u!222 &1610578757
@@ -392,8 +392,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: -268, y: 188}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 0, y: 188}
+  m_SizeDelta: {x: 900, y: 100}
   m_Pivot: {x: .5, y: .5}
 --- !u!1 &1676703466
 GameObject:
@@ -618,6 +618,6 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 310, y: -210}
+  m_AnchoredPosition: {x: 250, y: -210}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: .5, y: .5}
