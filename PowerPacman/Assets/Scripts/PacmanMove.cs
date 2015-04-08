@@ -88,12 +88,35 @@ public class PacmanMove : MonoBehaviour {
         queuedDir = Direction.None;
 		maze = m.GetComponent<MazeScript> ();
 
+		if (DataScript.alloc.PlayerSpeed == 0 && isAIControlled) {
+			PacmanSpeedPowerup = true;
+		} else if (DataScript.alloc.PlayerSpeed == 1 && !isAIControlled) {
+			PacmanSpeedPowerup = true;
+		} else {
+			PacmanSpeedPowerup = false;
+		}
+
+		if (DataScript.alloc.LongerPowerMode == 0 && isAIControlled) {
+			PowerModeDurationPowerup = true;
+		} else if (DataScript.alloc.LongerPowerMode == 1 && !isAIControlled) {
+			PowerModeDurationPowerup = true;
+		} else {
+			PowerModeDurationPowerup = false;
+		}
+
+		if (DataScript.alloc.GhostSpeed == 0 && isAIControlled) {
+			GhostLowerSpeedPowerup = true;
+		} else if (DataScript.alloc.GhostSpeed == 1 && !isAIControlled) {
+			GhostLowerSpeedPowerup = true;
+		} else {
+			GhostLowerSpeedPowerup = false;
+		}
+
+
         // powerups testing
 	    // SpeedPowerup = true;
         // PowerModeDurationPowerup = true;
-		if (isAIControlled) {
-			GhostLowerSpeedPowerup = true;
-		}
+
 
         // powerups
         // going to need to replace when powerup interface is in place

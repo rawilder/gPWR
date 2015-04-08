@@ -5,7 +5,7 @@
       <id>0</id>
       <name>New Scenario</name>
       <control>false</control>
-      <playerHasHighPower>true</playerHasHighPower>
+      <playerHasHighPower>false</playerHasHighPower>
       <turnTime>30</turnTime>
       <totalTime>10</totalTime>
       <pSpeedIncreaseAvailable>true</pSpeedIncreaseAvailable>
@@ -17,15 +17,15 @@
       <gDumbAvailale>true</gDumbAvailale>
       <gFewerAvailable>true</gFewerAvailable>
       <hpStealsTurnsAvailable>true</hpStealsTurnsAvailable>
-      <AiAllocationIsRandom>true</AiAllocationIsRandom>
-      <AiAllocatePlayerSpeed>1</AiAllocatePlayerSpeed>
+      <AiAllocationIsRandom>false</AiAllocationIsRandom>
+      <AiAllocatePlayerSpeed>0</AiAllocatePlayerSpeed>
       <AiAllocateGhostSpeed>0</AiAllocateGhostSpeed>
       <AiAllocateFruitRespawn>1</AiAllocateFruitRespawn>
       <AiAllocateLongerPowerMode>0</AiAllocateLongerPowerMode>
       <AiAllocatePowerBallRespawn>1</AiAllocatePowerBallRespawn>
-      <AiAllocateGhostRespawn>0</AiAllocateGhostRespawn>
+      <AiAllocateGhostRespawn>1</AiAllocateGhostRespawn>
       <AiAllocateDumbGhosts>1</AiAllocateDumbGhosts>
-      <AiAllocateFewerGhosts>0</AiAllocateFewerGhosts>
+      <AiAllocateFewerGhosts>1</AiAllocateFewerGhosts>
     </Scenario>
   </Scenarios>
 </ScenarioList>

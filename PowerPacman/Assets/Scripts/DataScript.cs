@@ -6,6 +6,42 @@ using System;
 
 //This script stores data about the player and the choices made, and also has functions for exporting that data.
 
+public class Allocation{
+
+	//0 = ai, 1 = player, -1 = not available
+
+	public int PlayerSpeed;
+	public int GhostSpeed;
+	public int FruitRespawn;
+	public int LongerPowerMode;
+	public int PowerBallRespawn;
+	public int GhostRespawn;
+	public int DumbGhosts;
+	public int FewerGhosts;
+
+	public Allocation(){
+		PlayerSpeed = -1;
+		GhostSpeed = -1;
+		FruitRespawn = -1;
+		LongerPowerMode = -1;
+		PowerBallRespawn = -1;
+		GhostRespawn = -1;
+		DumbGhosts = -1;
+		FewerGhosts = -1;
+	}
+
+	public Allocation(Allocation a){
+		PlayerSpeed = a.PlayerSpeed;
+		GhostSpeed = a.GhostSpeed;
+		FruitRespawn = a.FruitRespawn;
+		LongerPowerMode = a.LongerPowerMode;
+		PowerBallRespawn = a.PowerBallRespawn;
+		GhostRespawn = a.GhostRespawn;
+		DumbGhosts = a.DumbGhosts;
+		FewerGhosts = a.FewerGhosts;
+	}
+
+}
 
 public class DataScript : MonoBehaviour {
 
@@ -32,6 +68,10 @@ public class DataScript : MonoBehaviour {
 	public static int aiPowerDotsEaten = 0;
 
 	public static Scenario scenario;
+
+	public static Allocation alloc = new Allocation();
+
+
 
 	Text aiScoreText;
 	Text playerScoreText;
