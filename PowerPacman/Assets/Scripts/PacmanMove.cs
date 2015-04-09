@@ -200,8 +200,9 @@ public class PacmanMove : MonoBehaviour {
 				}
 				else 
 				{
-					if(!GhostIsThere() || maze.ghosts.Any(g => g.GetComponent<GhostMove>().isScared))
+					if(!GhostIsThere() || maze.ghosts.Any(g => g.GetComponent<GhostMove>().isScared)) {
 						MoveTowardsFood();
+					}
 					else {
 						targetFood = null;
 						MoveAwayFromGhost();
@@ -407,7 +408,7 @@ public class PacmanMove : MonoBehaviour {
 				targetFood = cherry;
 			} else if (GhostIsThere() && maze.ghosts.First().GetComponent<GhostMove> ().isScared) {
 				targetGhost = new GameObject();
-				targetGhost.transform.localPosition = maze.ghosts.Single(g => Vector2.Distance (transform.localPosition, (Vector2)g.transform.localPosition) < 3).transform.localPosition;
+				targetGhost.transform.localPosition = maze.ghosts.Single(g => Vector2.Distance (transform.localPosition, (Vector2)g.transform.localPosition) < 5).transform.localPosition;
 				targetFood = targetGhost;
 				dotList.Add(targetFood);
 			} else {
@@ -518,7 +519,7 @@ public class PacmanMove : MonoBehaviour {
     {
 		Vector2 pos = (Vector2)transform.localPosition;
 		foreach(var ghost in maze.ghosts) {
-			if (Vector2.Distance(pos, (Vector2)ghost.transform.localPosition) < 3)
+			if (Vector2.Distance(pos, (Vector2)ghost.transform.localPosition) < 5)
 				return true;
 		}
 		return false;
@@ -529,7 +530,7 @@ public class PacmanMove : MonoBehaviour {
 		var values = new float[4];
 		float max = 0;
 		//find closest ghost
-		GameObject closestGhost = maze.ghosts.FirstOrDefault(g => Vector2.Distance (transform.localPosition, (Vector2)g.transform.localPosition) < 3);
+		GameObject closestGhost = maze.ghosts.FirstOrDefault(g => Vector2.Distance (transform.localPosition, (Vector2)g.transform.localPosition) < 5);
 		//make move that creates the most distance between ghosts
 		if (closestGhost != null) {
 			if (maze.validPacManMove (transform.localPosition, Direction.Up)) {

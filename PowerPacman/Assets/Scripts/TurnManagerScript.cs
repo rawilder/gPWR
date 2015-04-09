@@ -6,7 +6,7 @@ using System.Threading;
 
 public class TurnManagerScript : MonoBehaviour {
 
-	public static bool isPlayerTurn = true;
+	public static bool isPlayerTurn = false;
 	public static bool paused = true;
 	public static bool pregame = true;
 	public static bool switchingTurnsStage = false;
@@ -18,7 +18,7 @@ public class TurnManagerScript : MonoBehaviour {
 	public static float turnSwitchDelay = 5.0f;
 	public static float turnSwitchTimeRemaining = 0.0f;
 
-	int totalTimeLimit = 1; //minutes
+	int totalTimeLimit = 10; //minutes
 
 	float totalTimeCounter = 0.0f;
 
@@ -79,7 +79,7 @@ public class TurnManagerScript : MonoBehaviour {
 					isPlayerTurn = false;
 				}
 				else{
-					isPlayerTurn = true;
+					isPlayerTurn = false;
 				}
 			}
 		}
