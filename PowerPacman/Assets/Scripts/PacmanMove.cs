@@ -61,7 +61,12 @@ public class PacmanMove : MonoBehaviour {
     // powerup bools
     private bool PacmanSpeedPowerup { get; set; }
     private bool PowerModeDurationPowerup { get; set; }
-	private bool GhostLowerSpeedPowerup { get; set; }
+	public bool GhostLowerSpeedPowerup { get; set; }
+    public bool FewerGhostsPowerup { get; set; }
+    public bool GhostsRespawnSlowerPowerup { get; set; }
+    private bool PowerBallsRespawnPowerup { get; set; }
+    private bool FasterFruitRespawnPowerup { get; set; }
+    private bool oneTimePowerupStep;
 
 	public int ghostsEaten = 0;
 	public int dotsEaten = 0;
@@ -88,30 +93,22 @@ public class PacmanMove : MonoBehaviour {
         queuedDir = Direction.None;
 		maze = m.GetComponent<MazeScript> ();
 
-		if (DataScript.alloc.PlayerSpeed == 0 && isAIControlled) {
-			PacmanSpeedPowerup = true;
-		} else if (DataScript.alloc.PlayerSpeed == 1 && !isAIControlled) {
-			PacmanSpeedPowerup = true;
-		} else {
-			PacmanSpeedPowerup = false;
-		}
+        //if (DataScript.alloc.PlayerSpeed == 0 && isAIControlled) {
+        //    PacmanSpeedPowerup = true;
+        //} else if (DataScript.alloc.PlayerSpeed == 1 && !isAIControlled) {
+        //    PacmanSpeedPowerup = true;
+        //} else {
+        //    PacmanSpeedPowerup = false;
+        //}
 
-		if (DataScript.alloc.LongerPowerMode == 0 && isAIControlled) {
-			PowerModeDurationPowerup = true;
-		} else if (DataScript.alloc.LongerPowerMode == 1 && !isAIControlled) {
-			PowerModeDurationPowerup = true;
-		} else {
-			PowerModeDurationPowerup = false;
-		}
-
-		if (DataScript.alloc.GhostSpeed == 0 && isAIControlled) {
-			GhostLowerSpeedPowerup = true;
-		} else if (DataScript.alloc.GhostSpeed == 1 && !isAIControlled) {
-			GhostLowerSpeedPowerup = true;
-		} else {
-			GhostLowerSpeedPowerup = false;
-		}
-
+        PacmanSpeedPowerup = DeterminePowerup(DataScript.alloc.PlayerSpeed);
+        PowerModeDurationPowerup = DeterminePowerup(DataScript.alloc.LongerPowerMode);
+        GhostLowerSpeedPowerup = DeterminePowerup(DataScript.alloc.GhostSpeed);
+        FewerGhostsPowerup = DeterminePowerup(DataScript.alloc.FewerGhosts);
+        GhostsRespawnSlowerPowerup = DeterminePowerup(DataScript.alloc.GhostRespawn);
+        PowerBallsRespawnPowerup = DeterminePowerup(DataScript.alloc.PowerBallRespawn);
+        FasterFruitRespawnPowerup = DeterminePowerup(DataScript.alloc.FruitRespawn);
+        oneTimePowerupStep = true;
 
         // powerups testing
 	    // SpeedPowerup = true;
@@ -130,17 +127,48 @@ public class PacmanMove : MonoBehaviour {
 	        powerModeDuration = 10;
 	    }
 
+        if (FewerGhostsPowerup)
+        {
+            int randomGhostPos = UnityEngine.Random.Range(0, maze.ghosts.Count);
+            maze.ghosts.ElementAt(randomGhostPos).SetActive(false);
+        }
+
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 
-		//this is needed here rather than start to be sure that maze.ghosts is populated before this is run
-		if (GhostLowerSpeedPowerup) {
-			foreach(var ghost in maze.ghosts){
-				ghost.GetComponent<GhostMove>().speed = 7.5f;
-			}
-		}
+        //this is needed here rather than start to be sure that maze.ghosts is populated before this is run
+        if (oneTimePowerupStep)
+        {
+            if (GhostLowerSpeedPowerup)
+            {
+                foreach (var ghost in maze.ghosts)
+                {
+                    ghost.GetComponent<GhostMove>().speed = 7.5f;
+                }
+            }
+
+            if (GhostsRespawnSlowerPowerup)
+            {
+                foreach (var ghost in maze.ghosts)
+                {
+                    ghost.GetComponent<GhostMove>().eatenDelay = 2.0f;
+                }
+            }
+
+            if (FasterFruitRespawnPowerup)
+            {
+                maze.cherryRespawnTime = 5.0f;
+            }
+
+            if (PowerBallsRespawnPowerup)
+            {
+                maze.powerDotRespawns = true;
+            }
+
+            oneTimePowerupStep = false;
+        }
 
 		if (TurnManagerScript.paused) {
 			return;
@@ -588,4 +616,16 @@ public class PacmanMove : MonoBehaviour {
 			dest = (Vector2)transform.localPosition - Vector2.right;
 		}
 	}
+
+    bool DeterminePowerup(int allocValue)
+    {
+        if (allocValue == -1)
+        {
+            return false;
+        }
+        else
+        {
+            return Convert.ToBoolean(allocValue) ^ isAIControlled;
+        }
+    }
 }

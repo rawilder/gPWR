@@ -4,10 +4,10 @@ using System;
 using System.Collections.Generic;
 
 public class GhostMove : MonoBehaviour {
-	public float speed = 10f;
+    public float speed { get; set; }
 	float eatenDelayRemaining = 0.0f;
 
-	public static float eatenDelay = 1.0f;
+	public float eatenDelay { get; set; }
 
 	Vector2 origin;
 	public Vector2 tilePosition;
@@ -19,6 +19,8 @@ public class GhostMove : MonoBehaviour {
     private MazeScript maze;
 
 	void Start(){
+        speed = 10.0f;
+        eatenDelay = 1.0f;
 		origin = transform.localPosition;
 		dest = origin;
         //maze = GameObject.FindGameObjectWithTag("maze").GetComponent<MazeScript>();
@@ -131,7 +133,7 @@ public class GhostMove : MonoBehaviour {
 		transform.localPosition = origin;
 		tilePosition = origin;
 		dest = origin;
-		eatenDelayRemaining = GhostMove.eatenDelay;
+		eatenDelayRemaining = eatenDelay;
         GetComponent<Animator>().enabled = true;
         isScared = false;
 	}

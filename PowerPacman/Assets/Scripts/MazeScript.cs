@@ -159,10 +159,15 @@ public class MazeScript : MonoBehaviour {
 	public PacmanMove pacman;
 
 	public Vector2 cherryLocation = new Vector2(14,11);
-	float cherryRespawnTime = 10.0f;
+	public float cherryRespawnTime = 10.0f;
 	float cherryRespawnTimeRemaining;
 	bool cherryEaten = true;
 	public GameObject cherryObject;
+
+    //powerballs respawn
+    public bool powerDotRespawns { get; set; }
+    public float powerDotRespawnTime = 10.0f;
+    float powerDotsRespawnTimeRemaining;
 
 	Transform screen;
 	
@@ -195,6 +200,10 @@ public class MazeScript : MonoBehaviour {
 		cherryObject.SetActive (false);
 
         cherryRespawnTimeRemaining = cherryRespawnTime;
+
+        powerDotsRespawnTimeRemaining = powerDotRespawnTime;
+
+        powerDotRespawns = false;
 	}
 
 	void FixedUpdate(){
@@ -228,6 +237,20 @@ public class MazeScript : MonoBehaviour {
 		else if (cherryEaten ) {
 			cherryRespawnTimeRemaining -= Time.deltaTime;
 		}
+
+
+        if (powerDotRespawns)
+        {
+            if (powerDotsRespawnTimeRemaining < 0)
+            {
+                restorePowerDots();
+                powerDotsRespawnTimeRemaining = powerDotRespawnTime;
+            }
+            else
+            {
+                powerDotsRespawnTimeRemaining -= Time.deltaTime;
+            }
+        }
 	}
 
 	public bool validPacManMove(Vector2 position, PacmanMove.Direction dir){
@@ -413,14 +436,7 @@ public class MazeScript : MonoBehaviour {
 			dots[p].SetActive(true);
 		}
 
-		for (int i = 0; i < powerDotsList.Length; i++) {
-			int x = (int)powerDotsList[i].transform.localPosition.x;
-			int y = (int)powerDotsList[i].transform.localPosition.y;
-			Position p = new Position(x,y);
-			Vector2 v = new Vector2(x,y);
-			setValue(v,5);
-			powerDots[p].SetActive(true);
-		}
+        restorePowerDots();
 
 		dotsRemaining = dotsList.Length;
 		powerDotsRemaining = powerDotsList.Length;
@@ -428,6 +444,19 @@ public class MazeScript : MonoBehaviour {
 		pacman.dotList.AddRange (pacman.powerDot);
 
 	}
+
+    public void restorePowerDots()
+    {
+        for (int i = 0; i < powerDotsList.Length; i++)
+        {
+            int x = (int)powerDotsList[i].transform.localPosition.x;
+            int y = (int)powerDotsList[i].transform.localPosition.y;
+            Position p = new Position(x, y);
+            Vector2 v = new Vector2(x, y);
+            setValue(v, 5);
+            powerDots[p].SetActive(true);
+        }
+    }
 
 	void respawnCherry(){
 		int value = getValue (cherryLocation);
