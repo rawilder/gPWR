@@ -6,6 +6,18 @@ using System.Xml.Serialization;
 using System.Xml;
 using UnityEngine.UI;
 
+
+[XmlRoot("TutorialText")]
+public class TutorialText{
+	
+	public string Tutorial1Title;
+	
+	public TutorialText(){
+		Tutorial1Title = "Welcome to Two Player Pacman";
+	}
+	
+}
+
 public class MainMenuScript : MonoBehaviour {
 
 	List<GameObject> buttons = new List<GameObject>();
@@ -17,6 +29,8 @@ public class MainMenuScript : MonoBehaviour {
 	public Text scenarioSelectionText;
 
 	public Text errorMessage;
+
+	public static string tutorialTextFileName = "tutorialText.txt";
 
 	void Start(){
 
@@ -41,6 +55,30 @@ public class MainMenuScript : MonoBehaviour {
 		}
 
 		updateDropdown ();
+
+		//tutorial text
+		if(!File.Exists(tutorialTextFileName)){
+			FileStream s = File.Create (tutorialTextFileName);
+			s.Close();
+			
+			var serializer = new XmlSerializer (typeof(TutorialText));
+			var stream = new FileStream (tutorialTextFileName, FileMode.Create);
+			serializer.Serialize (stream, DataScript.tutText);
+			stream.Close ();
+			
+		}
+		
+		try{
+			
+			var serializer = new XmlSerializer (typeof(TutorialText));
+			var stream = new FileStream (tutorialTextFileName, FileMode.Open);
+			DataScript.tutText = serializer.Deserialize (stream) as TutorialText;
+			stream.Close ();
+			
+		}
+		catch(XmlException){
+			
+		}
 
 	}
 

@@ -510,6 +510,8 @@ public class PacmanMove : MonoBehaviour {
 		var path = new List<Direction> ();
 		int distanceConstant = 1;
 
+		int count = 0;
+
 		while (froniter.Any()) {
 			//find node with least distance in froniter
 			currentNode = froniter.OrderBy(t => t.hueristic).First();
@@ -519,6 +521,11 @@ public class PacmanMove : MonoBehaviour {
 				//return the Vectors coverted into Directions
 				path = currentNode.convertVectorPathToDirections();
 				break;
+			}
+
+			count ++;
+			if (count > 100){
+				return path;
 			}
 			//gerernate nodes children
 			//if node is not in visited list

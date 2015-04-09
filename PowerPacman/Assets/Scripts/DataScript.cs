@@ -70,7 +70,7 @@ public class DataScript : MonoBehaviour {
 	public static Scenario scenario;
 
 	public static Allocation alloc = new Allocation();
-
+	public static TutorialText tutText = new TutorialText ();
 
 
 	Text aiScoreText;
