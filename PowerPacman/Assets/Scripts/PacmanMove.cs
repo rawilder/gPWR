@@ -408,9 +408,6 @@ public class PacmanMove : MonoBehaviour {
 				targetFood = cherry;
 			} else if (GhostIsThere() && maze.ghosts.First().GetComponent<GhostMove> ().isScared) {
 				targetGhost = new GameObject();
-				targetGhost.transform.localPosition = maze.ghosts.Single(g => Vector2.Distance (transform.localPosition, (Vector2)g.transform.localPosition) < 5).transform.localPosition;
-				targetFood = targetGhost;
-				dotList.Add(targetFood);
 			} else {
 				targetFood = dotList.Aggregate ((d1, d2) => Vector2.Distance (transform.localPosition, (Vector2)d1.transform.localPosition) < Vector2.Distance (transform.localPosition, (Vector2)d2.transform.localPosition) ? d1 : d2);
 			}
@@ -454,6 +451,7 @@ public class PacmanMove : MonoBehaviour {
 		Node currentNode;
 		Vector2 current = Vector2.zero;
 		var path = new List<Direction> ();
+		int count = 0;;
 		int distanceConstant = 1;
 
 		while (froniter.Any()) {
@@ -463,6 +461,13 @@ public class PacmanMove : MonoBehaviour {
 			//if node is targetFruit
 			if(current.x == (int)targetFruit.transform.localPosition.x && current.y == (int)targetFruit.transform.localPosition.y) {
 				//return the Vectors coverted into Directions
+				path = currentNode.convertVectorPathToDirections();
+				break;
+			}
+
+			count ++;
+			if (count > 100){
+				//targetFruit = null;
 				path = currentNode.convertVectorPathToDirections();
 				break;
 			}
@@ -509,7 +514,7 @@ public class PacmanMove : MonoBehaviour {
 		Vector2 pos = (Vector2)transform.localPosition;
 		if (cherry == null)
 			return false;
-		if (Vector2.Distance (pos, (Vector2)cherry.transform.localPosition) < 3)
+		if (Vector2.Distance (pos, (Vector2)cherry.transform.localPosition) < 5)
 			return true;
 		else
 			return false;
@@ -519,7 +524,7 @@ public class PacmanMove : MonoBehaviour {
     {
 		Vector2 pos = (Vector2)transform.localPosition;
 		foreach(var ghost in maze.ghosts) {
-			if (Vector2.Distance(pos, (Vector2)ghost.transform.localPosition) < 5)
+			if (Vector2.Distance(pos, (Vector2)ghost.transform.localPosition) < 3)
 				return true;
 		}
 		return false;
@@ -530,7 +535,7 @@ public class PacmanMove : MonoBehaviour {
 		var values = new float[4];
 		float max = 0;
 		//find closest ghost
-		GameObject closestGhost = maze.ghosts.FirstOrDefault(g => Vector2.Distance (transform.localPosition, (Vector2)g.transform.localPosition) < 5);
+		GameObject closestGhost = maze.ghosts.FirstOrDefault(g => Vector2.Distance (transform.localPosition, (Vector2)g.transform.localPosition) < 3);
 		//make move that creates the most distance between ghosts
 		if (closestGhost != null) {
 			if (maze.validPacManMove (transform.localPosition, Direction.Up)) {
