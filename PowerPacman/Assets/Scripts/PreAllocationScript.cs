@@ -4,22 +4,20 @@ using UnityEngine.UI;
 
 public class PreAllocationScript : MonoBehaviour {
 
-	Text messageText;
+	public Text messageText;
 
 	void Start(){
 
-		messageText = GameObject.Find ("Message").GetComponent<Text> ();
-
 		if (DataScript.scenario.control) {
 
-			messageText.text = "This is some placeholder text letting the user know that the game will be beginning soon (no allocation)";
+			messageText.text = DataScript.tutText.PreallocationScreenControlText;
 
 		} else {
 			if(DataScript.scenario.playerHasHighPower){
-				messageText.text = "This is some placeholder text telling the user that they will be allocating power ups to themselves and the other player";
+				messageText.text = DataScript.tutText.PreallocationScreenHighPowerText;
 			}
 			else{
-				messageText.text = "This is some placeholder text telling the user that they will have powerups allocated to them by the other player";
+				messageText.text = DataScript.tutText.PreallocationScreenLowPowerText;
 			}
 		}
 

@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="us-ascii"?>
 <TutorialText xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Tutorial1Title>Welcome to Two Player Pacman!</Tutorial1Title>
+  <WelcomeScreenTitle>Welcome to Two Player Pacman</WelcomeScreenTitle>
+  <ObjectiveScreenBody>The objective of this game is to work together with your partner to earn as many points as possible playing Pacman. Each player will have their own maze to navigate. You will take turns playing for a set amount of time. Score counters and the amount of time left on each players turn is displayed above the separate mazes.</ObjectiveScreenBody>
+  <BonusesScreenTitle>Bonuses</BonusesScreenTitle>
+  <BonusesScreenBody>Bonuses are special abilities that allow you to earn points quicker...</BonusesScreenBody>
+  <ConnectingScreenTitle>Connecting to partner</ConnectingScreenTitle>
+  <ConnectingScreenText>Please wait while we match you with a partner</ConnectingScreenText>
+  <PreallocationScreenControlText>This is some placeholder text letting the user know that the game will be beginning soon (no allocation)</PreallocationScreenControlText>
+  <PreallocationScreenHighPowerText>This is some placeholder text telling the user that they will be allocating power ups to themselves and the other player</PreallocationScreenHighPowerText>
+  <PreallocationScreenLowPowerText>This is some placeholder text telling the user that they will have powerups allocated to them by the other player</PreallocationScreenLowPowerText>
+  <AllocationScreenTitle>Bonus allocation</AllocationScreenTitle>
 </TutorialText>

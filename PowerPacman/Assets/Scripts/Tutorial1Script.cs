@@ -8,6 +8,6 @@ public class Tutorial1Script : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		title.text = DataScript.tutText.Tutorial1Title;
+		title.text = DataScript.tutText.WelcomeScreenTitle;
 	}
 }

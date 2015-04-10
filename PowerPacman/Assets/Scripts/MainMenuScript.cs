@@ -10,10 +10,29 @@ using UnityEngine.UI;
 [XmlRoot("TutorialText")]
 public class TutorialText{
 	
-	public string Tutorial1Title;
+	public string WelcomeScreenTitle;
+	public string ObjectiveScreenBody;
+	public string BonusesScreenTitle;
+	public string BonusesScreenBody;
+	public string ConnectingScreenTitle;
+	public string ConnectingScreenText;
+	public string PreallocationScreenControlText;
+	public string PreallocationScreenHighPowerText;
+	public string PreallocationScreenLowPowerText;
+	public string AllocationScreenTitle;
 	
 	public TutorialText(){
-		Tutorial1Title = "Welcome to Two Player Pacman";
+		WelcomeScreenTitle = "Welcome to Two Player Pacman";
+		ObjectiveScreenBody = "The objective of this game is to work together with your partner to earn as many points as possible playing Pacman. Each player will have their own maze to navigate. You will take turns playing for a set amount of time. Score counters and the amount of time left on each players turn is displayed above the separate mazes.";
+		BonusesScreenTitle = "Bonuses";
+		BonusesScreenBody = "Bonuses are special abilities that allow you to earn points quicker...";
+		ConnectingScreenTitle = "Connecting to partner";
+		ConnectingScreenText = "Please wait while we match you with a partner";
+		PreallocationScreenControlText = "This is some placeholder text letting the user know that the game will be beginning soon (no allocation)";
+		PreallocationScreenHighPowerText = "This is some placeholder text telling the user that they will be allocating power ups to themselves and the other player";
+		PreallocationScreenLowPowerText = "This is some placeholder text telling the user that they will have powerups allocated to them by the other player";
+		AllocationScreenTitle = "Bonus allocation";
+
 	}
 	
 }
@@ -58,6 +77,8 @@ public class MainMenuScript : MonoBehaviour {
 
 		//tutorial text
 		if(!File.Exists(tutorialTextFileName)){
+
+			//if the file doesnt exist, make a new one with default values
 			FileStream s = File.Create (tutorialTextFileName);
 			s.Close();
 			

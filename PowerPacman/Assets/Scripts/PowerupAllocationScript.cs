@@ -5,9 +5,12 @@ using UnityEngine.UI;
 public class PowerupAllocationScript : MonoBehaviour {
 
 	Text messageText;
+	public Text Title;
 
 	void Start () {
 	
+		Title.text = DataScript.tutText.AllocationScreenTitle;
+
 		messageText = GameObject.Find ("TempText").GetComponent<Text> ();
 
 		if (DataScript.scenario.playerHasHighPower) {

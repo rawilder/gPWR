@@ -328,7 +328,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Power ups are special abilities that allow you earn points quicker....
+  m_Text: Bonuses are special abilities that allow you earn points quicker....
 --- !u!222 &698093578
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -367,7 +367,7 @@ RectTransform:
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
   m_AnchoredPosition: {x: 0, y: 218}
-  m_SizeDelta: {x: 200, y: 60}
+  m_SizeDelta: {x: 600, y: 60}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1435763596
 MonoBehaviour:
@@ -389,12 +389,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Power Ups
+  m_Text: Bonuses
 --- !u!222 &1435763597
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -497,6 +497,7 @@ GameObject:
   - 114: {fileID: 1659405391}
   - 114: {fileID: 1659405390}
   - 114: {fileID: 1659405389}
+  - 114: {fileID: 1659405393}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -590,6 +591,19 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!114 &1659405393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1659405387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69313da18e7a644ddbcaab0ca16b1497, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Tut3Title: {fileID: 1435763596}
+  Tut3Body: {fileID: 698093577}
 --- !u!1 &1814585821
 GameObject:
   m_ObjectHideFlags: 0
