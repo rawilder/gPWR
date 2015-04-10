@@ -408,8 +408,19 @@ public class PacmanMove : MonoBehaviour {
 				targetFood = cherry;
 			} else if (GhostIsThere() && maze.ghosts.First().GetComponent<GhostMove> ().isScared) {
 				targetGhost = new GameObject();
+				targetGhost = maze.ghosts.FirstOrDefault(g => Vector2.Distance (transform.localPosition, (Vector2)g.transform.localPosition) < 3);
+				if(targetGhost != null) {
+					Vector3 temp = Vector3.zero;
+					temp.x = Mathf.RoundToInt(targetGhost.transform.localPosition.x);
+					temp.y = Mathf.RoundToInt(targetGhost.transform.localPosition.y);
+					targetGhost.transform.localPosition = temp;
+					targetFood = targetGhost;
+					dotList.Add(targetFood);
+				} else {
+					targetFood = findClosestFood();
+				}
 			} else {
-				targetFood = dotList.Aggregate ((d1, d2) => Vector2.Distance (transform.localPosition, (Vector2)d1.transform.localPosition) < Vector2.Distance (transform.localPosition, (Vector2)d2.transform.localPosition) ? d1 : d2);
+				targetFood = findClosestFood();
 			}
 		}
 		if (queuedMovements.Count == 0) {
@@ -437,6 +448,14 @@ public class PacmanMove : MonoBehaviour {
 				dest = (Vector2)transform.localPosition - Vector2.right;
 			}
 		}
+	}
+
+	GameObject findClosestFood()
+	{
+		return dotList
+			.Aggregate ((d1, d2) 
+			            => Vector2.Distance (transform.localPosition, (Vector2)d1.transform.localPosition) 
+			            < Vector2.Distance (transform.localPosition, (Vector2)d2.transform.localPosition) ? d1 : d2);
 	}
 
 	List<Direction> AStarcaulations(GameObject targetFruit)
