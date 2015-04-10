@@ -15,7 +15,7 @@ public class TurnManagerScript : MonoBehaviour {
 	public static float pregameCountdownDelay = 5.0f;
 	public static float pregameCountdownRemaining = 0.0f;
 
-	public static float turnSwitchDelay = 5.0f;
+	public static float turnSwitchDelay = 0.0f;
 	public static float turnSwitchTimeRemaining = 0.0f;
 
 	int totalTimeLimit = 10; //minutes

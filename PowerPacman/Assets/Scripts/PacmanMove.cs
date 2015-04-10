@@ -393,6 +393,7 @@ public class PacmanMove : MonoBehaviour {
 	{
 		if(maze.cherryObject.activeSelf && !dotList.Contains(cherry)) {
 			cherry = new GameObject();
+			cherry.tag = "extra";
 			cherry.transform.localPosition = maze.cherryLocation;
 			dotList.Add(cherry);
 		}
@@ -414,6 +415,7 @@ public class PacmanMove : MonoBehaviour {
 					temp.x = Mathf.RoundToInt(targetGhost.transform.localPosition.x);
 					temp.y = Mathf.RoundToInt(targetGhost.transform.localPosition.y);
 					targetGhost.transform.localPosition = temp;
+					targetGhost.tag = "extra";
 					targetFood = targetGhost;
 					dotList.Add(targetFood);
 				} else {
@@ -449,13 +451,21 @@ public class PacmanMove : MonoBehaviour {
 			}
 		}
 	}
-
+	GameObject getClosestFood()
+	{
+		return dotList.Aggregate ((d1, d2) 
+		                          => Vector2.Distance (transform.localPosition, (Vector2)d1.transform.localPosition) 
+		                          < Vector2.Distance (transform.localPosition, (Vector2)d2.transform.localPosition) ? d1 : d2);
+	}
 	GameObject findClosestFood()
 	{
-		return dotList
-			.Aggregate ((d1, d2) 
-			            => Vector2.Distance (transform.localPosition, (Vector2)d1.transform.localPosition) 
-			            < Vector2.Distance (transform.localPosition, (Vector2)d2.transform.localPosition) ? d1 : d2);
+		GameObject temp = getClosestFood ();
+		//it is ghost not suppose to be here
+		if (temp.tag == "extra" && temp != cherry) {
+			dotList.Remove (temp);
+			temp = getClosestFood();
+		}
+		return temp;
 	}
 
 	List<Direction> AStarcaulations(GameObject targetFruit)
@@ -470,8 +480,8 @@ public class PacmanMove : MonoBehaviour {
 		Node currentNode;
 		Vector2 current = Vector2.zero;
 		var path = new List<Direction> ();
-		int count = 0;;
-		int distanceConstant = 1;
+		int count = 0;
+		float depth = 0.5f;
 
 		while (froniter.Any()) {
 			//find node with least distance in froniter
@@ -486,7 +496,9 @@ public class PacmanMove : MonoBehaviour {
 
 			count ++;
 			if (count > 100){
-				//targetFruit = null;
+				if(targetFruit.tag == "extra") {
+					dotList.Remove (targetFruit);
+				}
 				path = currentNode.convertVectorPathToDirections();
 				break;
 			}
@@ -497,28 +509,29 @@ public class PacmanMove : MonoBehaviour {
 				froniter.Add(new Node() { 
 					vectorDirection = current + Vector2.up, 
 					parent = currentNode, 
-					hueristic = Vector2.Distance (current + Vector2.up, (Vector2)targetFruit.transform.localPosition) - distanceConstant
+					hueristic = Vector2.Distance (current + Vector2.up, (Vector2)targetFruit.transform.localPosition) - depth
 				});
 			}
 			if (maze.validPacManMove (current, Direction.Right) && !visitedList.Any(n => n.vectorDirection == current + Vector2.right)) {
 				froniter.Add(new Node() { 
 					vectorDirection = current + Vector2.right, 
 					parent = currentNode, 
-					hueristic = Vector2.Distance (current + Vector2.right, (Vector2)targetFruit.transform.localPosition) - distanceConstant });
+					hueristic = Vector2.Distance (current + Vector2.right, (Vector2)targetFruit.transform.localPosition) - depth });
 			}
 			if (maze.validPacManMove (current, Direction.Down) && !visitedList.Any(n => n.vectorDirection == current - Vector2.up)) {
 				froniter.Add(new Node() { 
 					vectorDirection = current - Vector2.up, 
 					parent = currentNode, 
-					hueristic = Vector2.Distance (current - Vector2.up, (Vector2)targetFruit.transform.localPosition) - distanceConstant });
+					hueristic = Vector2.Distance (current - Vector2.up, (Vector2)targetFruit.transform.localPosition) - depth });
 			}
 			if (maze.validPacManMove (current, Direction.Left) && !visitedList.Any(n => n.vectorDirection == current - Vector2.right)) {
 				froniter.Add(new Node() { 
 					vectorDirection = current - Vector2.right, 
 					parent = currentNode, 
-					hueristic = Vector2.Distance (current - Vector2.right, (Vector2)targetFruit.transform.localPosition) - distanceConstant });
+					hueristic = Vector2.Distance (current - Vector2.right, (Vector2)targetFruit.transform.localPosition) - depth });
 			}
-				
+			
+			depth += 0.5f;
 			//remove current from froniter
 			froniter.Remove(currentNode);
 			//add to visitedList
