@@ -29,6 +29,8 @@ TagManager:
   - LeftSideinky
   - RightSidecherry
   - LeftSidecherry
+  - extra
+  - New Tag
   layers:
   - Default
   - TransparentFX
