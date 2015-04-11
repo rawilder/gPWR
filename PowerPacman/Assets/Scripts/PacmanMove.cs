@@ -556,8 +556,6 @@ public class PacmanMove : MonoBehaviour {
 		int count = 0;
 		float depth = 0.5f;
 
-		int count = 0;
-
 		while (froniter.Any()) {
 			//find node with least distance in froniter
 			currentNode = froniter.OrderBy(t => t.hueristic).First();

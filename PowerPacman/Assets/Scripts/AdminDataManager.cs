@@ -36,6 +36,8 @@ public class Scenario{
 	public float AiAllocateGhostRespawn;
 	public float AiAllocateDumbGhosts;
 	public float AiAllocateFewerGhosts;
+
+	public float AiAllocateWeight;
 	
 	public Scenario(){
 		name = "";
@@ -66,6 +68,8 @@ public class Scenario{
 		AiAllocateDumbGhosts = 1.0f;
 		AiAllocateFewerGhosts = 1.0f;
 
+		AiAllocateWeight = .5f;
+
 	}
 
 	public Scenario(Scenario s){
@@ -95,6 +99,8 @@ public class Scenario{
 		AiAllocateGhostRespawn = s.AiAllocateGhostRespawn;
 		AiAllocateDumbGhosts = s.AiAllocateDumbGhosts;
 		AiAllocateFewerGhosts = s.AiAllocateFewerGhosts;
+
+		AiAllocateWeight = s.AiAllocateWeight;
 	}
 }
 
@@ -148,6 +154,10 @@ public class AdminDataManager : MonoBehaviour {
 	List<GameObject> buttons = new List<GameObject>();
 	List<Slider> allocationSliders = new List<Slider>();
 
+	Text aiWeightText;
+	Text playerWeightText;
+	Slider weightSlider;
+
 	void Start () {
 	
 		scenList = new ScenarioList ();
@@ -179,6 +189,10 @@ public class AdminDataManager : MonoBehaviour {
 		aiAllocatesDumbGhosts = GameObject.Find ("DumbGhostsSlider").GetComponent<Slider> ();
 		aiAllocatesFewerGhosts = GameObject.Find ("FewerGhostsSlider").GetComponent<Slider> ();
 
+		aiWeightText = GameObject.Find ("AIWeightText").GetComponent<Text> ();
+		playerWeightText = GameObject.Find ("PlayerWeightText").GetComponent<Text> ();
+		weightSlider = GameObject.Find ("Slider").GetComponent<Slider> ();
+
 		allocationSliders.Add (aiAllocatesPlayerSpeed);
 		allocationSliders.Add (aiAllocatesGhostSpeed);
 		allocationSliders.Add (aiAllocatesFruitRespawn);
@@ -207,6 +221,7 @@ public class AdminDataManager : MonoBehaviour {
 		//populate the drop down menu
 
 		updateDropdown ();
+		WeightSliderUpdate ();
 
 
 	}
@@ -306,6 +321,8 @@ public class AdminDataManager : MonoBehaviour {
 		tempScenario.AiAllocateDumbGhosts = aiAllocatesDumbGhosts.value;
 		tempScenario.AiAllocateFewerGhosts = aiAllocatesFewerGhosts.value;
 
+		tempScenario.AiAllocateWeight = weightSlider.value;
+
 	}
 
 	void updateDropdown(){
@@ -349,6 +366,9 @@ public class AdminDataManager : MonoBehaviour {
 				aiAllocatesDumbGhosts.value = scenList.Scenarios[index].AiAllocateDumbGhosts;
 				aiAllocatesFewerGhosts.value = scenList.Scenarios[index].AiAllocateFewerGhosts;
 
+				weightSlider.value = scenList.Scenarios[index].AiAllocateWeight;
+				WeightSliderUpdate();
+
 				tempScenario = new Scenario(scenList.Scenarios[index]);
 			}
 			);
@@ -381,6 +401,16 @@ public class AdminDataManager : MonoBehaviour {
 				slider.value = 1.0f;
 			}
 		}
+	}
+
+
+	public void WeightSliderUpdate(){
+
+		float value = weightSlider.value;
+		float newVal = (float) Math.Round (value * 20) / 20;
+		aiWeightText.text = "" + ((1-newVal)*100) + "%";
+		playerWeightText.text = "" + (newVal*100) + "%";
+		weightSlider.value = newVal;
 
 	}
 }
