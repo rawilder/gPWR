@@ -141,6 +141,7 @@ public class PacmanMove : MonoBehaviour {
             movementDir = Direction.None;
             queuedDir = Direction.None;
 			targetFood = null;
+			targetGhost = null;
 			queuedMovements.Clear();
 		}
 
@@ -404,12 +405,12 @@ public class PacmanMove : MonoBehaviour {
 				queuedMovements.Clear ();
 			}
 		}
-		if (targetFood == null) {
+		if (targetFood == null || queuedMovements.Count == 0) {
 			if(CloseToCherry() && dotList.Contains(cherry)) {
 				targetFood = cherry;
-			} else if (GhostIsThere() && maze.ghosts.First().GetComponent<GhostMove> ().isScared) {
+			} else if (nearByGhostIsScared()) {
 				targetGhost = new GameObject();
-				targetGhost = maze.ghosts.FirstOrDefault(g => Vector2.Distance (transform.localPosition, (Vector2)g.transform.localPosition) < 3);
+				targetGhost = getScaredGhost();
 				if(targetGhost != null) {
 					Vector3 temp = Vector3.zero;
 					temp.x = Mathf.RoundToInt(targetGhost.transform.localPosition.x);
@@ -451,6 +452,23 @@ public class PacmanMove : MonoBehaviour {
 			}
 		}
 	}
+
+	bool nearByGhostIsScared()
+	{
+		Vector2 pos = (Vector2)transform.localPosition;
+		foreach(var ghost in maze.ghosts) {
+			if (Vector2.Distance(pos, (Vector2)ghost.transform.localPosition) < 3 && ghost.GetComponent<GhostMove> ().isScared)
+				return true;
+		}
+		return false;
+	}
+
+	GameObject getScaredGhost()
+	{
+		return maze.ghosts.FirstOrDefault(g => Vector2.Distance (transform.localPosition, (Vector2)g.transform.localPosition) < 3 
+		                           && g.GetComponent<GhostMove> ().isScared);
+	}
+
 	GameObject getClosestFood()
 	{
 		return dotList.Aggregate ((d1, d2) 
@@ -499,7 +517,6 @@ public class PacmanMove : MonoBehaviour {
 				if(targetFruit.tag == "extra") {
 					dotList.Remove (targetFruit);
 				}
-				path = currentNode.convertVectorPathToDirections();
 				break;
 			}
 			//gerernate nodes children
