@@ -4,7 +4,7 @@
     <Scenario>
       <id>0</id>
       <name>New Scenario</name>
-      <control>true</control>
+      <control>false</control>
       <playerHasHighPower>true</playerHasHighPower>
       <turnTime>30</turnTime>
       <totalTime>10</totalTime>
@@ -32,8 +32,8 @@
     <Scenario>
       <id>0</id>
       <name>New Scenario2</name>
-      <control>true</control>
-      <playerHasHighPower>true</playerHasHighPower>
+      <control>false</control>
+      <playerHasHighPower>false</playerHasHighPower>
       <turnTime>30</turnTime>
       <totalTime>10</totalTime>
       <pSpeedIncreaseAvailable>true</pSpeedIncreaseAvailable>
