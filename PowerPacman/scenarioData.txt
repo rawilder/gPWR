@@ -6,7 +6,7 @@
       <name>New Scenario</name>
       <control>true</control>
       <playerHasHighPower>true</playerHasHighPower>
-      <turnTime>50</turnTime>
+      <turnTime>30</turnTime>
       <totalTime>10</totalTime>
       <pSpeedIncreaseAvailable>true</pSpeedIncreaseAvailable>
       <gSpeedDecreaseAvailable>true</gSpeedDecreaseAvailable>
@@ -26,14 +26,15 @@
       <AiAllocateGhostRespawn>1</AiAllocateGhostRespawn>
       <AiAllocateDumbGhosts>1</AiAllocateDumbGhosts>
       <AiAllocateFewerGhosts>1</AiAllocateFewerGhosts>
-      <AiAllocateWeight>0.5</AiAllocateWeight>
+      <AiAllocateWeight>0.4</AiAllocateWeight>
+      <scoreThreshold>0</scoreThreshold>
     </Scenario>
     <Scenario>
       <id>0</id>
       <name>New Scenario2</name>
       <control>true</control>
       <playerHasHighPower>true</playerHasHighPower>
-      <turnTime>50</turnTime>
+      <turnTime>30</turnTime>
       <totalTime>10</totalTime>
       <pSpeedIncreaseAvailable>true</pSpeedIncreaseAvailable>
       <gSpeedDecreaseAvailable>true</gSpeedDecreaseAvailable>
@@ -53,15 +54,16 @@
       <AiAllocateGhostRespawn>1</AiAllocateGhostRespawn>
       <AiAllocateDumbGhosts>1</AiAllocateDumbGhosts>
       <AiAllocateFewerGhosts>1</AiAllocateFewerGhosts>
-      <AiAllocateWeight>0.35</AiAllocateWeight>
+      <AiAllocateWeight>0.4</AiAllocateWeight>
+      <scoreThreshold>599</scoreThreshold>
     </Scenario>
     <Scenario>
       <id>0</id>
       <name>New Scenario3</name>
       <control>true</control>
       <playerHasHighPower>true</playerHasHighPower>
-      <turnTime>50</turnTime>
-      <totalTime>12</totalTime>
+      <turnTime>30</turnTime>
+      <totalTime>10</totalTime>
       <pSpeedIncreaseAvailable>true</pSpeedIncreaseAvailable>
       <gSpeedDecreaseAvailable>true</gSpeedDecreaseAvailable>
       <fRespawnAvailable>true</fRespawnAvailable>
@@ -80,7 +82,8 @@
       <AiAllocateGhostRespawn>1</AiAllocateGhostRespawn>
       <AiAllocateDumbGhosts>1</AiAllocateDumbGhosts>
       <AiAllocateFewerGhosts>1</AiAllocateFewerGhosts>
-      <AiAllocateWeight>0.75</AiAllocateWeight>
+      <AiAllocateWeight>0.4</AiAllocateWeight>
+      <scoreThreshold>-500</scoreThreshold>
     </Scenario>
   </Scenarios>
 </ScenarioList>

@@ -38,6 +38,8 @@ public class Scenario{
 	public float AiAllocateFewerGhosts;
 
 	public float AiAllocateWeight;
+
+	public int scoreThreshold;	//if 0, the scores are equal, if positive, the AI scores that much higher, if negative, the AI scores that much less
 	
 	public Scenario(){
 		name = "";
@@ -70,6 +72,8 @@ public class Scenario{
 
 		AiAllocateWeight = .5f;
 
+		scoreThreshold = 0;
+
 	}
 
 	public Scenario(Scenario s){
@@ -101,6 +105,7 @@ public class Scenario{
 		AiAllocateFewerGhosts = s.AiAllocateFewerGhosts;
 
 		AiAllocateWeight = s.AiAllocateWeight;
+		scoreThreshold = s.scoreThreshold;
 	}
 }
 
@@ -158,6 +163,8 @@ public class AdminDataManager : MonoBehaviour {
 	Text playerWeightText;
 	Slider weightSlider;
 
+	InputField thresholdInput;
+
 	void Start () {
 	
 		scenList = new ScenarioList ();
@@ -192,6 +199,8 @@ public class AdminDataManager : MonoBehaviour {
 		aiWeightText = GameObject.Find ("AIWeightText").GetComponent<Text> ();
 		playerWeightText = GameObject.Find ("PlayerWeightText").GetComponent<Text> ();
 		weightSlider = GameObject.Find ("Slider").GetComponent<Slider> ();
+
+		thresholdInput = GameObject.Find ("ScoreThresholdInput").GetComponent<InputField> ();
 
 		allocationSliders.Add (aiAllocatesPlayerSpeed);
 		allocationSliders.Add (aiAllocatesGhostSpeed);
@@ -273,6 +282,9 @@ public class AdminDataManager : MonoBehaviour {
 
 		nameBox.text = tempScenario.name;
 
+		tempScenario.scoreThreshold = 0;
+		thresholdInput.text = "0";
+
 	}
 
 	public void updateTempScenario(){
@@ -323,6 +335,17 @@ public class AdminDataManager : MonoBehaviour {
 
 		tempScenario.AiAllocateWeight = weightSlider.value;
 
+		if (thresholdInput.text != "") {
+			try {
+				int val = Convert.ToInt32 (thresholdInput.text);
+				tempScenario.scoreThreshold = val;
+			} catch (FormatException) {
+				thresholdInput.text = "" + tempScenario.scoreThreshold;
+			}
+		} else {
+			thresholdInput.text = "0";
+		}
+
 	}
 
 	void updateDropdown(){
@@ -368,6 +391,8 @@ public class AdminDataManager : MonoBehaviour {
 
 				weightSlider.value = scenList.Scenarios[index].AiAllocateWeight;
 				WeightSliderUpdate();
+
+				thresholdInput.text = "" + scenList.Scenarios[index].scoreThreshold;
 
 				tempScenario = new Scenario(scenList.Scenarios[index]);
 			}
