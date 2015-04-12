@@ -290,6 +290,53 @@ public class MazeScript : MonoBehaviour {
 
 	}
 
+    public bool validGhostMove(Vector2 position, PacmanMove.Direction dir)
+    {
+
+        int x = (int)Math.Round(position.x, 0);
+        int y = (int)Math.Round(position.y, 0);
+
+        try
+        {
+            int value = 0;
+            if (dir == PacmanMove.Direction.Up)
+            {
+                value = map[y + 1, x];
+            }
+            else if (dir == PacmanMove.Direction.Down)
+            {
+                value = map[y - 1, x];
+            }
+            else if (dir == PacmanMove.Direction.Right)
+            {
+                value = map[y, x + 1];
+            }
+            else if (dir == PacmanMove.Direction.Left)
+            {
+                value = map[y, x - 1];
+            }
+            else
+            {
+                //direction is None
+                return true;
+            }
+            if (value == justDot || value == noDotNoCherry || value == powerDot || value == noPowerDot || value == dotAndCherry || value == justCherry || value == ghostPen)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.Log("Exception in validPacManMove: " + e.Message);
+            return false;
+        }
+
+    }
+
 	//checks all directions from the current position to see if moving there is possible
 	//returns a list of 4 bools, representing a move up,right,down, and left (in that order)
 	public List<bool> getAvailableDirections(Vector2 position){

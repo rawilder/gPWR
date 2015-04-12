@@ -131,7 +131,6 @@ public class PacmanMove : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 
-        //this is needed here rather than start to be sure that maze.ghosts is populated before this is run
         if (oneTimePowerupStep)
         {
             if (GhostLowerSpeedPowerup)
@@ -159,6 +158,7 @@ public class PacmanMove : MonoBehaviour {
             {
                 maze.powerDotRespawns = true;
             }
+
 			if (FewerGhostsPowerup)
 			{
 				int randomGhostPos = UnityEngine.Random.Range(0, maze.ghosts.Count);
@@ -486,24 +486,32 @@ public class PacmanMove : MonoBehaviour {
 		if (queuedMovements.Count != 0) {
 			queuedMovements.RemoveAt (0);
 		}
-		if (movementDir != Direction.None) {
-			if (movementDir == Direction.Up && maze.validPacManMove (transform.localPosition, Direction.Up)) {
-				destTile.y++;
-				dest = (Vector2)transform.localPosition + Vector2.up;
-			}
-			if (movementDir == Direction.Right && maze.validPacManMove (transform.localPosition, Direction.Right)) {
-				destTile.x++;
-				dest = (Vector2)transform.localPosition + Vector2.right;
-			}
-			if (movementDir == Direction.Down && maze.validPacManMove (transform.localPosition, Direction.Down)) {
-				destTile.y--;
-				dest = (Vector2)transform.localPosition - Vector2.up;
-			}
-			if (movementDir == Direction.Left && maze.validPacManMove (transform.localPosition, Direction.Left)) {
-				destTile.x--;
-				dest = (Vector2)transform.localPosition - Vector2.right;
-			}
-		}
+        if ((Vector2)transform.localPosition == dest)
+        {
+            if (movementDir != Direction.None)
+            {
+                if (movementDir == Direction.Up && maze.validPacManMove(transform.localPosition, Direction.Up))
+                {
+                    destTile.y++;
+                    dest = (Vector2)transform.localPosition + Vector2.up;
+                }
+                if (movementDir == Direction.Right && maze.validPacManMove(transform.localPosition, Direction.Right))
+                {
+                    destTile.x++;
+                    dest = (Vector2)transform.localPosition + Vector2.right;
+                }
+                if (movementDir == Direction.Down && maze.validPacManMove(transform.localPosition, Direction.Down))
+                {
+                    destTile.y--;
+                    dest = (Vector2)transform.localPosition - Vector2.up;
+                }
+                if (movementDir == Direction.Left && maze.validPacManMove(transform.localPosition, Direction.Left))
+                {
+                    destTile.x--;
+                    dest = (Vector2)transform.localPosition - Vector2.right;
+                }
+            }
+        }
 	}
 
 	bool nearByGhostIsScared()

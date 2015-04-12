@@ -10,6 +10,7 @@ public class GhostMove : MonoBehaviour {
 	public float eatenDelay { get; set; }
 
 	Vector2 origin;
+    Vector2 destTile = Vector2.zero;
 	public Vector2 tilePosition;
 	public PacmanMove.Direction moveDir = PacmanMove.Direction.None;
     public bool isScared;
@@ -19,13 +20,14 @@ public class GhostMove : MonoBehaviour {
     private MazeScript maze;
 
 	void Start(){
-        speed = 10.0f;
+        speed = 9.0f;
         eatenDelay = 1.0f;
 		origin = transform.localPosition;
 		dest = origin;
         //maze = GameObject.FindGameObjectWithTag("maze").GetComponent<MazeScript>();
 		maze = m.GetComponent<MazeScript> ();
         isScared = false;
+        destTile = transform.localPosition;
 
 	}
 
@@ -49,12 +51,14 @@ public class GhostMove : MonoBehaviour {
 			eatenDelayRemaining -= Time.deltaTime;
 		} else {
 			if((Vector2)transform.localPosition == dest){
+                //Debug.Log("local pos, des: " + transform.localPosition + ", " + dest);
 				//check if the ghost is inside the pen
                 if (maze.isInGhostPen(transform.localPosition))
                 {
 					//exit the pen
 					moveDir = PacmanMove.Direction.Up;
-					dest = new Vector2(14,20);
+					dest = new Vector2(14, 20);
+                    destTile = new Vector2(14, 20);
 				}
 				else{
 					
@@ -84,18 +88,22 @@ public class GhostMove : MonoBehaviour {
                     if (moveDir == PacmanMove.Direction.Up && maze.validPacManMove(transform.localPosition, PacmanMove.Direction.Up))
                     {
 						dest = (Vector2)transform.localPosition + Vector2.up;
+                        destTile.y++;
 					}
 					if (moveDir == PacmanMove.Direction.Right && maze.validPacManMove(transform.localPosition, PacmanMove.Direction.Right))
                     {
 						dest = (Vector2)transform.localPosition + Vector2.right;
+                        destTile.x++;
 					}
 					if (moveDir == PacmanMove.Direction.Down && maze.validPacManMove(transform.localPosition, PacmanMove.Direction.Down))
                     {
 						dest = (Vector2) transform.localPosition - Vector2.up;
+                        destTile.y--;
 					}
 					if (moveDir == PacmanMove.Direction.Left && maze.validPacManMove(transform.localPosition, PacmanMove.Direction.Left))
                     {
 						dest = (Vector2)transform.localPosition - Vector2.right;
+                        destTile.x--;
 					}
 				}
 			}
@@ -118,14 +126,26 @@ public class GhostMove : MonoBehaviour {
 			// Animation
 			GetComponent<Animator> ().SetFloat ("DirX", dir.x);
 			GetComponent<Animator> ().SetFloat ("DirY", dir.y);
-			
-			if(moveDir != PacmanMove.Direction.None){
-				Vector2 p = Vector2.MoveTowards(transform.localPosition, dest, speed*Time.deltaTime);
-				transform.localPosition = p;
-			}
 
-			tilePosition.x = (int)Math.Round(transform.localPosition.x,0);
-			tilePosition.y = (int)Math.Round(transform.localPosition.y,0);
+            if (maze.validGhostMove(transform.localPosition, moveDir) || (Vector2)transform.localPosition != tilePosition)
+            {
+                Vector2 p = Vector2.MoveTowards(transform.localPosition, destTile, speed * Time.deltaTime);
+                Debug.Log("ghost speed?: " + p.magnitude);
+                transform.localPosition = p;
+
+                //round to the nearest tile
+                tilePosition.x = (int)Math.Round(transform.localPosition.x, 0);
+                tilePosition.y = (int)Math.Round(transform.localPosition.y, 0);
+
+            }
+            else
+            {
+                //not a valid move
+                dest = transform.localPosition;
+                destTile = tilePosition;
+            }
+
+			
 		}
 	}
 

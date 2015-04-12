@@ -64,15 +64,15 @@
       <playerHasHighPower>true</playerHasHighPower>
       <turnTime>30</turnTime>
       <totalTime>10</totalTime>
-      <pSpeedIncreaseAvailable>true</pSpeedIncreaseAvailable>
-      <gSpeedDecreaseAvailable>true</gSpeedDecreaseAvailable>
-      <fRespawnAvailable>true</fRespawnAvailable>
-      <longerPowerModeAvailable>true</longerPowerModeAvailable>
-      <powerballRespawnAvailable>true</powerballRespawnAvailable>
-      <gRespawnAvailable>true</gRespawnAvailable>
-      <gDumbAvailale>true</gDumbAvailale>
-      <gFewerAvailable>true</gFewerAvailable>
-      <hpStealsTurnsAvailable>true</hpStealsTurnsAvailable>
+      <pSpeedIncreaseAvailable>false</pSpeedIncreaseAvailable>
+      <gSpeedDecreaseAvailable>false</gSpeedDecreaseAvailable>
+      <fRespawnAvailable>false</fRespawnAvailable>
+      <longerPowerModeAvailable>false</longerPowerModeAvailable>
+      <powerballRespawnAvailable>false</powerballRespawnAvailable>
+      <gRespawnAvailable>false</gRespawnAvailable>
+      <gDumbAvailale>false</gDumbAvailale>
+      <gFewerAvailable>false</gFewerAvailable>
+      <hpStealsTurnsAvailable>false</hpStealsTurnsAvailable>
       <AiAllocationIsRandom>true</AiAllocationIsRandom>
       <AiAllocatePlayerSpeed>1</AiAllocatePlayerSpeed>
       <AiAllocateGhostSpeed>1</AiAllocateGhostSpeed>
