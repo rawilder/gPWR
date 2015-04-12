@@ -18,6 +18,7 @@ public class Allocation{
 	public int GhostRespawn;
 	public int DumbGhosts;
 	public int FewerGhosts;
+	public float scoreWeight;
 
 	public Allocation(){
 		PlayerSpeed = -1;
@@ -28,6 +29,7 @@ public class Allocation{
 		GhostRespawn = -1;
 		DumbGhosts = -1;
 		FewerGhosts = -1;
+		scoreWeight = 0.5f;
 	}
 
 	public Allocation(Allocation a){
@@ -39,6 +41,7 @@ public class Allocation{
 		GhostRespawn = a.GhostRespawn;
 		DumbGhosts = a.DumbGhosts;
 		FewerGhosts = a.FewerGhosts;
+		scoreWeight = a.scoreWeight;
 	}
 
 }

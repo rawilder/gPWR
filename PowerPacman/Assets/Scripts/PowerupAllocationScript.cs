@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Threading;
+using System;
 
 public class PowerupAllocationScript : MonoBehaviour {
 
@@ -10,6 +11,9 @@ public class PowerupAllocationScript : MonoBehaviour {
 	public Text Title;
 	public Transform sliderPanel;
 	public GameObject allocationSliderPrefab;
+	Slider weightSlider;
+	Text partnerWeightText;
+	Text playerWeightText;
 
 	public int iterationCount = 0;
 
@@ -21,6 +25,9 @@ public class PowerupAllocationScript : MonoBehaviour {
 
 	void Start () {
 	
+		weightSlider = GameObject.Find ("WeightSlider").GetComponent<Slider> ();
+		partnerWeightText = GameObject.Find ("ParterWeight").GetComponent<Text> ();
+		playerWeightText = GameObject.Find ("PlayerWeight").GetComponent<Text> ();
 		continueButton = GameObject.Find ("Button").GetComponent<Button> ();
 		Title.text = DataScript.tutText.AllocationScreenTitle;
 
@@ -32,7 +39,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 
 		//create the sliders
 		createSliders ();
-
+		weightSliderUpdate ();
 
 
 		if (!DataScript.scenario.playerHasHighPower){
@@ -43,6 +50,13 @@ public class PowerupAllocationScript : MonoBehaviour {
 					g[i].CrossFadeAlpha(.2f,.2f,true);
 				}
 			}
+
+			weightSlider.GetComponentInChildren<Slider>().interactable = false;
+			Graphic[] g2 = weightSlider.GetComponentInChildren<Slider>().GetComponentsInChildren<Graphic>();
+			for(int i = 0; i < g2.Length; i++){
+				g2[i].CrossFadeAlpha(.2f,.2f,true);
+			}
+			
 		}
 
 
@@ -140,7 +154,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 			if (!DataScript.scenario.playerHasHighPower) {
 				runAiAllocation();
 			}
-			countdownRemaining = UnityEngine.Random.Range(2.0f,3.0f);
+			countdownRemaining = UnityEngine.Random.Range(1.0f,3.0f);
 		}
 	}
 
@@ -284,8 +298,6 @@ public class PowerupAllocationScript : MonoBehaviour {
 
 		//not flexible code... this is a really dumb way to do this
 
-		//sleep a bit....
-
 		switch(iterationCount){
 		case 0:
 				if (DataScript.alloc.PlayerSpeed != -1) {
@@ -370,6 +382,10 @@ public class PowerupAllocationScript : MonoBehaviour {
 			}
 			break;
 		case 8:
+			//weight slider
+			weightSlider.value = DataScript.scenario.AiAllocateWeight;
+			break;
+		case 9:
 			buttonSetEnabled(continueButton,true);
 			break;
 		}
@@ -390,5 +406,18 @@ public class PowerupAllocationScript : MonoBehaviour {
 			}
 			b.enabled = false;
 		}
+	}
+
+	public void weightSliderUpdate(){
+
+		//make sure the value is always rounded to the nearest .05 (5%)
+		float value = weightSlider.value;
+		float newVal = (float) Math.Round (value * 20) / 20;
+		partnerWeightText.text = "" + ((1-newVal)*100) + "%";
+		playerWeightText.text = "" + (newVal*100) + "%";
+		weightSlider.value = newVal;
+
+		DataScript.alloc.scoreWeight = newVal;
+
 	}
 }

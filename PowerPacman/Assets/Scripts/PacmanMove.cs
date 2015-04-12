@@ -126,13 +126,6 @@ public class PacmanMove : MonoBehaviour {
 	    {
 	        powerModeDuration = 10;
 	    }
-
-        if (FewerGhostsPowerup)
-        {
-            int randomGhostPos = UnityEngine.Random.Range(0, maze.ghosts.Count);
-            maze.ghosts.ElementAt(randomGhostPos).SetActive(false);
-        }
-
 	}
 	
 	// Update is called once per frame
@@ -166,6 +159,11 @@ public class PacmanMove : MonoBehaviour {
             {
                 maze.powerDotRespawns = true;
             }
+			if (FewerGhostsPowerup)
+			{
+				int randomGhostPos = UnityEngine.Random.Range(0, maze.ghosts.Count);
+				maze.ghosts.ElementAt(randomGhostPos).SetActive(false);
+			}
 
             oneTimePowerupStep = false;
         }
