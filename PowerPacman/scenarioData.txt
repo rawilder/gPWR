@@ -45,14 +45,14 @@
       <gDumbAvailale>true</gDumbAvailale>
       <gFewerAvailable>true</gFewerAvailable>
       <hpStealsTurnsAvailable>true</hpStealsTurnsAvailable>
-      <AiAllocationIsRandom>true</AiAllocationIsRandom>
-      <AiAllocatePlayerSpeed>1</AiAllocatePlayerSpeed>
+      <AiAllocationIsRandom>false</AiAllocationIsRandom>
+      <AiAllocatePlayerSpeed>0</AiAllocatePlayerSpeed>
       <AiAllocateGhostSpeed>1</AiAllocateGhostSpeed>
-      <AiAllocateFruitRespawn>1</AiAllocateFruitRespawn>
+      <AiAllocateFruitRespawn>0</AiAllocateFruitRespawn>
       <AiAllocateLongerPowerMode>1</AiAllocateLongerPowerMode>
-      <AiAllocatePowerBallRespawn>1</AiAllocatePowerBallRespawn>
+      <AiAllocatePowerBallRespawn>0</AiAllocatePowerBallRespawn>
       <AiAllocateGhostRespawn>1</AiAllocateGhostRespawn>
-      <AiAllocateDumbGhosts>1</AiAllocateDumbGhosts>
+      <AiAllocateDumbGhosts>0</AiAllocateDumbGhosts>
       <AiAllocateFewerGhosts>1</AiAllocateFewerGhosts>
       <AiAllocateWeight>0.4</AiAllocateWeight>
       <scoreThreshold>599</scoreThreshold>

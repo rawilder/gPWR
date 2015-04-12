@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Threading;
 
 public class PowerupAllocationScript : MonoBehaviour {
 
@@ -10,58 +11,24 @@ public class PowerupAllocationScript : MonoBehaviour {
 	public Transform sliderPanel;
 	public GameObject allocationSliderPrefab;
 
+	public int iterationCount = 0;
+
+	Button continueButton;
+
+	float countdownRemaining = 4.0f;
+
 	IList<GameObject> sliders = new List<GameObject>();
 
 	void Start () {
 	
+		continueButton = GameObject.Find ("Button").GetComponent<Button> ();
 		Title.text = DataScript.tutText.AllocationScreenTitle;
 
 		messageText = GameObject.Find ("TempText").GetComponent<Text> ();
 
-		if (DataScript.scenario.playerHasHighPower) {
-			messageText.text = "The real player will be allocating. ";
-		} else {
-			messageText.text = "The ai will be allocating. ";
+		if (!DataScript.scenario.playerHasHighPower) {
+			buttonSetEnabled(continueButton,false);
 		}
-
-		messageText.text += " Available power ups: ";
-
-		if (DataScript.scenario.pSpeedIncreaseAvailable) {
-			messageText.text += " Player speed increase,";
-		}
-
-		if (DataScript.scenario.gSpeedDecreaseAvailable) {
-			messageText.text += " Ghost speed decrease,";
-		}
-
-		if (DataScript.scenario.fRespawnAvailable) {
-			messageText.text += " Fruit respawn increase,";
-		}
-
-		if (DataScript.scenario.longerPowerModeAvailable) {
-			messageText.text += " Longer power mode,";
-		}
-
-		if (DataScript.scenario.powerballRespawnAvailable) {
-			messageText.text += " Power ball respawn,";
-		}
-
-		if (DataScript.scenario.gRespawnAvailable) {
-			messageText.text += " Ghost slower respawn,";
-		}
-
-		if (DataScript.scenario.gDumbAvailale) {
-			messageText.text += " \"Dumb\" ghosts,";
-		}
-
-		if (DataScript.scenario.gFewerAvailable) {
-			messageText.text += " Fewer ghosts,";
-		}
-
-		if (DataScript.scenario.hpStealsTurnsAvailable) {
-			messageText.text += " High power can steal turns,";
-		}
-
 
 		//create the sliders
 		createSliders ();
@@ -70,7 +37,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 
 		if (!DataScript.scenario.playerHasHighPower){
 			foreach (var slider in sliders) {
-				slider.GetComponentInChildren<Slider>().enabled = false;
+				slider.GetComponentInChildren<Slider>().interactable = false;
 				Graphic[] g = slider.GetComponentInChildren<Slider>().GetComponentsInChildren<Graphic>();
 				for(int i = 0; i < g.Length; i++){
 					g[i].CrossFadeAlpha(.2f,.2f,true);
@@ -162,6 +129,19 @@ public class PowerupAllocationScript : MonoBehaviour {
 
 			}
 		}
+
+	}
+
+	void FixedUpdate(){
+		if (countdownRemaining > 0) {
+			countdownRemaining -= Time.deltaTime;
+		}
+		else{
+			if (!DataScript.scenario.playerHasHighPower) {
+				runAiAllocation();
+			}
+			countdownRemaining = UnityEngine.Random.Range(2.0f,3.0f);
+		}
 	}
 
 	void createSliders(){
@@ -226,20 +206,6 @@ public class PowerupAllocationScript : MonoBehaviour {
 			sliders.Add (newSlider);
 		}
 
-		if (DataScript.scenario.longerPowerModeAvailable) {
-			GameObject newSlider = (GameObject)Instantiate (allocationSliderPrefab);
-			newSlider.GetComponentInChildren<Text> ().text = "Longer Power Mode";
-			newSlider.GetComponentInChildren<Slider> ().onValueChanged.AddListener ((float value) => {
-				
-				if (DataScript.scenario.playerHasHighPower) {
-					int v = updateSliderValue (newSlider.GetComponentInChildren<Slider> ());
-					DataScript.alloc.LongerPowerMode = v;
-				}
-			}
-			);
-			newSlider.transform.SetParent (sliderPanel, false);
-			sliders.Add (newSlider);
-		}
 		if (DataScript.scenario.powerballRespawnAvailable) {
 			GameObject newSlider = (GameObject)Instantiate (allocationSliderPrefab);
 			newSlider.GetComponentInChildren<Text> ().text = "Power Balls Respawn";
@@ -311,6 +277,118 @@ public class PowerupAllocationScript : MonoBehaviour {
 		else{
 			s.value = 1.0f;
 			return 1;
+		}
+	}
+
+	void runAiAllocation(){
+
+		//not flexible code... this is a really dumb way to do this
+
+		//sleep a bit....
+
+		switch(iterationCount){
+		case 0:
+				if (DataScript.alloc.PlayerSpeed != -1) {
+					foreach(var slider in sliders){
+						if(slider.GetComponentInChildren<Text>().text == "Player Speed Increase"){
+							slider.GetComponentInChildren<Slider>().value = DataScript.alloc.PlayerSpeed;
+							break;
+						}
+					}
+					//Thread.Sleep ((int)(1000 * UnityEngine.Random.Range (2.0f, 3.0f)));
+				}
+				break;
+		case 1:
+			if (DataScript.alloc.GhostSpeed != -1) {
+				foreach(var slider in sliders){
+					if(slider.GetComponentInChildren<Text>().text == "Enemy Speed Decrease"){
+						slider.GetComponentInChildren<Slider>().value = DataScript.alloc.GhostSpeed;
+						break;
+					}
+				}
+				//Thread.Sleep((int) (1000 * UnityEngine.Random.Range(2.0f,3.0f)));
+			}
+			break;
+		case 2:
+			if (DataScript.alloc.FruitRespawn != -1) {
+				foreach(var slider in sliders){
+					if(slider.GetComponentInChildren<Text>().text == "Fruit Respawn Increase"){
+						slider.GetComponentInChildren<Slider>().value = DataScript.alloc.FruitRespawn;
+						break;
+					}
+				}
+			}
+			break;
+		case 3:
+			if (DataScript.alloc.LongerPowerMode != -1) {
+				foreach(var slider in sliders){
+					if(slider.GetComponentInChildren<Text>().text == "Longer Power Mode"){
+						slider.GetComponentInChildren<Slider>().value = DataScript.alloc.LongerPowerMode;
+						break;
+					}
+				}
+			}
+			break;
+		case 4:
+			if (DataScript.alloc.PowerBallRespawn != -1) {
+				foreach(var slider in sliders){
+					if(slider.GetComponentInChildren<Text>().text == "Power Balls Respawn"){
+						slider.GetComponentInChildren<Slider>().value = DataScript.alloc.PowerBallRespawn;
+						break;
+					}
+				}
+			}
+			break;
+		case 5:
+			if (DataScript.alloc.GhostRespawn != -1) {
+				foreach(var slider in sliders){
+					if(slider.GetComponentInChildren<Text>().text == "Enemy Slower Respawn"){
+						slider.GetComponentInChildren<Slider>().value = DataScript.alloc.GhostRespawn;
+						break;
+					}
+				}
+			}
+			break;
+		case 6:
+			if (DataScript.alloc.DumbGhosts != -1) {
+				foreach(var slider in sliders){
+					if(slider.GetComponentInChildren<Text>().text == "\"Dumb\" Enemies"){
+						slider.GetComponentInChildren<Slider>().value = DataScript.alloc.DumbGhosts;
+						break;
+					}
+				}
+			}
+			break;
+		case 7:
+			if (DataScript.alloc.FewerGhosts != -1) {
+				foreach(var slider in sliders){
+					if(slider.GetComponentInChildren<Text>().text == "Fewer Enemies"){
+						slider.GetComponentInChildren<Slider>().value = DataScript.alloc.FewerGhosts;
+						break;
+					}
+				}
+			}
+			break;
+		case 8:
+			buttonSetEnabled(continueButton,true);
+			break;
+		}
+		iterationCount++;
+	}
+
+	void buttonSetEnabled(Button b, bool enable){
+		if (enable) {
+			Graphic[] g = b.GetComponentsInChildren<Graphic> ();
+			for (int i = 0; i < g.Length; i++) {
+				g [i].CrossFadeAlpha (1.0f, .5f, true);
+			}
+			b.enabled = true;
+		} else {
+			Graphic[] g = b.GetComponentsInChildren<Graphic> ();
+			for (int i = 0; i < g.Length; i++) {
+				g [i].CrossFadeAlpha (.2f, .2f, true);
+			}
+			b.enabled = false;
 		}
 	}
 }
