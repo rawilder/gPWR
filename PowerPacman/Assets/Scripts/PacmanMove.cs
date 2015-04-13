@@ -20,7 +20,7 @@ public class PacmanMove : MonoBehaviour {
     public InkyMove inky;
     public PinkyMove pinky;
     public GhostMove blinky;
-    public IList<GhostMove> ghostsMoves;
+    public List<GhostMove> ghostsMoves;
     public Sprite scared;
 
     //public bool isPlayerTurn = true;
@@ -32,7 +32,7 @@ public class PacmanMove : MonoBehaviour {
     public float powerModeTimeRemaining;
 
     public int player1Score = 0;
-    public static bool pacmanEaten = false;
+    public bool pacmanEaten = false;
     float eatenTimeDelay = 0.5f; //the amount of time the player is frozen after being eaten
     float eatenDelayRemaining = 0;
     float flickerTime = .1f;
@@ -94,6 +94,7 @@ public class PacmanMove : MonoBehaviour {
         queuedDir = Direction.None;
         maze = m.GetComponent<MazeScript> ();
 
+        ghostsMoves = new List<GhostMove>();
         ghostsMoves.Add(clyde);
         ghostsMoves.Add(inky);
         ghostsMoves.Add(pinky);
@@ -202,6 +203,11 @@ public class PacmanMove : MonoBehaviour {
             targetFood = null;
             targetGhost = null;
             queuedMovements.Clear();
+            foreach(var ghost in ghostsMoves)
+            {
+                ghost.isAttackMode = false;
+                ghost.timeInAMode = 0.0f;
+            }
         }
 
         // Move closer to Destination

@@ -16,7 +16,7 @@ public class GhostMove : MonoBehaviour {
     public PacmanMove.Direction moveDir = PacmanMove.Direction.None;
     public bool isScared;
     public bool isAttackMode = false;
-    float timeInAMode = 0.0f;
+    public float timeInAMode = 0.0f;
     int attackTimeLimit = 20;
     int scatterTimeLimit = 7;
     
@@ -70,7 +70,8 @@ public class GhostMove : MonoBehaviour {
                     ghost.timeInAMode = 0.0f;
                 }
             }
-            else if (timeInAMode > attackTimeLimit && isAttackMode || PacmanMove.pacmanEaten) {
+            else if ((timeInAMode > attackTimeLimit && isAttackMode) || maze.pacman.pacmanEaten)
+            {
                 foreach (var ghost in maze.pacman.ghostsMoves)
                 {
                     ghost.isAttackMode = false;
