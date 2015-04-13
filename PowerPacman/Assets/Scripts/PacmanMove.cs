@@ -110,6 +110,7 @@ public class PacmanMove : MonoBehaviour {
         FasterFruitRespawnPowerup = DeterminePowerup(DataScript.alloc.FruitRespawn);
         oneTimePowerupStep = true;
 
+
         // powerups testing
 	    // SpeedPowerup = true;
         // PowerModeDurationPowerup = true;
@@ -126,6 +127,7 @@ public class PacmanMove : MonoBehaviour {
 	    {
 	        powerModeDuration = 10;
 	    }
+
 	}
 	
 	// Update is called once per frame
@@ -402,13 +404,17 @@ public class PacmanMove : MonoBehaviour {
 
 	}
 
+	double distance(Vector2 p1, Vector2 p2){
+		return Math.Sqrt (Math.Pow((p2.x - p1.x),2) + Math.Pow((p2.y-p1.y),2));
+	}
+
 	void checkForGhostCollisions(){
 
 		//compare player tile position to the position of each of the ghosts
         foreach(var ghost in maze.ghosts)
         {
             var ghostMove = ghost.GetComponent<GhostMove>();
-            if (tilePosition == ghostMove.tilePosition)
+            if (tilePosition == ghostMove.tilePosition || distance (position, ghost.GetComponent<GhostMove>().transform.localPosition) < 1)
             {
                 if (powerMode && ghostMove.isScared)
                 {

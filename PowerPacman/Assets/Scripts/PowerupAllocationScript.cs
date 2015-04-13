@@ -41,7 +41,6 @@ public class PowerupAllocationScript : MonoBehaviour {
 		createSliders ();
 		weightSliderUpdate ();
 
-
 		if (!DataScript.scenario.playerHasHighPower){
 			foreach (var slider in sliders) {
 				slider.GetComponentInChildren<Slider>().interactable = false;
@@ -61,87 +60,82 @@ public class PowerupAllocationScript : MonoBehaviour {
 
 
 		if (!DataScript.scenario.playerHasHighPower) {
-			if(!DataScript.scenario.AiAllocationIsRandom){
+			if (!DataScript.scenario.AiAllocationIsRandom) {
 
 				//apply the power ups
-				if(DataScript.scenario.pSpeedIncreaseAvailable){
-					if(DataScript.scenario.AiAllocatePlayerSpeed == 0){
+				if (DataScript.scenario.pSpeedIncreaseAvailable) {
+					if (DataScript.scenario.AiAllocatePlayerSpeed == 0) {
 						DataScript.alloc.PlayerSpeed = 0;
-					}
-					else{
+					} else {
 						DataScript.alloc.PlayerSpeed = 1;
 					}
 				}
 
-				if(DataScript.scenario.gSpeedDecreaseAvailable){
-					if(DataScript.scenario.AiAllocateGhostSpeed == 0){
+				if (DataScript.scenario.gSpeedDecreaseAvailable) {
+					if (DataScript.scenario.AiAllocateGhostSpeed == 0) {
 						DataScript.alloc.GhostSpeed = 0;
-					}
-					else{
+					} else {
 						DataScript.alloc.GhostSpeed = 1;
 					}
 				}
 
-				if(DataScript.scenario.fRespawnAvailable){
-					if(DataScript.scenario.AiAllocateFruitRespawn == 0){
+				if (DataScript.scenario.fRespawnAvailable) {
+					if (DataScript.scenario.AiAllocateFruitRespawn == 0) {
 						DataScript.alloc.FruitRespawn = 0;
-					}
-					else{
+					} else {
 						DataScript.alloc.FruitRespawn = 1;
 					}
 				}
 
-				if(DataScript.scenario.longerPowerModeAvailable){
-					if(DataScript.scenario.AiAllocateLongerPowerMode == 0){
+				if (DataScript.scenario.longerPowerModeAvailable) {
+					if (DataScript.scenario.AiAllocateLongerPowerMode == 0) {
 						DataScript.alloc.LongerPowerMode = 0;
-					}
-					else{
+					} else {
 						DataScript.alloc.LongerPowerMode = 1;
 					}
 				}
 
-				if(DataScript.scenario.powerballRespawnAvailable){
-					if(DataScript.scenario.AiAllocatePowerBallRespawn == 0){
+				if (DataScript.scenario.powerballRespawnAvailable) {
+					if (DataScript.scenario.AiAllocatePowerBallRespawn == 0) {
 						DataScript.alloc.PowerBallRespawn = 0;
-					}
-					else{
+					} else {
 						DataScript.alloc.PowerBallRespawn = 1;
 					}
 				}
 
-				if(DataScript.scenario.gRespawnAvailable){
-					if(DataScript.scenario.AiAllocateGhostRespawn == 0){
+				if (DataScript.scenario.gRespawnAvailable) {
+					if (DataScript.scenario.AiAllocateGhostRespawn == 0) {
 						DataScript.alloc.GhostRespawn = 0;
-					}
-					else{
+					} else {
 						DataScript.alloc.GhostRespawn = 1;
 					}
 				}
 
-				if(DataScript.scenario.gDumbAvailale){
-					if(DataScript.scenario.AiAllocateDumbGhosts == 0){
+				if (DataScript.scenario.gDumbAvailale) {
+					if (DataScript.scenario.AiAllocateDumbGhosts == 0) {
 						DataScript.alloc.DumbGhosts = 0;
-					}
-					else{
+					} else {
 						DataScript.alloc.DumbGhosts = 1;
 					}
 				}
 
-				if(DataScript.scenario.gFewerAvailable){
-					if(DataScript.scenario.AiAllocateFewerGhosts == 0){
+				if (DataScript.scenario.gFewerAvailable) {
+					if (DataScript.scenario.AiAllocateFewerGhosts == 0) {
 						DataScript.alloc.FewerGhosts = 0;
-					}
-					else{
+					} else {
 						DataScript.alloc.FewerGhosts = 1;
 					}
 				}
-			}
-			else{
+			} else {
 				//random allocation
 				//TODO
 
 
 			}
+		} else {
+
+
+
 		}
 
 	}
@@ -161,6 +155,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 	void createSliders(){
 
 		if (DataScript.scenario.pSpeedIncreaseAvailable) {
+			DataScript.alloc.PlayerSpeed = 1;
 			GameObject newSlider = (GameObject)Instantiate (allocationSliderPrefab);
 			newSlider.GetComponentInChildren<Text> ().text = "Player Speed Increase";
 			newSlider.GetComponentInChildren<Slider> ().onValueChanged.AddListener ((float value) => {
@@ -176,6 +171,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 		}
 		
 		if (DataScript.scenario.gSpeedDecreaseAvailable) {
+			DataScript.alloc.GhostSpeed = 1;
 			GameObject newSlider = (GameObject)Instantiate (allocationSliderPrefab);
 			newSlider.GetComponentInChildren<Text> ().text = "Enemy Speed Decrease";
 			newSlider.GetComponentInChildren<Slider> ().onValueChanged.AddListener ((float value) => {
@@ -191,6 +187,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 		}
 		
 		if (DataScript.scenario.fRespawnAvailable) {
+			DataScript.alloc.FruitRespawn = 1;
 			GameObject newSlider = (GameObject)Instantiate (allocationSliderPrefab);
 			newSlider.GetComponentInChildren<Text> ().text = "Fruit Respawn Increase";
 			newSlider.GetComponentInChildren<Slider> ().onValueChanged.AddListener ((float value) => {
@@ -206,6 +203,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 		}
 
 		if (DataScript.scenario.longerPowerModeAvailable) {
+			DataScript.alloc.LongerPowerMode = 1;
 			GameObject newSlider = (GameObject)Instantiate (allocationSliderPrefab);
 			newSlider.GetComponentInChildren<Text> ().text = "Longer Power Mode";
 			newSlider.GetComponentInChildren<Slider> ().onValueChanged.AddListener ((float value) => {
@@ -221,6 +219,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 		}
 
 		if (DataScript.scenario.powerballRespawnAvailable) {
+			DataScript.alloc.PowerBallRespawn = 1;
 			GameObject newSlider = (GameObject)Instantiate (allocationSliderPrefab);
 			newSlider.GetComponentInChildren<Text> ().text = "Power Balls Respawn";
 			newSlider.GetComponentInChildren<Slider> ().onValueChanged.AddListener ((float value) => {
@@ -236,6 +235,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 		}
 
 		if (DataScript.scenario.gRespawnAvailable) {
+			DataScript.alloc.GhostRespawn = 1;
 			GameObject newSlider = (GameObject)Instantiate (allocationSliderPrefab);
 			newSlider.GetComponentInChildren<Text> ().text = "Enemy Slower Respawn";
 			newSlider.GetComponentInChildren<Slider> ().onValueChanged.AddListener ((float value) => {
@@ -251,6 +251,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 		}
 
 		if (DataScript.scenario.gDumbAvailale) {
+			DataScript.alloc.DumbGhosts = 1;
 			GameObject newSlider = (GameObject)Instantiate (allocationSliderPrefab);
 			newSlider.GetComponentInChildren<Text> ().text = "\"Dumb\" Enemies";
 			newSlider.GetComponentInChildren<Slider> ().onValueChanged.AddListener ((float value) => {
@@ -266,6 +267,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 		}
 
 		if (DataScript.scenario.gFewerAvailable) {
+			DataScript.alloc.FewerGhosts = 1;
 			GameObject newSlider = (GameObject)Instantiate (allocationSliderPrefab);
 			newSlider.GetComponentInChildren<Text> ().text = "Fewer Enemies";
 			newSlider.GetComponentInChildren<Slider> ().onValueChanged.AddListener ((float value) => {
@@ -418,6 +420,12 @@ public class PowerupAllocationScript : MonoBehaviour {
 		weightSlider.value = newVal;
 
 		DataScript.alloc.scoreWeight = newVal;
+
+	}
+
+	public void continueButtonPressed(){
+
+		Application.LoadLevel (8);
 
 	}
 }

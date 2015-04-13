@@ -466,7 +466,7 @@ public class MazeScript : MonoBehaviour {
 
 		}
 
-		if (dotsRemaining == 0 && powerDotsRemaining == 0) {
+		if (dotsRemaining == 0) {
 			restoreDots();
 		}
 	}

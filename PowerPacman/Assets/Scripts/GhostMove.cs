@@ -130,7 +130,7 @@ public class GhostMove : MonoBehaviour {
             if (maze.validGhostMove(transform.localPosition, moveDir) || (Vector2)transform.localPosition != tilePosition)
             {
                 Vector2 p = Vector2.MoveTowards(transform.localPosition, destTile, speed * Time.deltaTime);
-                Debug.Log("ghost speed?: " + p.magnitude);
+                //Debug.Log("ghost speed?: " + p.magnitude);
                 transform.localPosition = p;
 
                 //round to the nearest tile
