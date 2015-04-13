@@ -20,6 +20,7 @@ public class PacmanMove : MonoBehaviour {
     public InkyMove inky;
     public PinkyMove pinky;
     public GhostMove blinky;
+    public IList<GhostMove> ghostsMoves;
     public Sprite scared;
 
     //public bool isPlayerTurn = true;
@@ -92,6 +93,11 @@ public class PacmanMove : MonoBehaviour {
         tilePosition = new Vector2 (14, 14);
         queuedDir = Direction.None;
         maze = m.GetComponent<MazeScript> ();
+
+        ghostsMoves.Add(clyde);
+        ghostsMoves.Add(inky);
+        ghostsMoves.Add(pinky);
+        ghostsMoves.Add(blinky);
 
         //if (DataScript.alloc.PlayerSpeed == 0 && isAIControlled) {
         //    PacmanSpeedPowerup = true;

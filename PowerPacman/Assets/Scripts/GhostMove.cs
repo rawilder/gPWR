@@ -64,12 +64,18 @@ public class GhostMove : MonoBehaviour {
         {
             timeInAMode += Time.deltaTime;
             if (timeInAMode > scatterTimeLimit && !isAttackMode) {
-                isAttackMode = true;
-                timeInAMode = 0.0f;
+                foreach (var ghost in maze.pacman.ghostsMoves)
+                {
+                    ghost.isAttackMode = true;
+                    ghost.timeInAMode = 0.0f;
+                }
             }
             else if (timeInAMode > attackTimeLimit && isAttackMode || PacmanMove.pacmanEaten) {
-                isAttackMode = false;
-                timeInAMode = 0.0f;
+                foreach (var ghost in maze.pacman.ghostsMoves)
+                {
+                    ghost.isAttackMode = false;
+                    ghost.timeInAMode = 0.0f;
+                }
             }
             if((Vector2)transform.localPosition == dest){
                 //Debug.Log("local pos, des: " + transform.localPosition + ", " + dest);
