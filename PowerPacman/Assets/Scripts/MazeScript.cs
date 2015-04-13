@@ -3,6 +3,7 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.UI;
 
 public class Position : IEquatable<Position>{
 	public int x;
@@ -170,10 +171,15 @@ public class MazeScript : MonoBehaviour {
     float powerDotsRespawnTimeRemaining;
 
 	Transform screen;
+
+	Text turnSkipsRemainingText;
+	Text turnSkipLabel;
 	
 	// Use this for initialization
 	void Start () {
 
+		turnSkipsRemainingText = GameObject.Find("TurnSkipBox").GetComponent<Text> ();
+		turnSkipLabel = GameObject.Find ("TurnSkipLabel").GetComponent<Text> ();
 		screen = transform.FindChild ("semitransparent");
 
 		//initialize the associate arrays
@@ -204,9 +210,29 @@ public class MazeScript : MonoBehaviour {
         powerDotsRespawnTimeRemaining = powerDotRespawnTime;
 
         powerDotRespawns = false;
+
+		if (DataScript.scenario.hpStealsTurnsAvailable) {
+			if(DataScript.scenario.playerHasHighPower && !pacman.isAIControlled){
+				turnSkipsRemainingText.text = "" + DataScript.scenario.turnStealLimit;
+			}
+			else if(!DataScript.scenario.playerHasHighPower && pacman.isAIControlled){
+				turnSkipsRemainingText.text = "" + DataScript.scenario.turnStealLimit;
+			}
+		} else {
+			turnSkipsRemainingText.enabled = false;
+			turnSkipLabel.enabled = false;
+		}
 	}
 
 	void FixedUpdate(){
+
+		if (DataScript.scenario.hpStealsTurnsAvailable) {
+			if (DataScript.scenario.playerHasHighPower && !pacman.isAIControlled) {
+				turnSkipsRemainingText.text = "" + (DataScript.scenario.turnStealLimit - TurnManagerScript.stolenTurnCount);
+			} else if (!DataScript.scenario.playerHasHighPower && pacman.isAIControlled) {
+				turnSkipsRemainingText.text = "" + (DataScript.scenario.turnStealLimit - TurnManagerScript.stolenTurnCount);
+			}
+		}
 
 		if (TurnManagerScript.paused) {
 			return;
