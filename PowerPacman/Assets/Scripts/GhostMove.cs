@@ -17,7 +17,7 @@ public class GhostMove : MonoBehaviour {
     public bool isScared;
     public bool isAttackMode = false;
     float timeInAMode = 0.0f;
-    int attackTimeLimit = 5;
+    int attackTimeLimit = 20;
     int scatterTimeLimit = 7;
     
     Vector2 dest;
@@ -67,7 +67,7 @@ public class GhostMove : MonoBehaviour {
                 isAttackMode = true;
                 timeInAMode = 0.0f;
             }
-            else if (timeInAMode > attackTimeLimit && isAttackMode) {
+            else if (timeInAMode > attackTimeLimit && isAttackMode || PacmanMove.pacmanEaten) {
                 isAttackMode = false;
                 timeInAMode = 0.0f;
             }
@@ -82,12 +82,10 @@ public class GhostMove : MonoBehaviour {
                     destTile = new Vector2(14, 20);
                 }
                 else
-                {
-                    
-                    
+                {   
                     /*-------------------------------------------------------*/
-                    //this section is where actual intelligent path planning would go
-                    if (isAttackMode && !isScared) //allow for dumb ai and for when scared
+                    //this section is where the intelligent path planning is
+                    if (isAttackMode && !isScared && DataScript.alloc.DumbGhosts != 1) //allow for dumb ai
                     {
                         if (queuedMovements.Count == 0)
                         {

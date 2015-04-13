@@ -31,7 +31,7 @@ public class PacmanMove : MonoBehaviour {
     public float powerModeTimeRemaining;
 
     public int player1Score = 0;
-    public bool pacmanEaten = false;
+    public static bool pacmanEaten = false;
     float eatenTimeDelay = 0.5f; //the amount of time the player is frozen after being eaten
     float eatenDelayRemaining = 0;
     float flickerTime = .1f;
@@ -254,7 +254,7 @@ public class PacmanMove : MonoBehaviour {
                 }
                 else 
                 {
-                    if(!GhostIsThere() || maze.ghosts.Any(g => g.GetComponent<GhostMove>().isScared)) {
+                    if(!GhostIsThere() || nearByGhostIsScared()) {
                         MoveTowardsFood();
                     }
                     else {
