@@ -414,7 +414,7 @@ public class PacmanMove : MonoBehaviour {
         foreach(var ghost in maze.ghosts)
         {
             var ghostMove = ghost.GetComponent<GhostMove>();
-            if (tilePosition == ghostMove.tilePosition || distance (position, ghost.GetComponent<GhostMove>().transform.localPosition) < 1)
+            if (tilePosition == ghostMove.tilePosition || distance (transform.localPosition, ghost.GetComponent<GhostMove>().transform.localPosition) < .5)
             {
                 if (powerMode && ghostMove.isScared)
                 {
