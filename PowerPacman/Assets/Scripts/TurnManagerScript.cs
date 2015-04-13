@@ -10,6 +10,8 @@ public class TurnManagerScript : MonoBehaviour {
 	public static bool paused = true;
 	public static bool pregame = true;
 	public static bool switchingTurnsStage = false;
+	public static bool stealingTurn = false;
+	public static int stolenTurnCount = 0;
 	bool gameOver = false;
 
 	public static float pregameCountdownDelay = 5.0f;
@@ -24,12 +26,16 @@ public class TurnManagerScript : MonoBehaviour {
 
 	Text countdown;
 	Text messageText;
+	Text takeTurnMessage;
 
 	void Start(){
 		pregameCountdownRemaining = pregameCountdownDelay;
 		turnSwitchTimeRemaining = turnSwitchDelay;
 		countdown = GameObject.Find ("CountdownText").GetComponent<Text> ();
 		messageText = GameObject.Find ("MessageText").GetComponent<Text> ();
+		takeTurnMessage = GameObject.Find ("TakeTurnMessage").GetComponent<Text> ();
+
+		takeTurnMessage.enabled = false;
 	}
 
 	void FixedUpdate(){
@@ -56,7 +62,7 @@ public class TurnManagerScript : MonoBehaviour {
 
 		if (switchingTurnsStage) {
 
-			if(totalTimeCounter > totalTimeLimit*60){
+			if (totalTimeCounter > totalTimeLimit * 60) {
 				messageText.text = "The game has ended";
 				paused = true;
 				gameOver = true;
@@ -64,25 +70,42 @@ public class TurnManagerScript : MonoBehaviour {
 				return;
 			}
 
+			if (isPlayerTurn && DataScript.scenario.playerHasHighPower && stolenTurnCount < DataScript.scenario.turnStealLimit) {
+				takeTurnMessage.enabled = true;
+				if(Input.GetKey(KeyCode.F)){
+					stealingTurn = true;
+					takeTurnMessage.text = "You have chosen to take another turn";
+				}
+			} else {
+				takeTurnMessage.enabled = false;
+			}
+
 			messageText.text = "Turn beginning in";
 			paused = true;
-			if(turnSwitchTimeRemaining > 0){
+			if (turnSwitchTimeRemaining > 0) {
 				turnSwitchTimeRemaining -= Time.deltaTime;
-				countdown.text = "" + (int)Math.Ceiling(turnSwitchTimeRemaining);
-			}
-			else{
+				countdown.text = "" + (int)Math.Ceiling (turnSwitchTimeRemaining);
+			} else {
 				switchingTurnsStage = false;
 				turnSwitchTimeRemaining = turnSwitchDelay; //reset for next switch
 				messageText.text = "";
 				countdown.text = "";
 				paused = false;
-				if(isPlayerTurn){
-					isPlayerTurn = false;
+				if(!stealingTurn){
+					if (isPlayerTurn) {
+						isPlayerTurn = false;
+					} else {
+						isPlayerTurn = true;
+					}
 				}
 				else{
-					isPlayerTurn = true;
+					stealingTurn = false;
+					stolenTurnCount++;
 				}
 			}
+		} else {
+			takeTurnMessage.text = "Press 'F' to take another turn";
+			takeTurnMessage.enabled = false;
 		}
 	}
 

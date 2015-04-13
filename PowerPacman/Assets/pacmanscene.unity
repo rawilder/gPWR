@@ -6091,7 +6091,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f00f23c739eb334db896597f49a32b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
   tilePosition: {x: 0, y: 0}
   moveDir: 0
   isScared: 0
@@ -6253,7 +6252,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7af42555fe21ec41b4ef597d8a9d7a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
   tilePosition: {x: 0, y: 0}
   moveDir: 0
   isScared: 0
@@ -12654,6 +12652,7 @@ RectTransform:
   m_Children:
   - {fileID: 1517807058}
   - {fileID: 944434939}
+  - {fileID: 1180410901}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_AnchorMin: {x: 0, y: 0}
@@ -21076,7 +21075,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a1a28a8af8bf10489a4854a37b79169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
   tilePosition: {x: 0, y: 0}
   moveDir: 0
   isScared: 0
@@ -23064,7 +23062,9 @@ MonoBehaviour:
   ghostScared: {fileID: 21300000, guid: f130e68f50659b042a750976fe6a506e, type: 3}
   pacman: {fileID: 1226799133}
   cherryLocation: {x: 14, y: 11}
+  cherryRespawnTime: 10
   cherryObject: {fileID: 0}
+  powerDotRespawnTime: 10
 --- !u!1 &907624352
 GameObject:
   m_ObjectHideFlags: 0
@@ -23419,7 +23419,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f00f23c739eb334db896597f49a32b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
   tilePosition: {x: 0, y: 0}
   moveDir: 0
   isScared: 0
@@ -24881,7 +24880,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 559b705735cc23c42b2a16a11919e202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
   tilePosition: {x: 0, y: 0}
   moveDir: 0
   isScared: 0
@@ -29993,6 +29991,72 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6e7879664a92c314c9af371efab5831d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!1 &1180410900
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 1180410901}
+  - 222: {fileID: 1180410903}
+  - 114: {fileID: 1180410902}
+  m_Layer: 5
+  m_Name: TakeTurnMessage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1180410901
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1180410900}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 551347298}
+  m_RootOrder: 2
+  m_AnchorMin: {x: .5, y: .5}
+  m_AnchorMax: {x: .5, y: .5}
+  m_AnchoredPosition: {x: 4.4000001, y: -79.1999969}
+  m_SizeDelta: {x: 90, y: 90}
+  m_Pivot: {x: .5, y: .5}
+--- !u!114 &1180410902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1180410900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 1
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Press 'F' to take another turn
+--- !u!222 &1180410903
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1180410900}
 --- !u!1 &1181009606
 GameObject:
   m_ObjectHideFlags: 0
@@ -31909,6 +31973,12 @@ MonoBehaviour:
   dotList: []
   dotsRemaining: 0
   m: {fileID: 902465438}
+  ghostsEaten: 0
+  dotsEaten: 0
+  timesClearedMaze: 0
+  timesEaten: 0
+  cherriesEaten: 0
+  powerDotsEaten: 0
 --- !u!50 &1226799134
 Rigidbody2D:
   m_ObjectHideFlags: 0
@@ -37425,7 +37495,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a1a28a8af8bf10489a4854a37b79169, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
   tilePosition: {x: 0, y: 0}
   moveDir: 0
   isScared: 0
@@ -39647,7 +39716,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 559b705735cc23c42b2a16a11919e202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
   tilePosition: {x: 0, y: 0}
   moveDir: 0
   isScared: 0
@@ -40104,6 +40172,12 @@ MonoBehaviour:
   dotList: []
   dotsRemaining: 0
   m: {fileID: 1609881622}
+  ghostsEaten: 0
+  dotsEaten: 0
+  timesClearedMaze: 0
+  timesEaten: 0
+  cherriesEaten: 0
+  powerDotsEaten: 0
 --- !u!50 &1593919683
 Rigidbody2D:
   m_ObjectHideFlags: 0
@@ -41331,7 +41405,9 @@ MonoBehaviour:
   ghostScared: {fileID: 21300000, guid: f130e68f50659b042a750976fe6a506e, type: 3}
   pacman: {fileID: 1593919682}
   cherryLocation: {x: 14, y: 11}
+  cherryRespawnTime: 10
   cherryObject: {fileID: 0}
+  powerDotRespawnTime: 10
 --- !u!61 &1609881625
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -55708,7 +55784,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7af42555fe21ec41b4ef597d8a9d7a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
   tilePosition: {x: 0, y: 0}
   moveDir: 0
   isScared: 0

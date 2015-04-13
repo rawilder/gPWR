@@ -25,6 +25,7 @@ public class Scenario{
 	public bool gDumbAvailale;
 	public bool gFewerAvailable;
 	public bool hpStealsTurnsAvailable;//not an allocatable powerup, but it is an ability
+	public int turnStealLimit;
 
 	public bool AiAllocationIsRandom;
 	//these floats correspond to sliders in the admin console. they will always be 0 or 1. 0 means allocate to self (ai), 1 means allocate to the human player
@@ -73,6 +74,7 @@ public class Scenario{
 		AiAllocateWeight = .5f;
 
 		scoreThreshold = 0;
+		turnStealLimit = 2;
 
 	}
 
@@ -106,6 +108,7 @@ public class Scenario{
 
 		AiAllocateWeight = s.AiAllocateWeight;
 		scoreThreshold = s.scoreThreshold;
+		turnStealLimit = s.turnStealLimit;
 	}
 }
 
