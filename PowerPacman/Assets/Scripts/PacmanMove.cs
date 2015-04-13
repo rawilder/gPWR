@@ -75,8 +75,11 @@ public class PacmanMove : MonoBehaviour {
 	public int cherriesEaten = 0;
 	public int powerDotsEaten = 0;
 
+	Text bonusBox;
+
 	// Use this for initialization
 	void Start () {
+		bonusBox = GameObject.Find (side+"BonusBox").GetComponent<Text> ();
 		powerDot = GameObject.FindGameObjectsWithTag(side+"PowerDot");
 		dots = GameObject.FindGameObjectsWithTag(side+"Dot");
 		dotList = new List<GameObject> (dots);
@@ -127,6 +130,30 @@ public class PacmanMove : MonoBehaviour {
 	    {
 	        powerModeDuration = 10;
 	    }
+
+		bonusBox.text = "Active bonuses: ";
+		if (PacmanSpeedPowerup) {
+			bonusBox.text += "Player speed increase.";
+		}
+		if (PowerModeDurationPowerup) {
+			bonusBox.text += "Enemies scared longer.";
+		}
+		if (GhostLowerSpeedPowerup) {
+			bonusBox.text += "Enemy speed decrease.";
+		}
+		if (FewerGhostsPowerup) {
+			bonusBox.text += "Fewer enemies.";
+		}
+		if (GhostsRespawnSlowerPowerup) {
+			bonusBox.text += "Enemies respawn slower.";
+		}
+		if (PowerBallsRespawnPowerup) {
+			bonusBox.text += "Super balls respawn.";
+		}
+		if (FasterFruitRespawnPowerup) {
+			bonusBox.text += "Fruit respawns.";
+		}
+
 
 	}
 	

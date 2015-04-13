@@ -82,7 +82,8 @@ public class DataScript : MonoBehaviour {
 
 	public static void exportData(){
 
-		totalScore = playerScore + aiScore;
+		//totalScore = playerScore + aiScore;
+		totalScore = (int) (((1-DataScript.alloc.scoreWeight) * aiScore) + (DataScript.alloc.scoreWeight * playerScore));
 
 		if (!File.Exists (fileName)) {
 			StreamWriter f = File.CreateText (fileName);
@@ -107,7 +108,7 @@ public class DataScript : MonoBehaviour {
 
 		aiScoreText.text = "" + aiScore;
 		playerScoreText.text = "" + playerScore;
-		totalScoreText.text = "" + (aiScore + playerScore);
+		totalScoreText.text = "" + (1-DataScript.alloc.scoreWeight) + " * " + aiScore + " + " + (DataScript.alloc.scoreWeight) + " * " + playerScore + " = " +   totalScore;
 
 		exportData ();
 	}
