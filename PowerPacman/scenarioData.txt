@@ -62,11 +62,11 @@
     <Scenario>
       <id>0</id>
       <name>New Scenario3</name>
-      <control>true</control>
+      <control>false</control>
       <playerHasHighPower>true</playerHasHighPower>
       <turnTime>30</turnTime>
       <totalTime>1</totalTime>
-      <pSpeedIncreaseAvailable>true</pSpeedIncreaseAvailable>
+      <pSpeedIncreaseAvailable>false</pSpeedIncreaseAvailable>
       <gSpeedDecreaseAvailable>true</gSpeedDecreaseAvailable>
       <fRespawnAvailable>true</fRespawnAvailable>
       <longerPowerModeAvailable>true</longerPowerModeAvailable>
