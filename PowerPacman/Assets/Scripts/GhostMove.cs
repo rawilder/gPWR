@@ -79,7 +79,6 @@ public class GhostMove : MonoBehaviour {
                 }
             }
             if((Vector2)transform.localPosition == dest){
-                //Debug.Log("local pos, des: " + transform.localPosition + ", " + dest);
                 //check if the ghost is inside the pen
                 if (maze.isInGhostPen(transform.localPosition))
                 {
@@ -175,7 +174,6 @@ public class GhostMove : MonoBehaviour {
             if (maze.validGhostMove(transform.localPosition, moveDir) || (Vector2)transform.localPosition != tilePosition)
             {
                 Vector2 p = Vector2.MoveTowards(transform.localPosition, destTile, speed * Time.deltaTime);
-                //Debug.Log("ghost speed?: " + p.magnitude);
                 transform.localPosition = p;
 
                 //round to the nearest tile

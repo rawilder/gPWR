@@ -161,6 +161,10 @@ public class PacmanMove : MonoBehaviour {
 			bonusBox.text += "Fruit respawns.";
 		}
 
+		if (DataScript.scenario.control) {
+			bonusBox.enabled = false;
+		}
+
 
 	}
 	

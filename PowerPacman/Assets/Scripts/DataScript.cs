@@ -82,9 +82,6 @@ public class DataScript : MonoBehaviour {
 
 	public static void exportData(){
 
-		//totalScore = playerScore + aiScore;
-		totalScore = (int) (((1-DataScript.alloc.scoreWeight) * aiScore) + (DataScript.alloc.scoreWeight * playerScore));
-
 		if (!File.Exists (fileName)) {
 			StreamWriter f = File.CreateText (fileName);
 			f.WriteLine("Date,Time,PlayerId,ComputerId,PlayerScore,aiScore,totalScore,playerGhostsEaten,aiGhostsEaten,playerDotsEaten,aiDotsEaten,playerTimesClearedMaze,aiTimesClearedMaze,playerTimesEaten,aiTimesEaten,playerCherriesEaten,aiCherriesEaten,playerPowerDotsEaten,aiPowerDotsEaten");
@@ -106,9 +103,19 @@ public class DataScript : MonoBehaviour {
 		totalScoreText = GameObject.Find ("FinalScoreText").GetComponent<Text>();
 		aiScoreText = GameObject.Find ("aiScoreText").GetComponent<Text>();
 
+		if (DataScript.scenario.control) {
+			totalScore = playerScore + aiScore;
+		} else {
+			totalScore = (int)(((1 - DataScript.alloc.scoreWeight) * aiScore) + (DataScript.alloc.scoreWeight * playerScore));
+		}
+		
 		aiScoreText.text = "" + aiScore;
 		playerScoreText.text = "" + playerScore;
-		totalScoreText.text = "" + (1-DataScript.alloc.scoreWeight) + " * " + aiScore + " + " + (DataScript.alloc.scoreWeight) + " * " + playerScore + " = " +   totalScore;
+		if (DataScript.scenario.control) {
+			totalScoreText.text = aiScore + " + " + playerScore + " = " + totalScore;
+		} else {
+			totalScoreText.text = "" + (1 - DataScript.alloc.scoreWeight) + " * " + aiScore + " + " + (DataScript.alloc.scoreWeight) + " * " + playerScore + " = " + totalScore;
+		}
 
 		exportData ();
 	}

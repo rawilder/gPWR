@@ -70,7 +70,7 @@ public class TurnManagerScript : MonoBehaviour {
 				return;
 			}
 
-			if (isPlayerTurn && DataScript.scenario.playerHasHighPower && stolenTurnCount < DataScript.scenario.turnStealLimit) {
+			if (isPlayerTurn && !DataScript.scenario.control && DataScript.scenario.playerHasHighPower && stolenTurnCount < DataScript.scenario.turnStealLimit) {
 				takeTurnMessage.enabled = true;
 				if(Input.GetKey(KeyCode.F)){
 					stealingTurn = true;

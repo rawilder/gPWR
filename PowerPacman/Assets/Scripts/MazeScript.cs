@@ -174,12 +174,16 @@ public class MazeScript : MonoBehaviour {
 
     Text turnSkipsRemainingText;
     Text turnSkipLabel;
+	Text scoreWeightLabel;
+	Text scoreWeightBox;
     
     // Use this for initialization
     void Start () {
 
-        turnSkipsRemainingText = GameObject.Find("TurnSkipBox").GetComponent<Text> ();
-        turnSkipLabel = GameObject.Find ("TurnSkipLabel").GetComponent<Text> ();
+        turnSkipsRemainingText = GameObject.Find(side+"TurnSkipBox").GetComponent<Text> ();
+        turnSkipLabel = GameObject.Find (side+"TurnSkipLabel").GetComponent<Text> ();
+		scoreWeightLabel = GameObject.Find (side + "WeightLabel").GetComponent<Text> ();
+		scoreWeightBox = GameObject.Find (side + "WeightBox").GetComponent<Text> ();
         screen = transform.FindChild ("semitransparent");
 
         //initialize the associate arrays
@@ -211,11 +215,25 @@ public class MazeScript : MonoBehaviour {
 
         powerDotRespawns = false;
 
-        if (DataScript.scenario.hpStealsTurnsAvailable) {
+		if (DataScript.scenario.control) {
+			turnSkipLabel.enabled = false;
+			turnSkipsRemainingText.enabled = false;
+			scoreWeightLabel.enabled = false;
+			scoreWeightBox.enabled = false;
+		} else {
+			if(pacman.isAIControlled){
+				scoreWeightBox.text = "" + ((1-DataScript.alloc.scoreWeight)*100) + "%";
+			}
+			else{
+				scoreWeightBox.text = "" + (DataScript.alloc.scoreWeight)*100 + "%";
+			}
+		}
+
+        if (!DataScript.scenario.control && DataScript.scenario.hpStealsTurnsAvailable) {
             if(DataScript.scenario.playerHasHighPower && !pacman.isAIControlled){
                 turnSkipsRemainingText.text = "" + DataScript.scenario.turnStealLimit;
             }
-            else if(!DataScript.scenario.playerHasHighPower && pacman.isAIControlled){
+            else if(!DataScript.scenario.control && !DataScript.scenario.playerHasHighPower && pacman.isAIControlled){
                 turnSkipsRemainingText.text = "" + DataScript.scenario.turnStealLimit;
             }
         } else {
