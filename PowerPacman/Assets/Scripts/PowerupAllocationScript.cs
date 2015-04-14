@@ -64,6 +64,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 
 				//apply the power ups
 				if (DataScript.scenario.pSpeedIncreaseAvailable) {
+					Debug.Log ("Player speed: " + DataScript.scenario.AiAllocatePlayerSpeed);
 					if (DataScript.scenario.AiAllocatePlayerSpeed == 0) {
 						DataScript.alloc.PlayerSpeed = 0;
 					} else {
@@ -130,6 +131,82 @@ public class PowerupAllocationScript : MonoBehaviour {
 				//random allocation
 				//TODO
 
+				if(DataScript.scenario.pSpeedIncreaseAvailable){
+					if(UnityEngine.Random.Range(0.0f, 1.0f) > .5f){
+						DataScript.alloc.PlayerSpeed = 1;
+					}
+					else{
+						DataScript.alloc.PlayerSpeed = 0;
+					}
+				}
+
+				if(DataScript.scenario.gSpeedDecreaseAvailable){
+					if(UnityEngine.Random.Range(0.0f, 1.0f) > .5f){
+						DataScript.alloc.GhostSpeed = 1;
+					}
+					else{
+						DataScript.alloc.GhostSpeed = 0;
+					}
+				}
+
+				if(DataScript.scenario.fRespawnAvailable){
+					if(UnityEngine.Random.Range(0.0f, 1.0f) > .5f){
+						DataScript.alloc.FruitRespawn = 1;
+					}
+					else{
+						DataScript.alloc.FruitRespawn = 0;
+					}
+				}
+
+				if(DataScript.scenario.longerPowerModeAvailable){
+					if(UnityEngine.Random.Range(0.0f, 1.0f) > .5f){
+						DataScript.alloc.LongerPowerMode = 1;
+					}
+					else{
+						DataScript.alloc.LongerPowerMode = 0;
+					}
+				}
+
+				if(DataScript.scenario.powerballRespawnAvailable){
+					if(UnityEngine.Random.Range(0.0f, 1.0f) > .5f){
+						DataScript.alloc.PowerBallRespawn = 1;
+					}
+					else{
+						DataScript.alloc.PowerBallRespawn = 0;
+					}
+				}
+
+				if(DataScript.scenario.gRespawnAvailable){
+					if(UnityEngine.Random.Range(0.0f, 1.0f) > .5f){
+						DataScript.alloc.GhostRespawn = 1;
+					}
+					else{
+						DataScript.alloc.GhostRespawn = 0;
+					}
+				}
+
+				if(DataScript.scenario.gDumbAvailale){
+					if(UnityEngine.Random.Range(0.0f, 1.0f) > .5f){
+						DataScript.alloc.DumbGhosts = 1;
+					}
+					else{
+						DataScript.alloc.DumbGhosts = 0;
+					}
+				}
+
+				if(DataScript.scenario.gFewerAvailable){
+					if(UnityEngine.Random.Range(0.0f, 1.0f) > .5f){
+						DataScript.alloc.FewerGhosts = 1;
+					}
+					else{
+						DataScript.alloc.FewerGhosts = 0;
+					}
+				}
+
+				//score weight
+				float w = UnityEngine.Random.Range(.25f, .75f);
+				DataScript.alloc.scoreWeight = (float) Math.Round (w * 20) / 20;
+				Debug.Log(w);
 
 			}
 		} else {
@@ -148,7 +225,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 			if (!DataScript.scenario.playerHasHighPower) {
 				runAiAllocation();
 			}
-			countdownRemaining = UnityEngine.Random.Range(1.0f,3.0f);
+			countdownRemaining = UnityEngine.Random.Range(0.5f,1.5f);
 		}
 	}
 
@@ -385,7 +462,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 			break;
 		case 8:
 			//weight slider
-			weightSlider.value = DataScript.scenario.AiAllocateWeight;
+			weightSlider.value = DataScript.alloc.scoreWeight;
 			break;
 		case 9:
 			buttonSetEnabled(continueButton,true);

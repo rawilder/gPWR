@@ -19,15 +19,15 @@
       <hpStealsTurnsAvailable>true</hpStealsTurnsAvailable>
       <turnStealLimit>2</turnStealLimit>
       <AiAllocationIsRandom>true</AiAllocationIsRandom>
-      <AiAllocatePlayerSpeed>1</AiAllocatePlayerSpeed>
-      <AiAllocateGhostSpeed>1</AiAllocateGhostSpeed>
+      <AiAllocatePlayerSpeed>0</AiAllocatePlayerSpeed>
+      <AiAllocateGhostSpeed>0</AiAllocateGhostSpeed>
       <AiAllocateFruitRespawn>1</AiAllocateFruitRespawn>
-      <AiAllocateLongerPowerMode>1</AiAllocateLongerPowerMode>
+      <AiAllocateLongerPowerMode>0</AiAllocateLongerPowerMode>
       <AiAllocatePowerBallRespawn>1</AiAllocatePowerBallRespawn>
-      <AiAllocateGhostRespawn>1</AiAllocateGhostRespawn>
+      <AiAllocateGhostRespawn>0</AiAllocateGhostRespawn>
       <AiAllocateDumbGhosts>1</AiAllocateDumbGhosts>
-      <AiAllocateFewerGhosts>1</AiAllocateFewerGhosts>
-      <AiAllocateWeight>0.5</AiAllocateWeight>
+      <AiAllocateFewerGhosts>0</AiAllocateFewerGhosts>
+      <AiAllocateWeight>0.4</AiAllocateWeight>
       <scoreThreshold>0</scoreThreshold>
     </Scenario>
     <Scenario>

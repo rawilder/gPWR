@@ -3,11 +3,11 @@
   <WelcomeScreenTitle>Welcome to Two Player Pacman</WelcomeScreenTitle>
   <ObjectiveScreenBody>The objective of this game is to work together with your partner to earn as many points as possible playing Pacman. Each player will have their own maze to navigate. You will take turns playing for a set amount of time. Score counters and the amount of time left on each players turn is displayed above the separate mazes.</ObjectiveScreenBody>
   <BonusesScreenTitle>Bonuses</BonusesScreenTitle>
-  <BonusesScreenBody>Bonuses are special abilities that allow you to earn points quicker...</BonusesScreenBody>
+  <BonusesScreenBody>Bonuses are special abilities that allow you to earn points quicker. The names of the bonuses and descriptions are seen in the window to the right. After you are matched with a partner, we will randomly pick a player who will choose who to assign these bonuses to.</BonusesScreenBody>
   <ConnectingScreenTitle>Connecting to partner</ConnectingScreenTitle>
   <ConnectingScreenText>Please wait while we match you with a partner</ConnectingScreenText>
-  <PreallocationScreenControlText>This is some placeholder text letting the user know that the game will be beginning soon (no allocation)</PreallocationScreenControlText>
-  <PreallocationScreenHighPowerText>This is some placeholder text telling the user that they will be allocating power ups to themselves and the other player</PreallocationScreenHighPowerText>
-  <PreallocationScreenLowPowerText>This is some placeholder text telling the user that they will have powerups allocated to them by the other player</PreallocationScreenLowPowerText>
+  <PreallocationScreenControlText>We have matched and connected you to a partner, and have randomly determined that you will have the first turn. Please press continue to start the game.</PreallocationScreenControlText>
+  <PreallocationScreenHighPowerText>We have matched and connected you to a partner, and have randomly determined that you will be the player that assigns the bonuses. Please press continue to begin the assignment.</PreallocationScreenHighPowerText>
+  <PreallocationScreenLowPowerText>We have matched and connected you to a partner, and have randomly determined that your partner will be the player that assigns the bonuses. Please press continue.</PreallocationScreenLowPowerText>
   <AllocationScreenTitle>Bonus allocation</AllocationScreenTitle>
 </TutorialText>
