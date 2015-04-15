@@ -8,7 +8,7 @@ public class Tutorial2Script : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Tut2Body.text = DataScript.tutText.ObjectiveScreenBody;
+		Tut2Body.text = DataScript.tutText.ObjectiveScreenBody.Replace("[turnTime]",""+DataScript.scenario.turnTime);
 	}
 
 	public void advanceTutorialStage(){

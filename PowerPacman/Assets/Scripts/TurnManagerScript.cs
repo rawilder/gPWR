@@ -28,6 +28,8 @@ public class TurnManagerScript : MonoBehaviour {
 	Text messageText;
 	Text takeTurnMessage;
 
+	public static int targetScore = 0;
+
 	void Start(){
 		pregameCountdownRemaining = pregameCountdownDelay;
 		turnSwitchTimeRemaining = turnSwitchDelay;

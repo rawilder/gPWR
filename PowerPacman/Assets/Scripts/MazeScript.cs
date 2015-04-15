@@ -78,6 +78,8 @@ public class MazeScript : MonoBehaviour {
 
     int dotPointValue = 1;
     int powerDotPointValue = 20;
+	int cherryValue = 100;
+	public static int ghostValue = 100;
 
     public int offsetX;
     public int offsetY;
@@ -86,7 +88,6 @@ public class MazeScript : MonoBehaviour {
     public  int powerDotsRemaining;
 
     public Sprite ghostScared;
-    int cherryValue = 100;
 
     //0 = null space, used to pad the left and bottom sides of the maze
     //1 = wall

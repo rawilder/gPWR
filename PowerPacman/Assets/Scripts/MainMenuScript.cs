@@ -98,7 +98,7 @@ public class MainMenuScript : MonoBehaviour {
 			
 		}
 		catch(XmlException){
-			
+			Debug.Log("Exception in deserializing tutText file");
 		}
 
 	}

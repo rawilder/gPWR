@@ -199,10 +199,7 @@ public class DataScript : MonoBehaviour {
 			             + aiCherriesEaten + ","
 			             + playerPowerDotsEaten + ","
 			             + aiPowerDotsEaten);
-
 		}
-
-
 	}
 
 	void Start(){
