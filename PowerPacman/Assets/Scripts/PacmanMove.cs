@@ -143,7 +143,7 @@ public class PacmanMove : MonoBehaviour {
 			bonusBox.text += "Player speed increase. ";
 		}
 		if (PowerModeDurationPowerup) {
-			bonusBox.text += "Enemies scared longer. ";
+			bonusBox.text += "Longer super mode. ";
 		}
 		if (GhostLowerSpeedPowerup) {
 			bonusBox.text += "Enemy speed decrease. ";
@@ -152,7 +152,7 @@ public class PacmanMove : MonoBehaviour {
 			bonusBox.text += "Fewer enemies. ";
 		}
 		if (GhostsRespawnSlowerPowerup) {
-			bonusBox.text += "Enemies respawn slower. ";
+			bonusBox.text += "Enemy slower respawn. ";
 		}
 		if (PowerBallsRespawnPowerup) {
 			bonusBox.text += "Super balls respawn. ";
@@ -160,6 +160,12 @@ public class PacmanMove : MonoBehaviour {
 		if (FasterFruitRespawnPowerup) {
 			bonusBox.text += "Fruit respawns. ";
 		}
+		if (DataScript.alloc.DumbGhosts == 1 && !isAIControlled) {
+			bonusBox.text += "\"Dumb\" enemies. ";
+		} else if (DataScript.alloc.DumbGhosts == 0 && isAIControlled) {
+			bonusBox.text += "\"Dumb\" enemies. ";
+		}
+
 
 		if (DataScript.scenario.control) {
 			bonusBox.enabled = false;

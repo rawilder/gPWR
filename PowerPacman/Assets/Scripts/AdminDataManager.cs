@@ -166,6 +166,8 @@ public class AdminDataManager : MonoBehaviour {
 	Text playerWeightText;
 	Slider weightSlider;
 
+	InputField turnStealLimitInput;
+
 	InputField thresholdInput;
 
 	void Start () {
@@ -204,6 +206,7 @@ public class AdminDataManager : MonoBehaviour {
 		weightSlider = GameObject.Find ("Slider").GetComponent<Slider> ();
 
 		thresholdInput = GameObject.Find ("ScoreThresholdInput").GetComponent<InputField> ();
+		turnStealLimitInput = GameObject.Find ("TurnStealLimitInput").GetComponent<InputField> ();
 
 		allocationSliders.Add (aiAllocatesPlayerSpeed);
 		allocationSliders.Add (aiAllocatesGhostSpeed);
@@ -349,6 +352,17 @@ public class AdminDataManager : MonoBehaviour {
 			thresholdInput.text = "0";
 		}
 
+		if (turnStealLimitInput.text != "") {
+			try{
+				int val = Convert.ToInt32(turnStealLimitInput.text);
+				tempScenario.turnStealLimit = val;
+			} catch(FormatException){
+				turnStealLimitInput.text = "" + tempScenario.turnStealLimit;
+			}
+		} else {
+			turnStealLimitInput.text = "2";
+		}
+
 	}
 
 	void updateDropdown(){
@@ -396,6 +410,7 @@ public class AdminDataManager : MonoBehaviour {
 				WeightSliderUpdate();
 
 				thresholdInput.text = "" + scenList.Scenarios[index].scoreThreshold;
+				turnStealLimitInput.text = "" + scenList.Scenarios[index].turnStealLimit;
 
 				tempScenario = new Scenario(scenList.Scenarios[index]);
 			}

@@ -6,6 +6,7 @@ public class Tutorial7Script : MonoBehaviour {
 
 	Text messageText;
 	Text PlayerBonusesLabel, PartnerBonusesLabel, PlayerBonusesBox, PartnerBonusesBox;
+	Text BottomMessageText;
 
 	// Use this for initialization
 	void Start () {
@@ -15,6 +16,7 @@ public class Tutorial7Script : MonoBehaviour {
 		PartnerBonusesLabel = GameObject.Find ("PartnerBonusesLabel").GetComponent<Text> ();
 		PlayerBonusesBox = GameObject.Find ("PlayerBonusesBox").GetComponent<Text> ();
 		PartnerBonusesBox = GameObject.Find ("PartnerBonusesBox").GetComponent<Text> ();
+		BottomMessageText = GameObject.Find ("BottomMessageBox").GetComponent<Text> ();
 
 		if (DataScript.scenario.playerHasHighPower) {
 			messageText.text = "The bonuses you have chosen for yourself and your partner are listed below. Please press continue to begin the game.";
@@ -71,6 +73,19 @@ public class Tutorial7Script : MonoBehaviour {
 
 		PlayerBonusesBox.text += "Score Weight: " + DataScript.alloc.scoreWeight * 100 + "%";
 		PartnerBonusesBox.text += "Score Weight: " + (1 - DataScript.alloc.scoreWeight) * 100 + "%";
+
+		if (DataScript.scenario.hpStealsTurnsAvailable) {
+			if (DataScript.scenario.playerHasHighPower) {
+				string msg;
+				msg = "In addition to these bonuses that you have chosen, we have determined to give you the ability to chose to keep playing after your turn has ended. This ability can be used <stealLimit> times.";
+				BottomMessageText.text = msg.Replace ("<stealLimit>", "" + DataScript.scenario.turnStealLimit);
+			} else {
+				string msg = "In addition to these bonuses that your partner has chosen, we have determined that they will also have the ability to chose to continue to play once their turn has expired. They will be able to use this ability up to <stealLimit> times.";
+				BottomMessageText.text = msg.Replace ("<stealLimit>", "" + DataScript.scenario.turnStealLimit);
+			}
+		} else {
+			BottomMessageText.text = "";
+		}
 
 	}
 	
