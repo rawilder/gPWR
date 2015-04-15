@@ -14,6 +14,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 	Slider weightSlider;
 	Text partnerWeightText;
 	Text playerWeightText;
+	Text errorMessage;
 
 	public int iterationCount = 0;
 
@@ -29,12 +30,18 @@ public class PowerupAllocationScript : MonoBehaviour {
 		partnerWeightText = GameObject.Find ("ParterWeight").GetComponent<Text> ();
 		playerWeightText = GameObject.Find ("PlayerWeight").GetComponent<Text> ();
 		continueButton = GameObject.Find ("Button").GetComponent<Button> ();
+		errorMessage = GameObject.Find ("ErrorMessage").GetComponent<Text> ();
+
 		Title.text = DataScript.tutText.AllocationScreenTitle;
+		errorMessage.enabled = false;
 
 		messageText = GameObject.Find ("TempText").GetComponent<Text> ();
 
 		if (!DataScript.scenario.playerHasHighPower) {
-			buttonSetEnabled(continueButton,false);
+			buttonSetEnabled (continueButton, false);
+			messageText.text = "Please wait while your partner assigns the bonuses";
+		} else {
+			messageText.text = "Please assign the bonuses to yourself and your partner";
 		}
 
 		//create the sliders
@@ -210,7 +217,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 
 			}
 		} else {
-
+			//the player has high power
 
 
 		}
@@ -466,6 +473,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 			break;
 		case 9:
 			buttonSetEnabled(continueButton,true);
+			messageText.text = "Your partner has finished assignment. Please continue";
 			break;
 		}
 		iterationCount++;
@@ -502,6 +510,14 @@ public class PowerupAllocationScript : MonoBehaviour {
 
 	public void continueButtonPressed(){
 
+		foreach (var slider in sliders) {
+			if(!(slider.GetComponentInChildren<Slider>().value == 0 || slider.GetComponentInChildren<Slider>().value == 1)){
+				errorMessage.enabled = true;
+				return;
+			}
+		}
+
+		//will only continue if all bonuses have been assigned
 		Application.LoadLevel (8);
 
 	}

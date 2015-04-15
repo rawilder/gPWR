@@ -140,25 +140,25 @@ public class PacmanMove : MonoBehaviour {
 
 		bonusBox.text = "Active bonuses: ";
 		if (PacmanSpeedPowerup) {
-			bonusBox.text += "Player speed increase.";
+			bonusBox.text += "Player speed increase. ";
 		}
 		if (PowerModeDurationPowerup) {
-			bonusBox.text += "Enemies scared longer.";
+			bonusBox.text += "Enemies scared longer. ";
 		}
 		if (GhostLowerSpeedPowerup) {
-			bonusBox.text += "Enemy speed decrease.";
+			bonusBox.text += "Enemy speed decrease. ";
 		}
 		if (FewerGhostsPowerup) {
-			bonusBox.text += "Fewer enemies.";
+			bonusBox.text += "Fewer enemies. ";
 		}
 		if (GhostsRespawnSlowerPowerup) {
-			bonusBox.text += "Enemies respawn slower.";
+			bonusBox.text += "Enemies respawn slower. ";
 		}
 		if (PowerBallsRespawnPowerup) {
-			bonusBox.text += "Super balls respawn.";
+			bonusBox.text += "Super balls respawn. ";
 		}
 		if (FasterFruitRespawnPowerup) {
-			bonusBox.text += "Fruit respawns.";
+			bonusBox.text += "Fruit respawns. ";
 		}
 
 		if (DataScript.scenario.control) {
