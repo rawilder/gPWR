@@ -75,6 +75,7 @@ public class DataScript : MonoBehaviour {
 	public static Allocation alloc = new Allocation();
 	public static TutorialText tutText = new TutorialText ();
 
+	public string scenarioName;
 
 	Text aiScoreText;
 	Text playerScoreText;
@@ -85,13 +86,119 @@ public class DataScript : MonoBehaviour {
 
 		if (!File.Exists (fileName)) {
 			StreamWriter f = File.CreateText (fileName);
-			f.WriteLine("Date,Time,PlayerId,ComputerId,PlayerScore,aiScore,totalScore,playerGhostsEaten,aiGhostsEaten,playerDotsEaten,aiDotsEaten,playerTimesClearedMaze,aiTimesClearedMaze,playerTimesEaten,aiTimesEaten,playerCherriesEaten,aiCherriesEaten,playerPowerDotsEaten,aiPowerDotsEaten");
+			f.WriteLine("Date," +
+				"Time," +
+				"PlayerId," +
+				"ComputerId," +
+			    "ScenarioName," +
+			    "isControlMode," +
+	            "playerHasHighPower,"+
+	            "turnTime,"+
+	            "totalTime,"+
+	            "speedIncreaseBonusAvailable,"+
+	            "enemySpeedDecreaseBonusAvailable,"+
+	            "fruitRespawnBonusAvailable,"+
+	            "longerSuperModeBonusAvailable,"+
+	            "superBallRespawnBonusAvailable,"+
+	            "enemyRespawnBonusAvailable,"+
+	            "dumbEnemyBonusAvailable,"+
+	            "fewerEnemiesBonusAvailable,"+
+	            "highPowerPlayerCanStealTurns,"+
+	            "turnStealLimit,"+
+	            "AiRandomlyAllocates,"+
+				"AiAllocatesPlayerSpeed,"+
+	            "AiAllocatesEnemySpeed,"+
+	            "AiAllocatesFruitSpeed,"+
+	            "AiAllocatesLongerSuperMode,"+
+	            "AiAllocatesSuperBallRespawn,"+
+	            "AiAllocatesEnemyRespawn,"+
+	            "AiAllocatesDumbEnemies,"+
+	            "AiAllocatesFewerEnemies,"+
+	            "AiAllocatesScoreWeight,"+
+	            "scoreThreshold,"+
+	            "AllocatedPlayerSpeedBonus,"+
+	            "AllocatedEnemySpeedBonus,"+
+	            "AllocatedFruitRespawnBonus,"+
+	            "AllocatedLongerSuperModeBonus,"+
+	            "AllocatedSuperBallRespawnBonus,"+
+	            "AllocatedEnemyRespawnBonus,"+
+	            "AllocatedDumbEnemiesBonus,"+
+	            "AllocatedFewerEnemiesBonus,"+
+	            "AllocatedScoreWeight,"+
+				"PlayerScore," +
+				"aiScore," +
+				"totalScore," +
+				"playerGhostsEaten," +
+				"aiGhostsEaten," +
+				"playerDotsEaten," +
+				"aiDotsEaten," +
+				"playerTimesClearedMaze," +
+				"aiTimesClearedMaze," +
+				"playerTimesEaten," +
+				"aiTimesEaten," +
+				"playerCherriesEaten," +
+				"aiCherriesEaten," +
+				"playerPowerDotsEaten," +
+				"aiPowerDotsEaten");
 			f.Close();
 		}
 
 		using (StreamWriter sw = File.AppendText(fileName)) {
 
-			sw.WriteLine(""+DateTime.Now.ToString("M/d/yyyy") +"," + DateTime.Now.ToString ("HH:mm:ss tt") + "," + playerId + "," + computerId + "," + playerScore + "," + aiScore + "," + totalScore + "," + playerGhostsEaten + "," + aiGhostsEaten + "," + playerDotsEaten + "," + aiDotsEaten + "," + playerTimesClearedMaze + "," + aiTimesClearedMaze + "," + playerTimesEaten + "," + aiTimesEaten + "," + playerCherriesEaten + "," + aiCherriesEaten + "," + playerPowerDotsEaten + "," + aiPowerDotsEaten);
+			sw.WriteLine(""+DateTime.Now.ToString("M/d/yyyy") +","
+			             + DateTime.Now.ToString ("HH:mm:ss tt") + ","
+			             + playerId + ","
+			             + computerId + ","
+			             + scenario.name + ","
+			             + scenario.control + ","
+			             + scenario.playerHasHighPower + ","
+			             + scenario.turnTime + ","
+			             + scenario.totalTime + ","
+			             + scenario.pSpeedIncreaseAvailable + ","
+			             + scenario.gSpeedDecreaseAvailable + ","
+			             + scenario.fRespawnAvailable + ","
+			             + scenario.longerPowerModeAvailable + ","
+			             + scenario.powerballRespawnAvailable + ","
+			             + scenario.gRespawnAvailable + ","
+			             + scenario.gDumbAvailale + ","
+			             + scenario.gFewerAvailable + ","
+			             + scenario.hpStealsTurnsAvailable + ","
+			             + scenario.turnStealLimit + ","
+			             + scenario.AiAllocationIsRandom + ","
+			             + scenario.AiAllocatePlayerSpeed + ","
+			             + scenario.AiAllocateGhostSpeed + ","
+			             + scenario.AiAllocateFruitRespawn + ","
+			             + scenario.AiAllocateLongerPowerMode + ","
+			             + scenario.AiAllocatePowerBallRespawn + ","
+			             + scenario.AiAllocateGhostRespawn + ","
+			             + scenario.AiAllocateDumbGhosts + ","
+			             + scenario.AiAllocateFewerGhosts + ","
+			             + scenario.AiAllocateWeight + ","
+			             + scenario.scoreThreshold + ","
+			             + alloc.PlayerSpeed + ","
+			             + alloc.GhostSpeed + ","
+			             + alloc.FruitRespawn + ","
+			             + alloc.LongerPowerMode + ","
+			             + alloc.PowerBallRespawn + ","
+			             + alloc.GhostRespawn + ","
+			             + alloc.DumbGhosts + ","
+			             + alloc.FewerGhosts + ","
+			             + alloc.scoreWeight + ","
+			             + playerScore + ","
+			             + aiScore + ","
+			             + totalScore + ","
+			             + playerGhostsEaten + ","
+			             + aiGhostsEaten + ","
+			             + playerDotsEaten + ","
+			             + aiDotsEaten + ","
+			             + playerTimesClearedMaze + ","
+			             + aiTimesClearedMaze + ","
+			             + playerTimesEaten + ","
+			             + aiTimesEaten + ","
+			             + playerCherriesEaten + ","
+			             + aiCherriesEaten + ","
+			             + playerPowerDotsEaten + ","
+			             + aiPowerDotsEaten);
 
 		}
 
@@ -105,6 +212,8 @@ public class DataScript : MonoBehaviour {
 		aiScoreText = GameObject.Find ("aiScoreText").GetComponent<Text>();
 		PlayerBonuses = GameObject.Find ("PlayerBonuses").GetComponent<Text> ();
 		PartnerBonuses = GameObject.Find ("PartnerBonuses").GetComponent<Text> ();
+
+		scenarioName = scenario.name;
 
 		if (DataScript.scenario.control) {
 			totalScore = playerScore + aiScore;
