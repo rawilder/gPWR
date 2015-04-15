@@ -79,6 +79,7 @@ public class DataScript : MonoBehaviour {
 	Text aiScoreText;
 	Text playerScoreText;
 	Text totalScoreText;
+	Text PlayerBonuses, PartnerBonuses;
 
 	public static void exportData(){
 
@@ -102,11 +103,65 @@ public class DataScript : MonoBehaviour {
 		playerScoreText = GameObject.Find ("playerScoreText").GetComponent<Text>();
 		totalScoreText = GameObject.Find ("FinalScoreText").GetComponent<Text>();
 		aiScoreText = GameObject.Find ("aiScoreText").GetComponent<Text>();
+		PlayerBonuses = GameObject.Find ("PlayerBonuses").GetComponent<Text> ();
+		PartnerBonuses = GameObject.Find ("PartnerBonuses").GetComponent<Text> ();
 
 		if (DataScript.scenario.control) {
 			totalScore = playerScore + aiScore;
 		} else {
 			totalScore = (int)(((1 - DataScript.alloc.scoreWeight) * aiScore) + (DataScript.alloc.scoreWeight * playerScore));
+		}
+
+		if (!DataScript.scenario.control) {
+			if (DataScript.alloc.PlayerSpeed == 1) {
+				PlayerBonuses.text = "Player Speed Increase\n";
+			} else if (DataScript.alloc.PlayerSpeed == 0) {
+				PartnerBonuses.text = "Player Speed Increase\n";
+			}
+			
+			if (DataScript.alloc.GhostSpeed == 1) {
+				PlayerBonuses.text += "Enemy Speed Decrease\n";
+			} else if (DataScript.alloc.GhostSpeed == 0) {
+				PartnerBonuses.text += "Enemy Speed Decrease\n";
+			}
+			
+			if (DataScript.alloc.FruitRespawn == 1) {
+				PlayerBonuses.text += "Fruit Respawn Increase\n";
+			} else if (DataScript.alloc.FruitRespawn == 0) {
+				PartnerBonuses.text += "Fruit Respawn Increase\n";
+			}
+			
+			if (DataScript.alloc.LongerPowerMode == 1) {
+				PlayerBonuses.text += "Longer Super Mode\n";
+			} else if (DataScript.alloc.LongerPowerMode == 0) {
+				PartnerBonuses.text += "Longer Super Mode\n";
+			}
+			if (DataScript.alloc.PowerBallRespawn == 1) {
+				PlayerBonuses.text += "Super Balls Respawn\n";
+			} else if (DataScript.alloc.PowerBallRespawn == 0) {
+				PartnerBonuses.text += "Super Balls Respawn\n";
+			}
+			
+			if (DataScript.alloc.GhostRespawn == 1) {
+				PlayerBonuses.text += "Enemy Slower Respawn\n";
+			} else if (DataScript.alloc.GhostRespawn == 0) {
+				PartnerBonuses.text += "Enemy Slower Respawn\n";
+			}
+			
+			if (DataScript.alloc.DumbGhosts == 1) {
+				PlayerBonuses.text += "\"Dumb\" Enemies\n";
+			} else if (DataScript.alloc.DumbGhosts == 0) {
+				PartnerBonuses.text += "\"Dumb\" Enemies\n";
+			}
+			
+			if (DataScript.alloc.FewerGhosts == 1) {
+				PlayerBonuses.text += "Fewer Enemies\n";
+			} else if (DataScript.alloc.FewerGhosts == 0) {
+				PartnerBonuses.text += "Fewer Enemies\n";
+			}
+
+			PlayerBonuses.text += "Score Weight: " + DataScript.alloc.scoreWeight * 100 + "%";
+			PartnerBonuses.text += "Score Weight: " + (1 - DataScript.alloc.scoreWeight) * 100 + "%";
 		}
 		
 		aiScoreText.text = "" + aiScore;
@@ -118,6 +173,8 @@ public class DataScript : MonoBehaviour {
 		}
 
 		exportData ();
+
+
 	}
 
 }

@@ -10,4 +10,13 @@ public class Tutorial2Script : MonoBehaviour {
 	void Start () {
 		Tut2Body.text = DataScript.tutText.ObjectiveScreenBody;
 	}
+
+	public void advanceTutorialStage(){
+		if (DataScript.scenario.control) {
+			//dont go to the bonus stage
+			Application.LoadLevel(5);
+		} else {
+			Application.LoadLevel(4);
+		}
+	}
 }
