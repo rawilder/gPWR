@@ -9,7 +9,6 @@ public class tutorialTurnStealScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//TODO editable text
 
 		title = GameObject.Find ("Title").GetComponent<Text> ();
 		playerGoesFirstText = GameObject.Find ("PlayerGoesFirstText").GetComponent<Text> ();
@@ -17,11 +16,15 @@ public class tutorialTurnStealScript : MonoBehaviour {
 		continueText = GameObject.Find ("ContinueText").GetComponent<Text> ();
 
 
-		playerGoesFirstText.text = "You're going to go first";
-		if (DataScript.scenario.hpStealsTurnsAvailable) {
-			turnStealText.text = "You're allowed to steal turns";
+		playerGoesFirstText.text = DataScript.tutText.PregamePlayerGoesFirstText;
+		if (DataScript.scenario.hpStealsTurnsAvailable && DataScript.scenario.playerHasHighPower && !DataScript.scenario.control) {
+			turnStealText.text = DataScript.tutText.PregamePlayerStealsTurnsText.Replace ("[turnSteals]", "" + DataScript.scenario.turnStealLimit);
+		} else if (DataScript.scenario.hpStealsTurnsAvailable && !DataScript.scenario.playerHasHighPower && !DataScript.scenario.control) {
+			turnStealText.text = DataScript.tutText.PregamePlayerStealsTurnsLowPowerText.Replace ("[turnSteals]", "" + DataScript.scenario.turnStealLimit);
+		} else {
+			turnStealText.text = "";
 		}
-		continueText.text = "Please press continue to begin the game";
+		continueText.text = DataScript.tutText.PregameContinueText;
 
 	}
 }

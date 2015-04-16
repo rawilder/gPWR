@@ -9,8 +9,23 @@ public class PreAllocationScript : MonoBehaviour {
 	void Start(){
 
 		if (DataScript.scenario.control) {
-
-			messageText.text = DataScript.tutText.PreallocationScreenControlText;
+			bool availableBonuses = (DataScript.scenario.pSpeedIncreaseAvailable || DataScript.scenario.gSpeedDecreaseAvailable || DataScript.scenario.fRespawnAvailable || DataScript.scenario.powerballRespawnAvailable || DataScript.scenario.gRespawnAvailable || DataScript.scenario.gDumbAvailale || DataScript.scenario.gFewerAvailable);
+			if(availableBonuses){
+				if(DataScript.scenario.ScoreWeightAvailable){
+					messageText.text = DataScript.tutText.PreallocationScreenControlBonusAndWeightText;
+				}
+				else{
+					messageText.text = DataScript.tutText.PreallocationScreenControlBonusNoWeightText;
+				}
+			}
+			else{
+				if(DataScript.scenario.ScoreWeightAvailable){
+					messageText.text = DataScript.tutText.PreallocationScreenControlNoBonusWeightText;
+				}
+				else{
+					messageText.text = DataScript.tutText.PreallocationScreenControlNoBonusNoWeightText;
+				}
+			}
 
 		} else {
 			if(DataScript.scenario.playerHasHighPower){

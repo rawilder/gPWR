@@ -36,14 +36,16 @@ public class ScoreWeightScreenScript : MonoBehaviour {
 		if (DataScript.scenario.ScoreWeightPredetermined || DataScript.scenario.control) {
 			DataScript.alloc.scoreWeight = DataScript.scenario.AiAllocateWeight;
 			weightSlider.value = DataScript.alloc.scoreWeight;
-			//TODO editable text
-			bottomMessageText.text = "The program has determined that the score weights will be as follows:";
+			bottomMessageText.text = DataScript.tutText.ScoreWeightScreenBottomMessageControl;
+			topMessageText.text = DataScript.tutText.ScoreWeightScreenTopMessageControl;
 		} else {
 			if(DataScript.scenario.playerHasHighPower){
-				bottomMessageText.text = "Please select score weights for yourself and your partner";
+				bottomMessageText.text = DataScript.tutText.ScoreWeightScreenBottomMessageHighPower;
+				topMessageText.text = DataScript.tutText.ScoreWeightScreenTopMessageHighPower;
 			}
 			else{
-				bottomMessageText.text = "Please wait while your partner selects the score weight";
+				bottomMessageText.text = DataScript.tutText.ScoreWeightScreenBottomMessageLowPower;
+				topMessageText.text = DataScript.tutText.ScoreWeightScreenTopMessageLowPower;
 			}
 		}
 
@@ -55,7 +57,7 @@ public class ScoreWeightScreenScript : MonoBehaviour {
 		if (!DataScript.scenario.playerHasHighPower && !DataScript.scenario.ScoreWeightPredetermined) {
 			Thread.Sleep(4000);
 			weightSlider.value = DataScript.alloc.scoreWeight;
-			topMessageText.text = "Your partner has finished choosing the weights, please continue";
+			bottomMessageText.text = DataScript.tutText.ScoreWeightScreenSelectionCompleteMessage;
 		}
 	}
 
