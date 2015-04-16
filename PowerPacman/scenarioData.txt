@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="us-ascii"?>
+<?xml version="1.0" encoding="Windows-1252"?>
 <ScenarioList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Scenarios>
     <Scenario>
@@ -65,29 +65,29 @@
     </Scenario>
     <Scenario>
       <id>0</id>
-      <name>ControlEnabledNoPreNoBonuses</name>
-      <control>true</control>
-      <playerHasHighPower>true</playerHasHighPower>
+      <name>lpBonus</name>
+      <control>false</control>
+      <playerHasHighPower>false</playerHasHighPower>
       <turnTime>30</turnTime>
       <totalTime>1</totalTime>
-      <pSpeedIncreaseAvailable>false</pSpeedIncreaseAvailable>
-      <gSpeedDecreaseAvailable>false</gSpeedDecreaseAvailable>
+      <pSpeedIncreaseAvailable>true</pSpeedIncreaseAvailable>
+      <gSpeedDecreaseAvailable>true</gSpeedDecreaseAvailable>
       <fRespawnAvailable>false</fRespawnAvailable>
-      <longerPowerModeAvailable>false</longerPowerModeAvailable>
-      <powerballRespawnAvailable>false</powerballRespawnAvailable>
-      <gRespawnAvailable>false</gRespawnAvailable>
-      <gDumbAvailale>false</gDumbAvailale>
-      <gFewerAvailable>false</gFewerAvailable>
+      <longerPowerModeAvailable>true</longerPowerModeAvailable>
+      <powerballRespawnAvailable>true</powerballRespawnAvailable>
+      <gRespawnAvailable>true</gRespawnAvailable>
+      <gDumbAvailale>true</gDumbAvailale>
+      <gFewerAvailable>true</gFewerAvailable>
       <hpStealsTurnsAvailable>true</hpStealsTurnsAvailable>
       <turnStealLimit>2</turnStealLimit>
-      <AiAllocationIsRandom>true</AiAllocationIsRandom>
-      <AiAllocatePlayerSpeed>1</AiAllocatePlayerSpeed>
-      <AiAllocateGhostSpeed>1</AiAllocateGhostSpeed>
+      <AiAllocationIsRandom>false</AiAllocationIsRandom>
+      <AiAllocatePlayerSpeed>0</AiAllocatePlayerSpeed>
+      <AiAllocateGhostSpeed>0</AiAllocateGhostSpeed>
       <AiAllocateFruitRespawn>1</AiAllocateFruitRespawn>
-      <AiAllocateLongerPowerMode>1</AiAllocateLongerPowerMode>
-      <AiAllocatePowerBallRespawn>1</AiAllocatePowerBallRespawn>
+      <AiAllocateLongerPowerMode>0</AiAllocateLongerPowerMode>
+      <AiAllocatePowerBallRespawn>0</AiAllocatePowerBallRespawn>
       <AiAllocateGhostRespawn>1</AiAllocateGhostRespawn>
-      <AiAllocateDumbGhosts>1</AiAllocateDumbGhosts>
+      <AiAllocateDumbGhosts>0</AiAllocateDumbGhosts>
       <AiAllocateFewerGhosts>1</AiAllocateFewerGhosts>
       <AiAllocateWeight>0.35</AiAllocateWeight>
       <ScoreWeightAvailable>true</ScoreWeightAvailable>
@@ -96,19 +96,19 @@
     </Scenario>
     <Scenario>
       <id>0</id>
-      <name>hpNoBonusesNoPre</name>
+      <name>hpNoPre</name>
       <control>false</control>
       <playerHasHighPower>true</playerHasHighPower>
       <turnTime>30</turnTime>
       <totalTime>1</totalTime>
-      <pSpeedIncreaseAvailable>false</pSpeedIncreaseAvailable>
-      <gSpeedDecreaseAvailable>false</gSpeedDecreaseAvailable>
-      <fRespawnAvailable>false</fRespawnAvailable>
+      <pSpeedIncreaseAvailable>true</pSpeedIncreaseAvailable>
+      <gSpeedDecreaseAvailable>true</gSpeedDecreaseAvailable>
+      <fRespawnAvailable>true</fRespawnAvailable>
       <longerPowerModeAvailable>false</longerPowerModeAvailable>
-      <powerballRespawnAvailable>false</powerballRespawnAvailable>
-      <gRespawnAvailable>false</gRespawnAvailable>
-      <gDumbAvailale>false</gDumbAvailale>
-      <gFewerAvailable>false</gFewerAvailable>
+      <powerballRespawnAvailable>true</powerballRespawnAvailable>
+      <gRespawnAvailable>true</gRespawnAvailable>
+      <gDumbAvailale>true</gDumbAvailale>
+      <gFewerAvailable>true</gFewerAvailable>
       <hpStealsTurnsAvailable>true</hpStealsTurnsAvailable>
       <turnStealLimit>2</turnStealLimit>
       <AiAllocationIsRandom>true</AiAllocationIsRandom>
@@ -121,7 +121,7 @@
       <AiAllocateDumbGhosts>1</AiAllocateDumbGhosts>
       <AiAllocateFewerGhosts>1</AiAllocateFewerGhosts>
       <AiAllocateWeight>0.5</AiAllocateWeight>
-      <ScoreWeightAvailable>false</ScoreWeightAvailable>
+      <ScoreWeightAvailable>true</ScoreWeightAvailable>
       <ScoreWeightPredetermined>false</ScoreWeightPredetermined>
       <scoreThreshold>0</scoreThreshold>
     </Scenario>

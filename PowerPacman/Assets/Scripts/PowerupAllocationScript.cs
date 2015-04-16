@@ -27,19 +27,19 @@ public class PowerupAllocationScript : MonoBehaviour {
 		errorMessage = GameObject.Find ("ErrorMessage").GetComponent<Text> ();
 
 		Title.text = DataScript.tutText.AllocationScreenTitle;
+		errorMessage.text = DataScript.tutText.AllocationScreenErrorMessage;
 		errorMessage.enabled = false;
 
 		messageText = GameObject.Find ("TempText").GetComponent<Text> ();
 
-		//TODO editable text
 		if (!DataScript.scenario.playerHasHighPower && !DataScript.scenario.control) {
 			buttonSetEnabled (continueButton, false);
-			messageText.text = "Please wait while your partner assigns the bonuses";
+			messageText.text = DataScript.tutText.AllocationScreenTopMessageLowPower;
 		} else {
-			messageText.text = "Please assign the bonuses to yourself and your partner";
+			messageText.text = DataScript.tutText.AllocationScreenTopMessageHighPower;
 		}
 		if (DataScript.scenario.control) {
-			messageText.text = "We have determined that both you and your partner will have all of the bonuses. Please hit the continue button";
+			messageText.text = DataScript.tutText.AllocationScreenTopMessageControl;
 		}
 
 		//create the sliders
@@ -479,7 +479,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 			break;
 		case 8:
 			buttonSetEnabled(continueButton,true);
-			messageText.text = "Your partner has finished assignment. Please continue";
+			messageText.text = DataScript.tutText.AllocationScreenLowPowerPostAllocationMessage;
 			break;
 		}
 		iterationCount++;

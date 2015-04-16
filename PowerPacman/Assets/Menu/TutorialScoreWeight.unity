@@ -933,7 +933,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 55488050}
         m_MethodName: weightSliderUpdate
         m_Mode: 1
         m_Arguments:

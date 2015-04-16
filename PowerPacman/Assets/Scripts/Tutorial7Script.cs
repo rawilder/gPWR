@@ -21,12 +21,12 @@ public class Tutorial7Script : MonoBehaviour {
 		continueButton = GameObject.Find ("Button").GetComponent<Button> ();
 
 		if (DataScript.scenario.control) {
-			messageText.text = "The bonuses that you are your partner were assigned are listed below. Please press continue to begin the game";
+			messageText.text = DataScript.tutText.AllocationReviewBodyControl;
 		} else {
 			if (DataScript.scenario.playerHasHighPower) {
-				messageText.text = "The bonuses you have chosen for yourself and your partner are listed below. Please press continue to begin the game.";
+				messageText.text = DataScript.tutText.AllocationReviewBodyHighPower;
 			} else {
-				messageText.text = "The bonuses your partner has chosen for you are listed below. Please press continue to begin the game";
+				messageText.text = DataScript.tutText.AllocationReviewBodyLowPower;
 			}
 		}
 
@@ -112,10 +112,12 @@ public class Tutorial7Script : MonoBehaviour {
 			PartnerBonusesBox.text += "Fewer Enemies\n";
 		}
 
-		if (DataScript.scenario.ScoreWeightAvailable) {
-			PlayerBonusesBox.text += "Score Weight: " + DataScript.alloc.scoreWeight * 100 + "%";
-			PartnerBonusesBox.text += "Score Weight: " + (1 - DataScript.alloc.scoreWeight) * 100 + "%";
-		}
+		BottomMessageText.text = DataScript.tutText.AllocationReviewBottomMessage;
+
+		//if (DataScript.scenario.ScoreWeightAvailable) {
+		//	PlayerBonusesBox.text += "Score Weight: " + DataScript.alloc.scoreWeight * 100 + "%";
+		//	PartnerBonusesBox.text += "Score Weight: " + (1 - DataScript.alloc.scoreWeight) * 100 + "%";
+		//}
 
 		/*
 		if (DataScript.scenario.hpStealsTurnsAvailable) {

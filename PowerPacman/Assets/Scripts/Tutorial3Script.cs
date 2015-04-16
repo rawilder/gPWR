@@ -13,13 +13,16 @@ public class Tutorial3Script : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	
-		string controlBody = "Control text test";
-		//TODO editable text for control
+		Tut3Title.text = DataScript.tutText.BonusesScreenTitle;
 		if (DataScript.scenario.control) {
-			Tut3Body.text = controlBody;
+			Tut3Body.text = DataScript.tutText.BonusesScreenBodyControl;
 		} else {
-			Tut3Title.text = DataScript.tutText.BonusesScreenTitle;
-			Tut3Body.text = DataScript.tutText.BonusesScreenBody;
+			if(DataScript.scenario.playerHasHighPower){
+				Tut3Body.text = DataScript.tutText.BonusesScreenBodyHighPower;
+			}
+			else{
+				Tut3Body.text = DataScript.tutText.BonusesScreenBodyLowPower;
+			}
 		}
 
 
