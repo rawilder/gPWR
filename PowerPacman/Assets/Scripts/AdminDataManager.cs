@@ -25,6 +25,7 @@ public class Scenario{
 	public bool gDumbAvailale;
 	public bool gFewerAvailable;
 	public bool hpStealsTurnsAvailable;//not an allocatable powerup, but it is an ability
+	public int turnStealLimit;
 
 	public bool AiAllocationIsRandom;
 	//these floats correspond to sliders in the admin console. they will always be 0 or 1. 0 means allocate to self (ai), 1 means allocate to the human player
@@ -38,6 +39,8 @@ public class Scenario{
 	public float AiAllocateFewerGhosts;
 
 	public float AiAllocateWeight;
+	public bool ScoreWeightAvailable;
+	public bool ScoreWeightPredetermined;
 
 	public int scoreThreshold;	//if 0, the scores are equal, if positive, the AI scores that much higher, if negative, the AI scores that much less
 	
@@ -73,6 +76,10 @@ public class Scenario{
 		AiAllocateWeight = .5f;
 
 		scoreThreshold = 0;
+		turnStealLimit = 2;
+
+		ScoreWeightAvailable = true;
+		ScoreWeightPredetermined = false;
 
 	}
 
@@ -106,6 +113,10 @@ public class Scenario{
 
 		AiAllocateWeight = s.AiAllocateWeight;
 		scoreThreshold = s.scoreThreshold;
+		turnStealLimit = s.turnStealLimit;
+
+		ScoreWeightAvailable = s.ScoreWeightAvailable;
+		ScoreWeightPredetermined = s.ScoreWeightPredetermined;
 	}
 }
 
@@ -163,6 +174,11 @@ public class AdminDataManager : MonoBehaviour {
 	Text playerWeightText;
 	Slider weightSlider;
 
+	Toggle scoreWeightAvailable;
+	Toggle scoreWeightPredetermined;
+
+	InputField turnStealLimitInput;
+
 	InputField thresholdInput;
 
 	void Start () {
@@ -201,6 +217,10 @@ public class AdminDataManager : MonoBehaviour {
 		weightSlider = GameObject.Find ("Slider").GetComponent<Slider> ();
 
 		thresholdInput = GameObject.Find ("ScoreThresholdInput").GetComponent<InputField> ();
+		turnStealLimitInput = GameObject.Find ("TurnStealLimitInput").GetComponent<InputField> ();
+
+		scoreWeightAvailable = GameObject.Find ("WeightsEnabledToggle").GetComponent<Toggle> ();
+		scoreWeightPredetermined = GameObject.Find ("WeightsPredetermined").GetComponent<Toggle> ();
 
 		allocationSliders.Add (aiAllocatesPlayerSpeed);
 		allocationSliders.Add (aiAllocatesGhostSpeed);
@@ -334,6 +354,8 @@ public class AdminDataManager : MonoBehaviour {
 		tempScenario.AiAllocateFewerGhosts = aiAllocatesFewerGhosts.value;
 
 		tempScenario.AiAllocateWeight = weightSlider.value;
+		tempScenario.ScoreWeightAvailable = scoreWeightAvailable.isOn;
+		tempScenario.ScoreWeightPredetermined = scoreWeightPredetermined.isOn;
 
 		if (thresholdInput.text != "") {
 			try {
@@ -344,6 +366,17 @@ public class AdminDataManager : MonoBehaviour {
 			}
 		} else {
 			thresholdInput.text = "0";
+		}
+
+		if (turnStealLimitInput.text != "") {
+			try{
+				int val = Convert.ToInt32(turnStealLimitInput.text);
+				tempScenario.turnStealLimit = val;
+			} catch(FormatException){
+				turnStealLimitInput.text = "" + tempScenario.turnStealLimit;
+			}
+		} else {
+			turnStealLimitInput.text = "2";
 		}
 
 	}
@@ -390,9 +423,12 @@ public class AdminDataManager : MonoBehaviour {
 				aiAllocatesFewerGhosts.value = scenList.Scenarios[index].AiAllocateFewerGhosts;
 
 				weightSlider.value = scenList.Scenarios[index].AiAllocateWeight;
+				scoreWeightAvailable.isOn = scenList.Scenarios[index].ScoreWeightAvailable;
+				scoreWeightPredetermined.isOn = scenList.Scenarios[index].ScoreWeightPredetermined;
 				WeightSliderUpdate();
 
 				thresholdInput.text = "" + scenList.Scenarios[index].scoreThreshold;
+				turnStealLimitInput.text = "" + scenList.Scenarios[index].turnStealLimit;
 
 				tempScenario = new Scenario(scenList.Scenarios[index]);
 			}

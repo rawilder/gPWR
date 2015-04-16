@@ -29,3 +29,7 @@ EditorBuildSettings:
     path: Assets/AdminConsole.unity
   - enabled: 1
     path: Assets/EndGameScreen.unity
+  - enabled: 1
+    path: Assets/Menu/TutorialScoreWeight.unity
+  - enabled: 1
+    path: Assets/Menu/tutorialTurnSteal.unity

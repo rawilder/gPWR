@@ -1,13 +1,44 @@
 <?xml version="1.0" encoding="us-ascii"?>
 <TutorialText xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <WelcomeScreenTitle>Welcome to Two Player Pacman</WelcomeScreenTitle>
-  <ObjectiveScreenBody>The objective of this game is to work together with your partner to earn as many points as possible playing Pacman. Each player will have their own maze to navigate. You will take turns playing for a set amount of time. Score counters and the amount of time left on each players turn is displayed above the separate mazes.</ObjectiveScreenBody>
+  <ObjectiveScreenBody>In a few moments, you will be connected to another player in a different location. The objective of this game is to work together with your partner to earn as many points as possible playing Pacman, where the final score is an average of your separate scores. Each player will have their own maze to navigate. You are going to be taking turns playing for a set amount of time.</ObjectiveScreenBody>
   <BonusesScreenTitle>Bonuses</BonusesScreenTitle>
-  <BonusesScreenBody>Bonuses are special abilities that allow you to earn points quicker...</BonusesScreenBody>
+  <BonusesScreenBodyHighPower>Bonuses are special abilities that allow you to earn points more quickly. The names of the different bonuses and their effects are detailed to the right. In a few moments you will be given the ability to divide the bonuses between yourself and your partner.</BonusesScreenBodyHighPower>
+  <BonusesScreenBodyLowPower>Bonuses are special abilities that allow you to earn points more quickly. The names of the different bonuses and their effects are detailed to the right. In a few moments, your partner is going choose how to divide the bonuses between the two players.</BonusesScreenBodyLowPower>
+  <BonusesScreenBodyControl>Bonuses are special abilities that all you to earn points more quickly. The names of the different bonuses and their effects are detailed to the right. Both you and your partner will have the same bonuses.</BonusesScreenBodyControl>
   <ConnectingScreenTitle>Connecting to partner</ConnectingScreenTitle>
   <ConnectingScreenText>Please wait while we match you with a partner</ConnectingScreenText>
-  <PreallocationScreenControlText>This is some placeholder text letting the user know that the game will be beginning soon (no allocation)</PreallocationScreenControlText>
-  <PreallocationScreenHighPowerText>This is some placeholder text telling the user that they will be allocating power ups to themselves and the other player</PreallocationScreenHighPowerText>
-  <PreallocationScreenLowPowerText>This is some placeholder text telling the user that they will have powerups allocated to them by the other player</PreallocationScreenLowPowerText>
+  <PreallocationScreenControlNoBonusNoWeightText>We have connected you with your partner, please press the continue button to begin the game</PreallocationScreenControlNoBonusNoWeightText>
+  <PreallocationScreenControlNoBonusWeightText>We have connected you with your partner, please press the continue button to continue to the score weight screen</PreallocationScreenControlNoBonusWeightText>
+  <PreallocationScreenControlBonusNoWeightText>We have connected you with your partner, please press the continue button to continue to the bonus screen</PreallocationScreenControlBonusNoWeightText>
+  <PreallocationScreenControlBonusAndWeightText>We have connected you with your partner, please press the continue button to continue to the bonus screen</PreallocationScreenControlBonusAndWeightText>
+  <PreallocationScreenHighPowerText>We have connected you with your partner, and the game has determined that you will be the one who assigns bonuses. Please press the continue button</PreallocationScreenHighPowerText>
+  <PreallocationScreenLowPowerText>We have connected you with your partner, and the game has determined that your partner will be the one who assigns bonuses. Please press the continue button</PreallocationScreenLowPowerText>
   <AllocationScreenTitle>Bonus allocation</AllocationScreenTitle>
+  <AllocationScreenTopMessageHighPower>Please use the sliders to allocate a bonus to yourself or your partner</AllocationScreenTopMessageHighPower>
+  <AllocationScreenTopMessageLowPower>Please wait while your partner allocates the bonuses</AllocationScreenTopMessageLowPower>
+  <AllocationScreenTopMessageControl>You and your partner will have the same bonuses. Please click the continue button</AllocationScreenTopMessageControl>
+  <AllocationScreenErrorMessage>Please assign all bonuses before continuing</AllocationScreenErrorMessage>
+  <AllocationScreenLowPowerPostAllocationMessage>Your partner has finished assigning all bonuses, please review them and then press the continue button</AllocationScreenLowPowerPostAllocationMessage>
+  <AllocationReviewBodyHighPower>The bonuses you have chosen for yourself and your partner are listed below. Please press the continue button.</AllocationReviewBodyHighPower>
+  <AllocationReviewBodyLowPower>The bonuses your partner has chosen for you are listed below. Please review them and then press the continue</AllocationReviewBodyLowPower>
+  <AllocationReviewBodyControl>The bonuses that you are your partner were assigned are listed below. Please review them and then press the continue button</AllocationReviewBodyControl>
+  <AllocationReviewBottomMessage />
+  <ScoreWeightScreenTopMessageHighPower>The final score of the game is calculated as a weighted average of your and your parter's scores. The higher your percent, the more your score contributes.</ScoreWeightScreenTopMessageHighPower>
+  <ScoreWeightScreenTopMessageLowPower>The final score of the game is calculated as a weighted average of your and your parter's scores. The higher your percent, the more your score contributes.</ScoreWeightScreenTopMessageLowPower>
+  <ScoreWeightScreenTopMessageControl>The final score of the game is calculated as a weighted average of your and your parter's scores. The higher your percent, the more your score contributes.</ScoreWeightScreenTopMessageControl>
+  <ScoreWeightScreenBottomMessageHighPower>Please use the slider to select score weights for you and your partner</ScoreWeightScreenBottomMessageHighPower>
+  <ScoreWeightScreenBottomMessageLowPower>Please wait while your partner selects score weights for themself and you.</ScoreWeightScreenBottomMessageLowPower>
+  <ScoreWeightScreenBottomMessageControl>The score weights that were determined for you and your partner are displayed on the slider below. Please read them and then press the continue button</ScoreWeightScreenBottomMessageControl>
+  <ScoreWeightScreenSelectionCompleteMessage>Your partner has finished determining the score weights, please press the continue button</ScoreWeightScreenSelectionCompleteMessage>
+  <PregameScreenTitle>Pregame</PregameScreenTitle>
+  <PregamePlayerGoesFirstText>The program has decided that you will have the first turn of the game.</PregamePlayerGoesFirstText>
+  <PregamePlayerStealsTurnsText>The game has determined that between turns, you will have the ability to skip your partner's turn and immediately play again. Your partner does not have this ability. You will be limited to [turnSteals] turn skips</PregamePlayerStealsTurnsText>
+  <PregamePlayerStealsTurnsLowPowerText>The game has determined that between turns, your partner will have the ability to skip your turn and immediately play again. You will not have this ability. Your partner will be limited to [turnSteals] turn skips</PregamePlayerStealsTurnsLowPowerText>
+  <PregameContinueText>Please press the continue button to begin the game</PregameContinueText>
+  <GameTakeTurnMessageHighPower>Press 'F' to take another turn</GameTakeTurnMessageHighPower>
+  <GameTakeTurnMessageLowPower>Your partner is deciding whether to take another turn</GameTakeTurnMessageLowPower>
+  <GameTakeTurnYesMessageHighPower>You have chosen to take another turn</GameTakeTurnYesMessageHighPower>
+  <GameTakeTurnYesMessageLowPower>Your partner has chosen to take another turn</GameTakeTurnYesMessageLowPower>
+  <GameEndMessage>The game has ended, please wait</GameEndMessage>
 </TutorialText>
