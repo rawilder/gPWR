@@ -26,8 +26,17 @@ public class PreAllocationScript : MonoBehaviour {
 	public void advanceStage(){
 
 		if (DataScript.scenario.control) {
-			//head right into the game
-			Application.LoadLevel (2);
+			bool availableBonuses = (DataScript.scenario.pSpeedIncreaseAvailable || DataScript.scenario.gSpeedDecreaseAvailable || DataScript.scenario.fRespawnAvailable || DataScript.scenario.powerballRespawnAvailable || DataScript.scenario.gRespawnAvailable || DataScript.scenario.gDumbAvailale || DataScript.scenario.gFewerAvailable);
+			bool weightsActive = DataScript.scenario.ScoreWeightAvailable;
+			if(availableBonuses){
+				Application.LoadLevel(7);
+			}
+			else if(weightsActive){
+				Application.LoadLevel(11);
+			}
+			else{
+				Application.LoadLevel (2);
+			}
 		} else {
 			//advance to allocation stage
 			Application.LoadLevel(7);

@@ -12,7 +12,8 @@ public class Tutorial2Script : MonoBehaviour {
 	}
 
 	public void advanceTutorialStage(){
-		if (DataScript.scenario.control) {
+		bool bonusesAvailable = (DataScript.scenario.pSpeedIncreaseAvailable || DataScript.scenario.gSpeedDecreaseAvailable || DataScript.scenario.fRespawnAvailable || DataScript.scenario.powerballRespawnAvailable || DataScript.scenario.gRespawnAvailable || DataScript.scenario.gDumbAvailale || DataScript.scenario.gFewerAvailable);
+		if (!bonusesAvailable) {
 			//dont go to the bonus stage
 			Application.LoadLevel(5);
 		} else {

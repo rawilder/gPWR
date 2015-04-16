@@ -8,7 +8,7 @@ using System;
 
 public class Allocation{
 
-	//0 = ai, 1 = player, -1 = not available
+	//0 = ai, 1 = player, -1 = not available, 2 = both
 
 	public int PlayerSpeed;
 	public int GhostSpeed;

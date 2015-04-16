@@ -11,9 +11,6 @@ public class PowerupAllocationScript : MonoBehaviour {
 	public Text Title;
 	public Transform sliderPanel;
 	public GameObject allocationSliderPrefab;
-	Slider weightSlider;
-	Text partnerWeightText;
-	Text playerWeightText;
 	Text errorMessage;
 
 	public int iterationCount = 0;
@@ -26,9 +23,6 @@ public class PowerupAllocationScript : MonoBehaviour {
 
 	void Start () {
 	
-		weightSlider = GameObject.Find ("WeightSlider").GetComponent<Slider> ();
-		partnerWeightText = GameObject.Find ("ParterWeight").GetComponent<Text> ();
-		playerWeightText = GameObject.Find ("PlayerWeight").GetComponent<Text> ();
 		continueButton = GameObject.Find ("Button").GetComponent<Button> ();
 		errorMessage = GameObject.Find ("ErrorMessage").GetComponent<Text> ();
 
@@ -37,18 +31,21 @@ public class PowerupAllocationScript : MonoBehaviour {
 
 		messageText = GameObject.Find ("TempText").GetComponent<Text> ();
 
-		if (!DataScript.scenario.playerHasHighPower) {
+		//TODO editable text
+		if (!DataScript.scenario.playerHasHighPower && !DataScript.scenario.control) {
 			buttonSetEnabled (continueButton, false);
 			messageText.text = "Please wait while your partner assigns the bonuses";
 		} else {
 			messageText.text = "Please assign the bonuses to yourself and your partner";
 		}
+		if (DataScript.scenario.control) {
+			messageText.text = "We have determined that both you and your partner will have all of the bonuses. Please hit the continue button";
+		}
 
 		//create the sliders
 		createSliders ();
-		weightSliderUpdate ();
 
-		if (!DataScript.scenario.playerHasHighPower){
+		if (!DataScript.scenario.playerHasHighPower || DataScript.scenario.control){
 			foreach (var slider in sliders) {
 				slider.GetComponentInChildren<Slider>().interactable = false;
 				Graphic[] g = slider.GetComponentInChildren<Slider>().GetComponentsInChildren<Graphic>();
@@ -56,170 +53,183 @@ public class PowerupAllocationScript : MonoBehaviour {
 					g[i].CrossFadeAlpha(.2f,.2f,true);
 				}
 			}
-
-			weightSlider.GetComponentInChildren<Slider>().interactable = false;
-			Graphic[] g2 = weightSlider.GetComponentInChildren<Slider>().GetComponentsInChildren<Graphic>();
-			for(int i = 0; i < g2.Length; i++){
-				g2[i].CrossFadeAlpha(.2f,.2f,true);
-			}
-			
 		}
 
+		if (DataScript.scenario.control) {
+			//give each player whatever powerups are available
+			if(DataScript.scenario.pSpeedIncreaseAvailable){
+				DataScript.alloc.PlayerSpeed = 2;
+			}
+			if(DataScript.scenario.gSpeedDecreaseAvailable){
+				DataScript.alloc.GhostSpeed = 2;
+			}
+			if(DataScript.scenario.fRespawnAvailable){
+				DataScript.alloc.FruitRespawn = 2;
+			}
+			if(DataScript.scenario.longerPowerModeAvailable){
+				DataScript.alloc.LongerPowerMode = 2;
+			}
+			if(DataScript.scenario.powerballRespawnAvailable){
+				DataScript.alloc.PowerBallRespawn = 2;
+			}
+			if(DataScript.scenario.gRespawnAvailable){
+				DataScript.alloc.GhostRespawn = 2;
+			}
+			if(DataScript.scenario.gDumbAvailale){
+				DataScript.alloc.DumbGhosts = 2;
+			}
+			if(DataScript.scenario.gFewerAvailable){
+				DataScript.alloc.FewerGhosts = 2;
+			}
 
-		if (!DataScript.scenario.playerHasHighPower) {
-			if (!DataScript.scenario.AiAllocationIsRandom) {
 
-				//apply the power ups
-				if (DataScript.scenario.pSpeedIncreaseAvailable) {
-					Debug.Log ("Player speed: " + DataScript.scenario.AiAllocatePlayerSpeed);
-					if (DataScript.scenario.AiAllocatePlayerSpeed == 0) {
-						DataScript.alloc.PlayerSpeed = 0;
-					} else {
-						DataScript.alloc.PlayerSpeed = 1;
+		} else {
+			if (!DataScript.scenario.playerHasHighPower) {
+				if (!DataScript.scenario.AiAllocationIsRandom) {
+
+					//apply the power ups
+					if (DataScript.scenario.pSpeedIncreaseAvailable) {
+						Debug.Log ("Player speed: " + DataScript.scenario.AiAllocatePlayerSpeed);
+						if (DataScript.scenario.AiAllocatePlayerSpeed == 0) {
+							DataScript.alloc.PlayerSpeed = 0;
+						} else {
+							DataScript.alloc.PlayerSpeed = 1;
+						}
 					}
-				}
 
-				if (DataScript.scenario.gSpeedDecreaseAvailable) {
-					if (DataScript.scenario.AiAllocateGhostSpeed == 0) {
-						DataScript.alloc.GhostSpeed = 0;
-					} else {
-						DataScript.alloc.GhostSpeed = 1;
+					if (DataScript.scenario.gSpeedDecreaseAvailable) {
+						if (DataScript.scenario.AiAllocateGhostSpeed == 0) {
+							DataScript.alloc.GhostSpeed = 0;
+						} else {
+							DataScript.alloc.GhostSpeed = 1;
+						}
 					}
-				}
 
-				if (DataScript.scenario.fRespawnAvailable) {
-					if (DataScript.scenario.AiAllocateFruitRespawn == 0) {
-						DataScript.alloc.FruitRespawn = 0;
-					} else {
-						DataScript.alloc.FruitRespawn = 1;
+					if (DataScript.scenario.fRespawnAvailable) {
+						if (DataScript.scenario.AiAllocateFruitRespawn == 0) {
+							DataScript.alloc.FruitRespawn = 0;
+						} else {
+							DataScript.alloc.FruitRespawn = 1;
+						}
 					}
-				}
 
-				if (DataScript.scenario.longerPowerModeAvailable) {
-					if (DataScript.scenario.AiAllocateLongerPowerMode == 0) {
-						DataScript.alloc.LongerPowerMode = 0;
-					} else {
-						DataScript.alloc.LongerPowerMode = 1;
+					if (DataScript.scenario.longerPowerModeAvailable) {
+						if (DataScript.scenario.AiAllocateLongerPowerMode == 0) {
+							DataScript.alloc.LongerPowerMode = 0;
+						} else {
+							DataScript.alloc.LongerPowerMode = 1;
+						}
 					}
-				}
 
-				if (DataScript.scenario.powerballRespawnAvailable) {
-					if (DataScript.scenario.AiAllocatePowerBallRespawn == 0) {
-						DataScript.alloc.PowerBallRespawn = 0;
-					} else {
-						DataScript.alloc.PowerBallRespawn = 1;
+					if (DataScript.scenario.powerballRespawnAvailable) {
+						if (DataScript.scenario.AiAllocatePowerBallRespawn == 0) {
+							DataScript.alloc.PowerBallRespawn = 0;
+						} else {
+							DataScript.alloc.PowerBallRespawn = 1;
+						}
 					}
-				}
 
-				if (DataScript.scenario.gRespawnAvailable) {
-					if (DataScript.scenario.AiAllocateGhostRespawn == 0) {
-						DataScript.alloc.GhostRespawn = 0;
-					} else {
-						DataScript.alloc.GhostRespawn = 1;
+					if (DataScript.scenario.gRespawnAvailable) {
+						if (DataScript.scenario.AiAllocateGhostRespawn == 0) {
+							DataScript.alloc.GhostRespawn = 0;
+						} else {
+							DataScript.alloc.GhostRespawn = 1;
+						}
 					}
-				}
 
-				if (DataScript.scenario.gDumbAvailale) {
-					if (DataScript.scenario.AiAllocateDumbGhosts == 0) {
-						DataScript.alloc.DumbGhosts = 0;
-					} else {
-						DataScript.alloc.DumbGhosts = 1;
+					if (DataScript.scenario.gDumbAvailale) {
+						if (DataScript.scenario.AiAllocateDumbGhosts == 0) {
+							DataScript.alloc.DumbGhosts = 0;
+						} else {
+							DataScript.alloc.DumbGhosts = 1;
+						}
 					}
-				}
 
-				if (DataScript.scenario.gFewerAvailable) {
-					if (DataScript.scenario.AiAllocateFewerGhosts == 0) {
-						DataScript.alloc.FewerGhosts = 0;
-					} else {
-						DataScript.alloc.FewerGhosts = 1;
+					if (DataScript.scenario.gFewerAvailable) {
+						if (DataScript.scenario.AiAllocateFewerGhosts == 0) {
+							DataScript.alloc.FewerGhosts = 0;
+						} else {
+							DataScript.alloc.FewerGhosts = 1;
+						}
+					}
+				} else {
+					//random allocation
+					if (DataScript.scenario.pSpeedIncreaseAvailable) {
+						if (UnityEngine.Random.Range (0.0f, 1.0f) > .5f) {
+							DataScript.alloc.PlayerSpeed = 1;
+						} else {
+							DataScript.alloc.PlayerSpeed = 0;
+						}
+					}
+
+					if (DataScript.scenario.gSpeedDecreaseAvailable) {
+						if (UnityEngine.Random.Range (0.0f, 1.0f) > .5f) {
+							DataScript.alloc.GhostSpeed = 1;
+						} else {
+							DataScript.alloc.GhostSpeed = 0;
+						}
+					}
+
+					if (DataScript.scenario.fRespawnAvailable) {
+						if (UnityEngine.Random.Range (0.0f, 1.0f) > .5f) {
+							DataScript.alloc.FruitRespawn = 1;
+						} else {
+							DataScript.alloc.FruitRespawn = 0;
+						}
+					}
+
+					if (DataScript.scenario.longerPowerModeAvailable) {
+						if (UnityEngine.Random.Range (0.0f, 1.0f) > .5f) {
+							DataScript.alloc.LongerPowerMode = 1;
+						} else {
+							DataScript.alloc.LongerPowerMode = 0;
+						}
+					}
+
+					if (DataScript.scenario.powerballRespawnAvailable) {
+						if (UnityEngine.Random.Range (0.0f, 1.0f) > .5f) {
+							DataScript.alloc.PowerBallRespawn = 1;
+						} else {
+							DataScript.alloc.PowerBallRespawn = 0;
+						}
+					}
+
+					if (DataScript.scenario.gRespawnAvailable) {
+						if (UnityEngine.Random.Range (0.0f, 1.0f) > .5f) {
+							DataScript.alloc.GhostRespawn = 1;
+						} else {
+							DataScript.alloc.GhostRespawn = 0;
+						}
+					}
+
+					if (DataScript.scenario.gDumbAvailale) {
+						if (UnityEngine.Random.Range (0.0f, 1.0f) > .5f) {
+							DataScript.alloc.DumbGhosts = 1;
+						} else {
+							DataScript.alloc.DumbGhosts = 0;
+						}
+					}
+
+					if (DataScript.scenario.gFewerAvailable) {
+						if (UnityEngine.Random.Range (0.0f, 1.0f) > .5f) {
+							DataScript.alloc.FewerGhosts = 1;
+						} else {
+							DataScript.alloc.FewerGhosts = 0;
+						}
+					}
+
+					//score weight
+					if (DataScript.scenario.ScoreWeightAvailable && !DataScript.scenario.ScoreWeightPredetermined) {
+						//doesnt happen until the next scene, but assign a value here anyway
+						float w = UnityEngine.Random.Range (.25f, .75f);
+						DataScript.alloc.scoreWeight = (float)Math.Round (w * 20) / 20;
 					}
 				}
 			} else {
-				//random allocation
-				//TODO
+				//the player has high power
 
-				if(DataScript.scenario.pSpeedIncreaseAvailable){
-					if(UnityEngine.Random.Range(0.0f, 1.0f) > .5f){
-						DataScript.alloc.PlayerSpeed = 1;
-					}
-					else{
-						DataScript.alloc.PlayerSpeed = 0;
-					}
-				}
-
-				if(DataScript.scenario.gSpeedDecreaseAvailable){
-					if(UnityEngine.Random.Range(0.0f, 1.0f) > .5f){
-						DataScript.alloc.GhostSpeed = 1;
-					}
-					else{
-						DataScript.alloc.GhostSpeed = 0;
-					}
-				}
-
-				if(DataScript.scenario.fRespawnAvailable){
-					if(UnityEngine.Random.Range(0.0f, 1.0f) > .5f){
-						DataScript.alloc.FruitRespawn = 1;
-					}
-					else{
-						DataScript.alloc.FruitRespawn = 0;
-					}
-				}
-
-				if(DataScript.scenario.longerPowerModeAvailable){
-					if(UnityEngine.Random.Range(0.0f, 1.0f) > .5f){
-						DataScript.alloc.LongerPowerMode = 1;
-					}
-					else{
-						DataScript.alloc.LongerPowerMode = 0;
-					}
-				}
-
-				if(DataScript.scenario.powerballRespawnAvailable){
-					if(UnityEngine.Random.Range(0.0f, 1.0f) > .5f){
-						DataScript.alloc.PowerBallRespawn = 1;
-					}
-					else{
-						DataScript.alloc.PowerBallRespawn = 0;
-					}
-				}
-
-				if(DataScript.scenario.gRespawnAvailable){
-					if(UnityEngine.Random.Range(0.0f, 1.0f) > .5f){
-						DataScript.alloc.GhostRespawn = 1;
-					}
-					else{
-						DataScript.alloc.GhostRespawn = 0;
-					}
-				}
-
-				if(DataScript.scenario.gDumbAvailale){
-					if(UnityEngine.Random.Range(0.0f, 1.0f) > .5f){
-						DataScript.alloc.DumbGhosts = 1;
-					}
-					else{
-						DataScript.alloc.DumbGhosts = 0;
-					}
-				}
-
-				if(DataScript.scenario.gFewerAvailable){
-					if(UnityEngine.Random.Range(0.0f, 1.0f) > .5f){
-						DataScript.alloc.FewerGhosts = 1;
-					}
-					else{
-						DataScript.alloc.FewerGhosts = 0;
-					}
-				}
-
-				//score weight
-				float w = UnityEngine.Random.Range(.25f, .75f);
-				DataScript.alloc.scoreWeight = (float) Math.Round (w * 20) / 20;
-				Debug.Log(w);
 
 			}
-		} else {
-			//the player has high power
-
-
 		}
 
 	}
@@ -229,7 +239,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 			countdownRemaining -= Time.deltaTime;
 		}
 		else{
-			if (!DataScript.scenario.playerHasHighPower) {
+			if (!DataScript.scenario.playerHasHighPower && !DataScript.scenario.control) {
 				runAiAllocation();
 			}
 			countdownRemaining = UnityEngine.Random.Range(0.5f,1.5f);
@@ -468,10 +478,6 @@ public class PowerupAllocationScript : MonoBehaviour {
 			}
 			break;
 		case 8:
-			//weight slider
-			weightSlider.value = DataScript.alloc.scoreWeight;
-			break;
-		case 9:
 			buttonSetEnabled(continueButton,true);
 			messageText.text = "Your partner has finished assignment. Please continue";
 			break;
@@ -495,30 +501,23 @@ public class PowerupAllocationScript : MonoBehaviour {
 		}
 	}
 
-	public void weightSliderUpdate(){
-
-		//make sure the value is always rounded to the nearest .05 (5%)
-		float value = weightSlider.value;
-		float newVal = (float) Math.Round (value * 20) / 20;
-		partnerWeightText.text = "" + ((1-newVal)*100) + "%";
-		playerWeightText.text = "" + (newVal*100) + "%";
-		weightSlider.value = newVal;
-
-		DataScript.alloc.scoreWeight = newVal;
-
-	}
-
 	public void continueButtonPressed(){
 
-		foreach (var slider in sliders) {
-			if(!(slider.GetComponentInChildren<Slider>().value == 0 || slider.GetComponentInChildren<Slider>().value == 1)){
-				errorMessage.enabled = true;
-				return;
+		if (!DataScript.scenario.control) {
+			foreach (var slider in sliders) {
+				if (!(slider.GetComponentInChildren<Slider> ().value == 0 || slider.GetComponentInChildren<Slider> ().value == 1)) {
+					errorMessage.enabled = true;
+					return;
+				}
 			}
 		}
 
 		//will only continue if all bonuses have been assigned
-		Application.LoadLevel (8);
+		if (!DataScript.scenario.ScoreWeightAvailable) {
+			Application.LoadLevel (8);
+		} else {
+			Application.LoadLevel(11);
+		}
 
 	}
 }

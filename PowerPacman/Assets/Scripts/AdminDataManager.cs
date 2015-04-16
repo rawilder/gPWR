@@ -39,6 +39,8 @@ public class Scenario{
 	public float AiAllocateFewerGhosts;
 
 	public float AiAllocateWeight;
+	public bool ScoreWeightAvailable;
+	public bool ScoreWeightPredetermined;
 
 	public int scoreThreshold;	//if 0, the scores are equal, if positive, the AI scores that much higher, if negative, the AI scores that much less
 	
@@ -76,6 +78,9 @@ public class Scenario{
 		scoreThreshold = 0;
 		turnStealLimit = 2;
 
+		ScoreWeightAvailable = true;
+		ScoreWeightPredetermined = false;
+
 	}
 
 	public Scenario(Scenario s){
@@ -109,6 +114,9 @@ public class Scenario{
 		AiAllocateWeight = s.AiAllocateWeight;
 		scoreThreshold = s.scoreThreshold;
 		turnStealLimit = s.turnStealLimit;
+
+		ScoreWeightAvailable = s.ScoreWeightAvailable;
+		ScoreWeightPredetermined = s.ScoreWeightPredetermined;
 	}
 }
 
@@ -166,6 +174,9 @@ public class AdminDataManager : MonoBehaviour {
 	Text playerWeightText;
 	Slider weightSlider;
 
+	Toggle scoreWeightAvailable;
+	Toggle scoreWeightPredetermined;
+
 	InputField turnStealLimitInput;
 
 	InputField thresholdInput;
@@ -207,6 +218,9 @@ public class AdminDataManager : MonoBehaviour {
 
 		thresholdInput = GameObject.Find ("ScoreThresholdInput").GetComponent<InputField> ();
 		turnStealLimitInput = GameObject.Find ("TurnStealLimitInput").GetComponent<InputField> ();
+
+		scoreWeightAvailable = GameObject.Find ("WeightsEnabledToggle").GetComponent<Toggle> ();
+		scoreWeightPredetermined = GameObject.Find ("WeightsPredetermined").GetComponent<Toggle> ();
 
 		allocationSliders.Add (aiAllocatesPlayerSpeed);
 		allocationSliders.Add (aiAllocatesGhostSpeed);
@@ -340,6 +354,8 @@ public class AdminDataManager : MonoBehaviour {
 		tempScenario.AiAllocateFewerGhosts = aiAllocatesFewerGhosts.value;
 
 		tempScenario.AiAllocateWeight = weightSlider.value;
+		tempScenario.ScoreWeightAvailable = scoreWeightAvailable.isOn;
+		tempScenario.ScoreWeightPredetermined = scoreWeightPredetermined.isOn;
 
 		if (thresholdInput.text != "") {
 			try {
@@ -407,6 +423,8 @@ public class AdminDataManager : MonoBehaviour {
 				aiAllocatesFewerGhosts.value = scenList.Scenarios[index].AiAllocateFewerGhosts;
 
 				weightSlider.value = scenList.Scenarios[index].AiAllocateWeight;
+				scoreWeightAvailable.isOn = scenList.Scenarios[index].ScoreWeightAvailable;
+				scoreWeightPredetermined.isOn = scenList.Scenarios[index].ScoreWeightPredetermined;
 				WeightSliderUpdate();
 
 				thresholdInput.text = "" + scenList.Scenarios[index].scoreThreshold;

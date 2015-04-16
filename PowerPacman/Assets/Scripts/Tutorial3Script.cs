@@ -13,8 +13,14 @@ public class Tutorial3Script : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	
-		Tut3Title.text = DataScript.tutText.BonusesScreenTitle;
-		Tut3Body.text = DataScript.tutText.BonusesScreenBody;
+		string controlBody = "Control text test";
+		//TODO editable text for control
+		if (DataScript.scenario.control) {
+			Tut3Body.text = controlBody;
+		} else {
+			Tut3Title.text = DataScript.tutText.BonusesScreenTitle;
+			Tut3Body.text = DataScript.tutText.BonusesScreenBody;
+		}
 
 
 		//populate the power up description panel with all available power ups

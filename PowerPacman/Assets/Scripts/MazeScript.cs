@@ -216,7 +216,7 @@ public class MazeScript : MonoBehaviour {
 
         powerDotRespawns = false;
 
-		if (DataScript.scenario.control) {
+		if (!DataScript.scenario.ScoreWeightAvailable) {
 			turnSkipLabel.enabled = false;
 			turnSkipsRemainingText.enabled = false;
 			scoreWeightLabel.enabled = false;
