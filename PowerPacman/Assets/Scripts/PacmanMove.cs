@@ -14,6 +14,8 @@ public class PacmanMove : MonoBehaviour {
     Vector2 dest = Vector2.zero;
     Vector2 destTile = Vector2.zero;
     float corneringDistance = 0.5f; //the distance before a intersection when you can initiate a turn. MUST be less than .5
+	int ghostDistance = 2;
+	int cherryDistance = 7;
 
     //The ghosts
     public ClydeMove clyde;
@@ -304,61 +306,23 @@ public class PacmanMove : MonoBehaviour {
                 }
                 else 
                 {
-                    if(!GhostIsThere() || nearByGhostIsScared()) {
-                        if (maze.validPacManMove(transform.localPosition, movementAwayDir) && movementAwayDir != Direction.None)
-                        {
-                            if (movementAwayDir == Direction.Up && maze.validPacManMove(transform.localPosition, Direction.Up))
-                            {
-                                dest = (Vector2)transform.localPosition + Vector2.up;
-                                destTile.y++;
-                            }
-                            if (movementAwayDir == Direction.Right && maze.validPacManMove(transform.localPosition, Direction.Right))
-                            {
-                                dest = (Vector2)transform.localPosition + Vector2.right;
-                                destTile.x++;
-                            }
-                            if (movementAwayDir == Direction.Down && maze.validPacManMove(transform.localPosition, Direction.Down))
-                            {
-                                dest = (Vector2)transform.localPosition - Vector2.up;
-                                destTile.y--;
-                            }
-                            if (movementAwayDir == Direction.Left && maze.validPacManMove(transform.localPosition, Direction.Left))
-                            {
-                                dest = (Vector2)transform.localPosition - Vector2.right;
-                                destTile.x--;
-                            }
-                        } else {
-                            movementAwayDir = Direction.None;
-                            MoveTowardsFood();
-                        }
+                    if(!ghostIsThere() || nearByGhostIsScared()) {
+						if (maze.validPacManMove(transform.localPosition, movementAwayDir) && movementAwayDir != Direction.None)
+						{
+							makePreviousMove();
+						} else {
+                            moveTowardsFood();
+						}
+						movementAwayDir = Direction.None;
                     }
                     else {
                         targetFood = null;
-                        if (maze.validPacManMove(transform.localPosition, movementAwayDir) && movementAwayDir != Direction.None)
-                        {
-                            if (movementAwayDir == Direction.Up && maze.validPacManMove(transform.localPosition, Direction.Up))
-                            {
-                                dest = (Vector2)transform.localPosition + Vector2.up;
-                                destTile.y++;
-                            }
-                            if (movementAwayDir == Direction.Right && maze.validPacManMove(transform.localPosition, Direction.Right))
-                            {
-                                dest = (Vector2)transform.localPosition + Vector2.right;
-                                destTile.x++;
-                            }
-                            if (movementAwayDir == Direction.Down && maze.validPacManMove(transform.localPosition, Direction.Down))
-                            {
-                                dest = (Vector2)transform.localPosition - Vector2.up;
-                                destTile.y--;
-                            }
-                            if (movementAwayDir == Direction.Left && maze.validPacManMove(transform.localPosition, Direction.Left))
-                            {
-                                dest = (Vector2)transform.localPosition - Vector2.right;
-                                destTile.x--;
-                            }
-                        } else {
+						if (maze.validPacManMove(transform.localPosition, movementAwayDir) && movementAwayDir != Direction.None)
+						{
+							makePreviousMove();
+						} else {
                             movementAwayDir = Direction.None;
-                            MoveAwayFromGhost();
+                            moveAwayFromGhost();
                         }
                     }
                 }
@@ -549,8 +513,31 @@ public class PacmanMove : MonoBehaviour {
         return (hit.collider == GetComponent<Collider2D>());
     }
 
-    //not checking if move is valid
-    void MoveTowardsFood()
+	void makePreviousMove()
+	{
+		if (movementAwayDir == Direction.Up && maze.validPacManMove(transform.localPosition, Direction.Up))
+		{
+			dest = (Vector2)transform.localPosition + Vector2.up;
+			destTile.y++;
+		}
+		if (movementAwayDir == Direction.Right && maze.validPacManMove(transform.localPosition, Direction.Right))
+		{
+			dest = (Vector2)transform.localPosition + Vector2.right;
+			destTile.x++;
+		}
+		if (movementAwayDir == Direction.Down && maze.validPacManMove(transform.localPosition, Direction.Down))
+		{
+			dest = (Vector2)transform.localPosition - Vector2.up;
+			destTile.y--;
+		}
+		if (movementAwayDir == Direction.Left && maze.validPacManMove(transform.localPosition, Direction.Left))
+		{
+			dest = (Vector2)transform.localPosition - Vector2.right;
+			destTile.x--;
+		}
+	}
+	
+    void moveTowardsFood()
     {
         if(maze.cherryObject.activeSelf && !dotList.Contains(cherry)) {
             cherry = new GameObject();
@@ -566,7 +553,7 @@ public class PacmanMove : MonoBehaviour {
             }
         }
         if (targetFood == null || queuedMovements.Count == 0) {
-            if(CloseToCherry() && dotList.Contains(cherry)) {
+            if(closeToCherry() && dotList.Contains(cherry)) {
                 targetFood = cherry;
             } else if (nearByGhostIsScared()) {
                 targetGhost = new GameObject();
@@ -625,7 +612,7 @@ public class PacmanMove : MonoBehaviour {
     {
         Vector2 pos = (Vector2)transform.localPosition;
         foreach(var ghost in maze.ghosts) {
-            if (Vector2.Distance(pos, (Vector2)ghost.transform.localPosition) < 4 && ghost.GetComponent<GhostMove> ().isScared)
+			if (Vector2.Distance(pos, (Vector2)ghost.transform.localPosition) < ghostDistance && ghost.GetComponent<GhostMove> ().isScared)
                 return true;
         }
         return false;
@@ -633,7 +620,7 @@ public class PacmanMove : MonoBehaviour {
 
     GameObject getScaredGhost()
     {
-        return maze.ghosts.FirstOrDefault(g => Vector2.Distance (transform.localPosition, (Vector2)g.transform.localPosition) < 4 
+		return maze.ghosts.FirstOrDefault(g => Vector2.Distance (transform.localPosition, (Vector2)g.transform.localPosition) < ghostDistance 
                                    && g.GetComponent<GhostMove> ().isScared);
     }
 
@@ -654,33 +641,33 @@ public class PacmanMove : MonoBehaviour {
         return temp;
     }
 
-    bool CloseToCherry()
+    bool closeToCherry()
     {
         Vector2 pos = (Vector2)transform.localPosition;
         if (cherry == null)
             return false;
-        if (Vector2.Distance (pos, (Vector2)cherry.transform.localPosition) < 7)
+        if (Vector2.Distance (pos, (Vector2)cherry.transform.localPosition) < cherryDistance)
             return true;
         else
             return false;
     }
 
-    bool GhostIsThere()
+    bool ghostIsThere()
     {
         Vector2 pos = (Vector2)transform.localPosition;
         foreach(var ghost in maze.ghosts) {
-            if (Vector2.Distance(pos, (Vector2)ghost.transform.localPosition) < 4)
+			if (Vector2.Distance(pos, (Vector2)ghost.transform.localPosition) < ghostDistance)
                 return true;
         }
         return false;
     }
     
-    void MoveAwayFromGhost()
+    void moveAwayFromGhost()
     {
         var values = new float[4];
         float max = 0;
         //find closest ghost
-        GameObject closestGhost = maze.ghosts.FirstOrDefault(g => Vector2.Distance (transform.localPosition, (Vector2)g.transform.localPosition) < 4);
+		GameObject closestGhost = maze.ghosts.FirstOrDefault(g => Vector2.Distance (transform.localPosition, (Vector2)g.transform.localPosition) < ghostDistance);
         //make move that creates the most distance between ghosts
         if (closestGhost != null) {
             if (maze.validPacManMove (transform.localPosition, Direction.Up)) {
