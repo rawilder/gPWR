@@ -47,6 +47,11 @@ public class TutorialText{
 	public string PregamePlayerStealsTurnsText;
 	public string PregamePlayerStealsTurnsLowPowerText;
 	public string PregameContinueText;
+	public string GameTakeTurnMessageHighPower;
+	public string GameTakeTurnMessageLowPower;
+	public string GameTakeTurnYesMessageHighPower;
+	public string GameTakeTurnYesMessageLowPower;
+	public string GameEndMessage;
 	
 	public TutorialText(){
 		WelcomeScreenTitle = "Welcome to Two Player Pacman";
@@ -85,6 +90,11 @@ public class TutorialText{
 		PregamePlayerStealsTurnsText = "The game has determined that between turns, you will have the ability to skip your partner's turn and immediately play again. Your partner does not have this ability. You will be limited to [turnSteals] turn skips";
 		PregamePlayerStealsTurnsLowPowerText = "The game has determined that between turns, your partner will have the ability to skip your turn and immediately play again. You will not have this ability. Your partner will be limited to [turnSteals] turn skips";
 		PregameContinueText = "Please press the continue button to begin the game";
+		GameTakeTurnMessageHighPower = "Press 'F' to take another turn";
+		GameTakeTurnMessageLowPower = "Your partner is deciding whether to take another turn";
+		GameTakeTurnYesMessageHighPower = "You have chosen to take another turn";
+		GameTakeTurnYesMessageLowPower = "Your partner has chosen to take another turn";
+		GameEndMessage = "The game has ended, please wait";
 	}	
 	
 }

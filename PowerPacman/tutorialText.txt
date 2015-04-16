@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="Windows-1252"?>
+<?xml version="1.0" encoding="us-ascii"?>
 <TutorialText xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <WelcomeScreenTitle>Welcome to Two Player Pacman</WelcomeScreenTitle>
   <ObjectiveScreenBody>In a few moments, you will be connected to another player in a different location. The objective of this game is to work together with your partner to earn as many points as possible playing Pacman, where the final score is an average of your separate scores. Each player will have their own maze to navigate. You are going to be taking turns playing for a set amount of time.</ObjectiveScreenBody>
@@ -36,4 +36,9 @@
   <PregamePlayerStealsTurnsText>The game has determined that between turns, you will have the ability to skip your partner's turn and immediately play again. Your partner does not have this ability. You will be limited to [turnSteals] turn skips</PregamePlayerStealsTurnsText>
   <PregamePlayerStealsTurnsLowPowerText>The game has determined that between turns, your partner will have the ability to skip your turn and immediately play again. You will not have this ability. Your partner will be limited to [turnSteals] turn skips</PregamePlayerStealsTurnsLowPowerText>
   <PregameContinueText>Please press the continue button to begin the game</PregameContinueText>
+  <GameTakeTurnMessageHighPower>Press 'F' to take another turn</GameTakeTurnMessageHighPower>
+  <GameTakeTurnMessageLowPower>Your partner is deciding whether to take another turn</GameTakeTurnMessageLowPower>
+  <GameTakeTurnYesMessageHighPower>You have chosen to take another turn</GameTakeTurnYesMessageHighPower>
+  <GameTakeTurnYesMessageLowPower>Your partner has chosen to take another turn</GameTakeTurnYesMessageLowPower>
+  <GameEndMessage>The game has ended, please wait</GameEndMessage>
 </TutorialText>

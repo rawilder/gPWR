@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="Windows-1252"?>
+<?xml version="1.0" encoding="us-ascii"?>
 <ScenarioList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Scenarios>
     <Scenario>
@@ -68,7 +68,7 @@
       <name>lpBonus</name>
       <control>false</control>
       <playerHasHighPower>false</playerHasHighPower>
-      <turnTime>30</turnTime>
+      <turnTime>15</turnTime>
       <totalTime>1</totalTime>
       <pSpeedIncreaseAvailable>true</pSpeedIncreaseAvailable>
       <gSpeedDecreaseAvailable>true</gSpeedDecreaseAvailable>

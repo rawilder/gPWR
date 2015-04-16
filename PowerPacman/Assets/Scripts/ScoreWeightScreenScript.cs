@@ -9,6 +9,9 @@ public class ScoreWeightScreenScript : MonoBehaviour {
 	Slider weightSlider;
 	Text partnerWeightText, playerWeightText;
 	Text titleText,topMessageText, bottomMessageText;
+	Button continueButton;
+
+	float delay = 4.0f;
 
 
 	// Use this for initialization
@@ -20,6 +23,7 @@ public class ScoreWeightScreenScript : MonoBehaviour {
 		titleText = GameObject.Find ("Title").GetComponent<Text> ();
 		topMessageText = GameObject.Find ("MessageText").GetComponent<Text> ();
 		bottomMessageText = GameObject.Find ("BottomMessageText").GetComponent<Text> ();
+		continueButton = GameObject.Find ("ContinueButton").GetComponent<Button> ();
 
 		topMessageText.text = "";
 
@@ -46,6 +50,7 @@ public class ScoreWeightScreenScript : MonoBehaviour {
 			else{
 				bottomMessageText.text = DataScript.tutText.ScoreWeightScreenBottomMessageLowPower;
 				topMessageText.text = DataScript.tutText.ScoreWeightScreenTopMessageLowPower;
+				buttonSetEnabled(continueButton,false);
 			}
 		}
 
@@ -53,24 +58,45 @@ public class ScoreWeightScreenScript : MonoBehaviour {
 
 	}
 
-	void FixedUpate(){
-		if (!DataScript.scenario.playerHasHighPower && !DataScript.scenario.ScoreWeightPredetermined) {
-			Thread.Sleep(4000);
-			weightSlider.value = DataScript.alloc.scoreWeight;
-			bottomMessageText.text = DataScript.tutText.ScoreWeightScreenSelectionCompleteMessage;
+	void FixedUpdate(){
+		if (delay > 0) {
+			delay -= Time.deltaTime;
+		} else {
+			if (!DataScript.scenario.playerHasHighPower && DataScript.scenario.ScoreWeightAvailable && !DataScript.scenario.control) {
+				weightSlider.value = DataScript.alloc.scoreWeight;
+				bottomMessageText.text = DataScript.tutText.ScoreWeightScreenSelectionCompleteMessage;
+			}
+			buttonSetEnabled(continueButton, true);
 		}
 	}
 
 	public void weightSliderUpdate(){
-		
+
 		//make sure the value is always rounded to the nearest .05 (5%)
 		float value = weightSlider.value;
 		float newVal = (float) Math.Round (value * 20) / 20;
 		partnerWeightText.text = "" + ((1-newVal)*100) + "%";
 		playerWeightText.text = "" + (newVal*100) + "%";
 		weightSlider.value = newVal;
-		
-		DataScript.alloc.scoreWeight = newVal;
-		
+
+		if (DataScript.scenario.playerHasHighPower) {
+			DataScript.alloc.scoreWeight = newVal;
+		}
+	}
+
+	void buttonSetEnabled(Button b, bool enable){
+		if (enable) {
+			Graphic[] g = b.GetComponentsInChildren<Graphic> ();
+			for (int i = 0; i < g.Length; i++) {
+				g [i].CrossFadeAlpha (1.0f, .5f, true);
+			}
+			b.enabled = true;
+		} else {
+			Graphic[] g = b.GetComponentsInChildren<Graphic> ();
+			for (int i = 0; i < g.Length; i++) {
+				g [i].CrossFadeAlpha (.2f, .2f, true);
+			}
+			b.enabled = false;
+		}
 	}
 }

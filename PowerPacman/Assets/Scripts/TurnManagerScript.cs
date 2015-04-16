@@ -24,6 +24,8 @@ public class TurnManagerScript : MonoBehaviour {
 
 	float totalTimeCounter = 0.0f;
 
+	float aiTurnsteelDelayRemaining = 2.2f;
+
 	Text countdown;
 	Text messageText;
 	Text takeTurnMessage;
@@ -65,7 +67,7 @@ public class TurnManagerScript : MonoBehaviour {
 		if (switchingTurnsStage) {
 
 			if (totalTimeCounter > totalTimeLimit * 60) {
-				messageText.text = "The game has ended";
+				messageText.text = DataScript.tutText.GameEndMessage;
 				paused = true;
 				gameOver = true;
 				countdown.text = "";
@@ -76,9 +78,24 @@ public class TurnManagerScript : MonoBehaviour {
 				takeTurnMessage.enabled = true;
 				if(Input.GetKey(KeyCode.F)){
 					stealingTurn = true;
-					takeTurnMessage.text = "You have chosen to take another turn";
+					takeTurnMessage.text = DataScript.tutText.GameTakeTurnYesMessageHighPower;
 				}
-			} else {
+			}else if(!isPlayerTurn && !DataScript.scenario.control && !DataScript.scenario.playerHasHighPower && stolenTurnCount < DataScript.scenario.turnStealLimit){
+				//AI chooses whether to steal a turn or not
+				takeTurnMessage.enabled = true;
+
+				//add a bit of delay
+				if(aiTurnsteelDelayRemaining > 0.0f){
+					aiTurnsteelDelayRemaining -= Time.deltaTime;
+				}
+				else{
+					if(DataScript.aiScore < (1.05 * DataScript.playerScore)){
+						takeTurnMessage.text = DataScript.tutText.GameTakeTurnYesMessageLowPower;
+						stealingTurn = true;
+					}
+				}
+
+			}else {
 				takeTurnMessage.enabled = false;
 			}
 
@@ -106,8 +123,14 @@ public class TurnManagerScript : MonoBehaviour {
 				}
 			}
 		} else {
-			takeTurnMessage.text = "Press 'F' to take another turn";
+			if(DataScript.scenario.playerHasHighPower){
+				takeTurnMessage.text = DataScript.tutText.GameTakeTurnMessageHighPower;
+			}
+			else{
+				takeTurnMessage.text = DataScript.tutText.GameTakeTurnMessageLowPower;
+			}
 			takeTurnMessage.enabled = false;
+			aiTurnsteelDelayRemaining = 2.2f;
 		}
 	}
 
