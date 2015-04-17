@@ -182,8 +182,8 @@ public class PacmanMove : MonoBehaviour {
 			bonusBox.text += "\"Dumb\" enemies. ";
 		}
 
-
-		if (DataScript.scenario.control) {
+		bool availableBonuses = (DataScript.scenario.pSpeedIncreaseAvailable || DataScript.scenario.gSpeedDecreaseAvailable || DataScript.scenario.fRespawnAvailable || DataScript.scenario.powerballRespawnAvailable || DataScript.scenario.gRespawnAvailable || DataScript.scenario.gDumbAvailale || DataScript.scenario.gFewerAvailable);
+		if (DataScript.scenario.control || !availableBonuses) {
 			bonusBox.enabled = false;
 		}
 
@@ -788,9 +788,11 @@ public class PacmanMove : MonoBehaviour {
 			}
 		} else if(garrisonScoreFudgeryPart2 && isAIControlled){
 			if(turnTimeRemaining == DataScript.scenario.turnTime){
+				Debug.Log("adding 1");
 				player1Score+=1;
 			}
 			else{
+				Debug.Log("Fudging");
 				player1Score = tempScore + (int)(((DataScript.scenario.turnTime - turnTimeRemaining) * (targetScore-tempScore)) / DataScript.scenario.turnTime);
 			}
 		}

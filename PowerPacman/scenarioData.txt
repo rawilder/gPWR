@@ -158,7 +158,7 @@
     </Scenario>
     <Scenario>
       <id>0</id>
-      <name>lpBonusThreshold</name>
+      <name>hpBonusAndWeight</name>
       <control>false</control>
       <playerHasHighPower>false</playerHasHighPower>
       <turnTime>15</turnTime>
@@ -166,11 +166,11 @@
       <pSpeedIncreaseAvailable>true</pSpeedIncreaseAvailable>
       <gSpeedDecreaseAvailable>true</gSpeedDecreaseAvailable>
       <fRespawnAvailable>false</fRespawnAvailable>
-      <longerPowerModeAvailable>true</longerPowerModeAvailable>
+      <longerPowerModeAvailable>false</longerPowerModeAvailable>
       <powerballRespawnAvailable>true</powerballRespawnAvailable>
-      <gRespawnAvailable>true</gRespawnAvailable>
-      <gDumbAvailale>true</gDumbAvailale>
-      <gFewerAvailable>true</gFewerAvailable>
+      <gRespawnAvailable>false</gRespawnAvailable>
+      <gDumbAvailale>false</gDumbAvailale>
+      <gFewerAvailable>false</gFewerAvailable>
       <hpStealsTurnsAvailable>true</hpStealsTurnsAvailable>
       <turnStealLimit>2</turnStealLimit>
       <AiAllocationIsRandom>false</AiAllocationIsRandom>
@@ -183,9 +183,9 @@
       <AiAllocateDumbGhosts>0</AiAllocateDumbGhosts>
       <AiAllocateFewerGhosts>1</AiAllocateFewerGhosts>
       <AiAllocateWeight>0.35</AiAllocateWeight>
-      <ScoreWeightAvailable>true</ScoreWeightAvailable>
+      <ScoreWeightAvailable>false</ScoreWeightAvailable>
       <ScoreWeightPredetermined>false</ScoreWeightPredetermined>
-      <scoreThreshold>500</scoreThreshold>
+      <scoreThreshold>0</scoreThreshold>
     </Scenario>
   </Scenarios>
 </ScenarioList>

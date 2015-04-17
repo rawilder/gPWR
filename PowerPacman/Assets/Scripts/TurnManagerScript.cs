@@ -114,7 +114,9 @@ public class TurnManagerScript : MonoBehaviour {
 					aiTurnsteelDelayRemaining -= Time.deltaTime;
 				}
 				else{
-					if(DataScript.aiScore < (.95 * DataScript.playerScore) && turnCount < totalTurnsInGame-1){
+					Debug.Log("AI Score: " + DataScript.aiScore);
+					Debug.Log("Playerscore: " + (.75 *DataScript.playerScore));
+					if(DataScript.aiScore < (.75 * DataScript.playerScore) && turnCount < totalTurnsInGame-1){
 						takeTurnMessage.text = DataScript.tutText.GameTakeTurnYesMessageLowPower;
 						stealingTurn = true;
 					}
