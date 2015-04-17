@@ -114,8 +114,7 @@ public class TurnManagerScript : MonoBehaviour {
 					aiTurnsteelDelayRemaining -= Time.deltaTime;
 				}
 				else{
-					//TODO check that the AI doesnt steal the last turn
-					if(DataScript.aiScore < (.95 * DataScript.playerScore)){
+					if(DataScript.aiScore < (.95 * DataScript.playerScore) && turnCount < totalTurnsInGame-1){
 						takeTurnMessage.text = DataScript.tutText.GameTakeTurnYesMessageLowPower;
 						stealingTurn = true;
 					}
@@ -147,6 +146,12 @@ public class TurnManagerScript : MonoBehaviour {
 				else{
 					stealingTurn = false;
 					stolenTurnCount++;
+					if(isPlayerTurn){
+						DataScript.playerTurnsStolen++;
+					}
+					else{
+						DataScript.aiTurnsStolen++;
+					}
 				}
 			}
 		} else {

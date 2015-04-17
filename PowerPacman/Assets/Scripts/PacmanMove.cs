@@ -94,6 +94,8 @@ public class PacmanMove : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		garrisonScoring = false;
+		garrisonScoreFudgeryPart2 = true;
 		bonusBox = GameObject.Find (side+"BonusBox").GetComponent<Text> ();
 		powerDot = GameObject.FindGameObjectsWithTag(side+"PowerDot");
 		dots = GameObject.FindGameObjectsWithTag(side+"Dot");
@@ -152,7 +154,7 @@ public class PacmanMove : MonoBehaviour {
             powerModeDuration = 10;
         }
 
-		bonusBox.text = "Active bonuses: ";
+		bonusBox.text = "Active bonuses\n";
 		if (PacmanSpeedPowerup) {
 			bonusBox.text += "Player speed increase. ";
 		}
@@ -185,12 +187,10 @@ public class PacmanMove : MonoBehaviour {
 			bonusBox.enabled = false;
 		}
 
-		fudgeFactor = UnityEngine.Random.Range(0.0f, hardPercentLimit);
+		fudgeFactor = UnityEngine.Random.Range(0.1f, hardPercentLimit);
 		if(UnityEngine.Random.Range(0,10) < 5){
 			fudgeFactor *= -1.0f;
 		}
-
-
 	}
 	
 	// Update is called once per frame
@@ -437,10 +437,11 @@ public class PacmanMove : MonoBehaviour {
                 DataScript.aiTimesEaten = timesEaten;
 				startingScore = player1Score;
 				tempScore = player1Score;
-				fudgeFactor = UnityEngine.Random.Range(0.0f, hardPercentLimit);
+				fudgeFactor = UnityEngine.Random.Range(0.01f, hardPercentLimit);
 				if(UnityEngine.Random.Range(0,10) < 5){
 					fudgeFactor *= -1.0f;
 				}
+				Debug.Log("Fudge factor: " + fudgeFactor);
             }
             else{
                 DataScript.playerScore = player1Score;
@@ -756,7 +757,6 @@ public class PacmanMove : MonoBehaviour {
     }
 
 	public void addScore(int itemValue){
-
 		if (garrisonScoring && isAIControlled) {
 			if (player1Score > targetScore * (1 + hardPercentLimit)) {
 				player1Score += 1;

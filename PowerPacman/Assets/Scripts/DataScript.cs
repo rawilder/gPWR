@@ -61,6 +61,7 @@ public class DataScript : MonoBehaviour {
 	public static int playerTimesEaten = 0;
 	public static int playerCherriesEaten = 0;
 	public static int playerPowerDotsEaten = 0;
+	public static int playerTurnsStolen = 0;
 
 	public static int aiScore;
 	public static int aiGhostsEaten = 0;
@@ -69,6 +70,7 @@ public class DataScript : MonoBehaviour {
 	public static int aiTimesEaten = 0;
 	public static int aiCherriesEaten = 0;
 	public static int aiPowerDotsEaten = 0;
+	public static int aiTurnsStolen = 0;
 
 	public static Scenario scenario;
 
@@ -139,7 +141,9 @@ public class DataScript : MonoBehaviour {
 				"playerCherriesEaten," +
 				"aiCherriesEaten," +
 				"playerPowerDotsEaten," +
-				"aiPowerDotsEaten");
+				"aiPowerDotsEaten,"+
+			    "playerTurnsStole,"+
+			    "aiTurnsStolen");
 			f.Close();
 		}
 
@@ -198,7 +202,9 @@ public class DataScript : MonoBehaviour {
 			             + playerCherriesEaten + ","
 			             + aiCherriesEaten + ","
 			             + playerPowerDotsEaten + ","
-			             + aiPowerDotsEaten);
+			             + aiPowerDotsEaten + ","
+			             + playerTurnsStolen + ","
+			             + aiTurnsStolen);
 		}
 	}
 

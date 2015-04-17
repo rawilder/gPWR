@@ -16492,7 +16492,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
@@ -32660,6 +32660,14 @@ MonoBehaviour:
   timesEaten: 0
   cherriesEaten: 0
   powerDotsEaten: 0
+  garrisonScoring: 0
+  garrisonScoreFudgeryPart2: 0
+  fudgeFactor: 0
+  targetScore: 0
+  startingScore: 0
+  percentTimeLeftInTurn: 0
+  percentScoreToTarget: 0
+  hardPercentLimit: 0
 --- !u!50 &1226799134
 Rigidbody2D:
   m_ObjectHideFlags: 0
@@ -40996,6 +41004,14 @@ MonoBehaviour:
   timesEaten: 0
   cherriesEaten: 0
   powerDotsEaten: 0
+  garrisonScoring: 0
+  garrisonScoreFudgeryPart2: 0
+  fudgeFactor: 0
+  targetScore: 0
+  startingScore: 0
+  percentTimeLeftInTurn: 0
+  percentScoreToTarget: 0
+  hardPercentLimit: 0
 --- !u!50 &1593919683
 Rigidbody2D:
   m_ObjectHideFlags: 0
@@ -55535,8 +55551,8 @@ RectTransform:
   m_RootOrder: 6
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 2, y: -182}
-  m_SizeDelta: {x: 250, y: 80}
+  m_AnchoredPosition: {x: 2, y: -196.399994}
+  m_SizeDelta: {x: 250, y: 110}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &2025861402
 MonoBehaviour:
@@ -55558,7 +55574,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 1
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
