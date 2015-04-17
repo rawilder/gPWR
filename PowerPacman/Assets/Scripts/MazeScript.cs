@@ -76,9 +76,9 @@ public class MazeScript : MonoBehaviour {
 
     public string side;
 
-    int dotPointValue = 1;
-    int powerDotPointValue = 20;
-	int cherryValue = 100;
+    public static int dotPointValue = 1;
+	public static int powerDotPointValue = 20;
+	public static int cherryValue = 100;
 	public static int ghostValue = 100;
 
     public int offsetX;

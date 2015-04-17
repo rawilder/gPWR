@@ -12,7 +12,7 @@ Platform assembly: C:\Users\Adam\Documents\GitHub\gPWR\PowerPacman\PacmanPals_Da
 Loading C:\Users\Adam\Documents\GitHub\gPWR\PowerPacman\PacmanPals_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
 Platform assembly: C:\Users\Adam\Documents\GitHub\gPWR\PowerPacman\PacmanPals_Data\Managed\UnityEngine.UI.dll (this message is harmless)
 Loading C:\Users\Adam\Documents\GitHub\gPWR\PowerPacman\PacmanPals_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-- Completed reload, in  0.037 seconds
+- Completed reload, in  0.041 seconds
 <RI> Initializing input.
 <RI> Input initialized.
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
@@ -20,109 +20,15 @@ desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 Platform assembly: C:\Users\Adam\Documents\GitHub\gPWR\PowerPacman\PacmanPals_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Adam\Documents\GitHub\gPWR\PowerPacman\PacmanPals_Data\Managed\System.dll (this message is harmless)
 Platform assembly: C:\Users\Adam\Documents\GitHub\gPWR\PowerPacman\PacmanPals_Data\Managed\System.Xml.dll (this message is harmless)
-ArgumentException: Encoding name 'Windows-1252' not supported
-Parameter name: name
-  at System.Text.Encoding.GetEncoding (System.String name) [0x00000] in <filename unknown>:0 
-  at System.Xml.XmlInputStream.Initialize (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
-  at System.Xml.XmlInputStream..ctor (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
-  at System.Xml.XmlStreamReader..ctor (System.IO.Stream input) [0x00000] in <filename unknown>:0 
-  at System.Xml.XmlTextReader..ctor (System.IO.Stream input) [0x00000] in <filename unknown>:0 
-  at System.Xml.Serialization.XmlSerializer.Deserialize (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
-  at MainMenuScript.Start () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.161138 ms
 
-Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 3.868877 ms
-
-Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 691.
-Total: 0.485072 ms (FindLiveObjects: 0.045640 ms CreateObjectMapping: 0.045932 ms MarkObjects: 0.389403 ms  DeleteObjects: 0.003218 ms)
-
-ArgumentException: Encoding name 'Windows-1252' not supported
-Parameter name: name
-  at System.Text.Encoding.GetEncoding (System.String name) [0x00000] in <filename unknown>:0 
-  at System.Xml.XmlInputStream.Initialize (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
-  at System.Xml.XmlInputStream..ctor (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
-  at System.Xml.XmlStreamReader..ctor (System.IO.Stream input) [0x00000] in <filename unknown>:0 
-  at System.Xml.XmlTextReader..ctor (System.IO.Stream input) [0x00000] in <filename unknown>:0 
-  at System.Xml.Serialization.XmlSerializer.Deserialize (System.IO.Stream stream) [0x00000] in <filename unknown>:0 
-  at AdminDataManager.Start () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-
-IOException: Sharing violation on path C:\Users\Adam\Documents\GitHub\gPWR\PowerPacman\scenarioData.txt
-  at System.IO.FileStream..ctor (System.String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, Boolean anonymous, FileOptions options) [0x00000] in <filename unknown>:0 
-  at System.IO.FileStream..ctor (System.String path, FileMode mode) [0x00000] in <filename unknown>:0 
-  at AdminDataManager.saveChanges () [0x00000] in <filename unknown>:0 
-  at UnityEngine.Events.InvokableCall.Invoke (System.Object[] args) [0x00000] in <filename unknown>:0 
-  at UnityEngine.Events.InvokableCallList.Invoke (System.Object[] parameters) [0x00000] in <filename unknown>:0 
-  at UnityEngine.Events.UnityEventBase.Invoke (System.Object[] parameters) [0x00000] in <filename unknown>:0 
-  at UnityEngine.Events.UnityEvent.Invoke () [0x00000] in <filename unknown>:0 
-  at UnityEngine.UI.Button.Press () [0x00000] in <filename unknown>:0 
-  at UnityEngine.UI.Button.OnPointerClick (UnityEngine.EventSystems.PointerEventData eventData) [0x00000] in <filename unknown>:0 
-  at UnityEngine.EventSystems.ExecuteEvents.Execute (IPointerClickHandler handler, UnityEngine.EventSystems.BaseEventData eventData) [0x00000] in <filename unknown>:0 
-  at UnityEngine.EventSystems.ExecuteEvents.Execute[IPointerClickHandler] (UnityEngine.GameObject target, UnityEngine.EventSystems.BaseEventData eventData, UnityEngine.EventSystems.EventFunction`1 functor) [0x00000] in <filename unknown>:0 
-UnityEngine.Debug:Internal_LogException(Exception, Object)
-UnityEngine.Debug:LogException(Exception)
-UnityEngine.EventSystems.ExecuteEvents:Execute(GameObject, BaseEventData, EventFunction`1)
-UnityEngine.EventSystems.StandaloneInputModule:ProcessMousePress(MouseButtonEventData)
-UnityEngine.EventSystems.StandaloneInputModule:ProcessMouseEvent()
-UnityEngine.EventSystems.StandaloneInputModule:Process()
-UnityEngine.EventSystems.EventSystem:Update()
- 
-(Filename:  Line: -1)
-
-Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 1.158849 ms
-
-Unloading 6 unused Assets to reduce memory usage. Loaded Objects now: 240.
-Total: 0.231711 ms (FindLiveObjects: 0.013457 ms CreateObjectMapping: 0.007899 ms MarkObjects: 0.203625 ms  DeleteObjects: 0.006436 ms)
-
-Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.498237 ms
-
-Unloading 16 unused Assets to reduce memory usage. Loaded Objects now: 171.
-Total: 0.247217 ms (FindLiveObjects: 0.017553 ms CreateObjectMapping: 0.016676 ms MarkObjects: 0.203332 ms  DeleteObjects: 0.008484 ms)
+Unloading 17 unused Assets to reduce memory usage. Loaded Objects now: 179.
+Total: 0.301921 ms (FindLiveObjects: 0.016090 ms CreateObjectMapping: 0.009069 ms MarkObjects: 0.260670 ms  DeleteObjects: 0.015505 ms)
 
 Unloading 1 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.291101 ms
+UnloadTime: 0.370088 ms
 
-Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 202.
-Total: 0.237855 ms (FindLiveObjects: 0.007606 ms CreateObjectMapping: 0.007314 ms MarkObjects: 0.210354 ms  DeleteObjects: 0.011995 ms)
-
-Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.302804 ms
-
-Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 177.
-Total: 0.242828 ms (FindLiveObjects: 0.016091 ms CreateObjectMapping: 0.016383 ms MarkObjects: 0.201577 ms  DeleteObjects: 0.007899 ms)
-
-Unloading 1 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.402569 ms
-
-Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 193.
-Total: 0.261845 ms (FindLiveObjects: 0.015213 ms CreateObjectMapping: 0.014335 ms MarkObjects: 0.229663 ms  DeleteObjects: 0.002047 ms)
-
-Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.417197 ms
-
-Unloading 4 unused Assets to reduce memory usage. Loaded Objects now: 169.
-Total: 0.263015 ms (FindLiveObjects: 0.015798 ms CreateObjectMapping: 0.014628 ms MarkObjects: 0.226445 ms  DeleteObjects: 0.005558 ms)
-
-Unloading 1 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.305730 ms
-
-Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 220.
-Total: 0.208013 ms (FindLiveObjects: 0.007606 ms CreateObjectMapping: 0.007899 ms MarkObjects: 0.189874 ms  DeleteObjects: 0.002340 ms)
-
-Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.746332 ms
-
-Unloading 32 unused Assets to reduce memory usage. Loaded Objects now: 168.
-Total: 0.254823 ms (FindLiveObjects: 0.019016 ms CreateObjectMapping: 0.017261 ms MarkObjects: 0.208891 ms  DeleteObjects: 0.009362 ms)
-
-Unloading 0 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 0.427437 ms
-
-Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 3774.
-Total: 0.793143 ms (FindLiveObjects: 0.186656 ms CreateObjectMapping: 0.111467 ms MarkObjects: 0.487412 ms  DeleteObjects: 0.007021 ms)
+Unloading 4 unused Assets to reduce memory usage. Loaded Objects now: 209.
+Total: 0.190456 ms (FindLiveObjects: 0.008191 ms CreateObjectMapping: 0.007021 ms MarkObjects: 0.169684 ms  DeleteObjects: 0.005266 ms)
 
