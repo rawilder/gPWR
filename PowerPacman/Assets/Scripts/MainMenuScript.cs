@@ -52,6 +52,7 @@ public class TutorialText{
 	public string GameTakeTurnYesMessageHighPower;
 	public string GameTakeTurnYesMessageLowPower;
 	public string GameEndMessage;
+	public string GameTimeRemainingText;
 	
 	public TutorialText(){
 		WelcomeScreenTitle = "Welcome to Two Player Pacman";
@@ -95,6 +96,7 @@ public class TutorialText{
 		GameTakeTurnYesMessageHighPower = "You have chosen to take another turn";
 		GameTakeTurnYesMessageLowPower = "Your partner has chosen to take another turn";
 		GameEndMessage = "The game has ended, please wait";
+		GameTimeRemainingText = "Time remaining in the game";
 	}	
 	
 }

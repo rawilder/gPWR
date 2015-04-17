@@ -706,6 +706,9 @@ public class PacmanMove : MonoBehaviour {
 
     bool DeterminePowerup(int allocValue)
     {
+		if (allocValue == 2) {
+			return true;
+		}
         if (allocValue == -1)
         {
             return false;

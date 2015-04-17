@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="us-ascii"?>
+<?xml version="1.0" encoding="Windows-1252"?>
 <TutorialText xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <WelcomeScreenTitle>Welcome to Two Player Pacman</WelcomeScreenTitle>
   <ObjectiveScreenBody>In a few moments, you will be connected to another player in a different location. The objective of this game is to work together with your partner to earn as many points as possible playing Pacman, where the final score is an average of your separate scores. Each player will have their own maze to navigate. You are going to be taking turns playing for a set amount of time.</ObjectiveScreenBody>
@@ -41,4 +41,5 @@
   <GameTakeTurnYesMessageHighPower>You have chosen to take another turn</GameTakeTurnYesMessageHighPower>
   <GameTakeTurnYesMessageLowPower>Your partner has chosen to take another turn</GameTakeTurnYesMessageLowPower>
   <GameEndMessage>The game has ended, please wait</GameEndMessage>
+  <GameTimeRemainingText>Time remaining in the game</GameTimeRemainingText>
 </TutorialText>
