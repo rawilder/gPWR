@@ -79,6 +79,17 @@ public class PacmanMove : MonoBehaviour {
     public int cherriesEaten = 0;
     public int powerDotsEaten = 0;
 
+	public bool garrisonScoring = false;
+	public bool garrisonScoreFudgeryPart2 = true;
+	public float fudgeFactor; //a number within the hard limit, different each turn so that the user doesn't see the ai always exaclty matching their score
+	public int targetScore;
+	public int startingScore = 0;
+	public float percentTimeLeftInTurn;
+	public float percentScoreToTarget;
+	public float hardPercentLimit = .05f;
+
+	int tempScore = 0;		//for use with ai score fudging
+
 	Text bonusBox;
 
 	// Use this for initialization
@@ -174,11 +185,20 @@ public class PacmanMove : MonoBehaviour {
 			bonusBox.enabled = false;
 		}
 
+		fudgeFactor = UnityEngine.Random.Range(0.0f, hardPercentLimit);
+		if(UnityEngine.Random.Range(0,10) < 5){
+			fudgeFactor *= -1.0f;
+		}
+
 
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+
+		targetScore = (int)((DataScript.playerScore+DataScript.scenario.scoreThreshold)*(1+fudgeFactor));
+		percentTimeLeftInTurn = turnTimeRemaining / DataScript.scenario.turnTime;
+		percentScoreToTarget = player1Score / (float)targetScore;
 
         if (oneTimePowerupStep)
         {
@@ -415,6 +435,12 @@ public class PacmanMove : MonoBehaviour {
                 DataScript.aiPowerDotsEaten = powerDotsEaten;
                 DataScript.aiTimesClearedMaze = timesClearedMaze;
                 DataScript.aiTimesEaten = timesEaten;
+				startingScore = player1Score;
+				tempScore = player1Score;
+				fudgeFactor = UnityEngine.Random.Range(0.0f, hardPercentLimit);
+				if(UnityEngine.Random.Range(0,10) < 5){
+					fudgeFactor *= -1.0f;
+				}
             }
             else{
                 DataScript.playerScore = player1Score;
@@ -484,7 +510,7 @@ public class PacmanMove : MonoBehaviour {
                 if (powerMode && ghostMove.isScared)
                 {
                     ghostMove.killGhost();
-                    player1Score += 100;
+					addScore(MazeScript.ghostValue);
                     ghostsEaten++;
                     flickerTimeRemaining = flickerTime;
                 }
@@ -728,4 +754,48 @@ public class PacmanMove : MonoBehaviour {
         pacman.transform.localPosition = temp;
         return pacman;
     }
+
+	public void addScore(int itemValue){
+
+		if (garrisonScoring && isAIControlled) {
+			if (player1Score > targetScore * (1 + hardPercentLimit)) {
+				player1Score += 1;
+			} else {
+				if (percentScoreToTarget < percentTimeLeftInTurn) {
+					//the score is lagging behind
+					float temp = percentTimeLeftInTurn - percentScoreToTarget;
+					if (player1Score + ((int)((1 + temp) * itemValue)) > targetScore) {
+						if (player1Score > targetScore) {
+							player1Score += UnityEngine.Random.Range (1, 3);
+						} else {
+							player1Score = targetScore;
+						}
+					} else {
+						player1Score += (int)((1 + temp) * itemValue);
+					}
+				} else if (percentScoreToTarget > percentTimeLeftInTurn) {
+					float temp = percentTimeLeftInTurn - percentScoreToTarget;
+					if (player1Score + ((int)((1 - temp) * itemValue)) > targetScore) {
+						if (player1Score >= targetScore) {
+							player1Score += UnityEngine.Random.Range (1, 3);
+						} else {
+							player1Score = targetScore;
+						}
+					} else {
+						player1Score += (int)((1 - temp) * itemValue);
+					}
+				}
+			}
+		} else if(garrisonScoreFudgeryPart2 && isAIControlled){
+			if(turnTimeRemaining == DataScript.scenario.turnTime){
+				player1Score+=1;
+			}
+			else{
+				player1Score = tempScore + (int)(((DataScript.scenario.turnTime - turnTimeRemaining) * (targetScore-tempScore)) / DataScript.scenario.turnTime);
+			}
+		}
+		else {
+			player1Score += itemValue;
+		}
+	}
 }
