@@ -334,6 +334,7 @@ public class PacmanMove : MonoBehaviour {
                             moveTowardsFood();
 						}
 						movementAwayDir = Direction.None;
+                        ghostDistance = 2;
                     }
                     else {
                         targetFood = null;
@@ -344,6 +345,7 @@ public class PacmanMove : MonoBehaviour {
                             movementAwayDir = Direction.None;
                             moveAwayFromGhost();
                         }
+                        ghostDistance = 4;
                     }
                 }
             }
