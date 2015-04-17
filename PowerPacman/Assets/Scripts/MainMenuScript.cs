@@ -22,8 +22,12 @@ public class TutorialText{
 	public string PreallocationScreenControlNoBonusWeightText;
 	public string PreallocationScreenControlBonusNoWeightText;
 	public string PreallocationScreenControlBonusAndWeightText;
-	public string PreallocationScreenHighPowerText;
-	public string PreallocationScreenLowPowerText;
+	public string PreallocationScreenHighPowerTextBonusesAndWeight;
+	public string PreallocationScreenHighPowerTextBonusesNoWeight;
+	public string PreallocationScreenHighPowerTextWeightNoBonuses;
+	public string PreallocationScreenLowPowerTextBonusesAndWeight;
+	public string PreallocationScreenLowPowerTextBonusesNoWeight;
+	public string PreallocationScreenLowPowerTextWeightNoBonuses;
 	public string AllocationScreenTitle;
 	public string AllocationScreenTopMessageHighPower;
 	public string AllocationScreenTopMessageLowPower;
@@ -52,10 +56,11 @@ public class TutorialText{
 	public string GameTakeTurnYesMessageHighPower;
 	public string GameTakeTurnYesMessageLowPower;
 	public string GameEndMessage;
+	public string GameTimeRemainingText;
 	
 	public TutorialText(){
 		WelcomeScreenTitle = "Welcome to Two Player Pacman";
-		ObjectiveScreenBody = "In a few moments, you will be connected to another player in a different location. The objective of this game is to work together with your partner to earn as many points as possible playing Pacman, where the final score is an average of your separate scores. Each player will have their own maze to navigate. You are going to be taking turns playing for a set amount of time.";
+		ObjectiveScreenBody = "In a few moments, you will be connected to another player in a different location. The objective of this game is to work together with your partner to earn as many points as possible playing Pacman, where the final score is an average of your separate scores. Each player will have their own maze to navigate. You are going to be taking turns playing for a set amount of time. Points are earned by eating dots, cherries, and blue enemies. If you are touched by an enemy, you will return to where you stared and continue your turn";
 		BonusesScreenTitle = "Bonuses";
 		BonusesScreenBodyLowPower = "Bonuses are special abilities that allow you to earn points more quickly. The names of the different bonuses and their effects are detailed to the right. In a few moments, your partner is going choose how to divide the bonuses between the two players.";
 		BonusesScreenBodyHighPower = "Bonuses are special abilities that allow you to earn points more quickly. The names of the different bonuses and their effects are detailed to the right. In a few moments you will be given the ability to divide the bonuses between yourself and your partner.";
@@ -66,8 +71,12 @@ public class TutorialText{
 		PreallocationScreenControlNoBonusWeightText = "We have connected you with your partner, please press the continue button to continue to the score weight screen";
 		PreallocationScreenControlBonusNoWeightText = "We have connected you with your partner, please press the continue button to continue to the bonus screen";
 		PreallocationScreenControlBonusAndWeightText = "We have connected you with your partner, please press the continue button to continue to the bonus screen";
-		PreallocationScreenHighPowerText = "We have connected you with your partner, and the game has determined that you will be the one who assigns bonuses. Please press the continue button";
-		PreallocationScreenLowPowerText = "We have connected you with your partner, and the game has determined that your partner will be the one who assigns bonuses. Please press the continue button";
+		PreallocationScreenHighPowerTextBonusesAndWeight = "We have connected you with your partner, and the game has determined that you will be the one who assigns bonuses and score weights. Please press the continue button";
+		PreallocationScreenHighPowerTextBonusesNoWeight = "We have connected you with your partner, and the game has determined that you will be the one who assigns bonuses. Please press the continue button";
+		PreallocationScreenHighPowerTextWeightNoBonuses = "We have connected you with your partner, and the game has determined that you will be the one who assigns the score weights. Please press the continue button";
+		PreallocationScreenLowPowerTextBonusesAndWeight = "We have connected you with your partner, and the game has determined that your partner will be the one who assigns bonuses and the score weights. Please press the continue button";
+		PreallocationScreenLowPowerTextBonusesNoWeight = "We have connected you with your partner, and the game has determined that your partner will be the one who assigns the bonuses. Please press the continue button";
+		PreallocationScreenLowPowerTextWeightNoBonuses = "We have connected you with your partner, and the game has determined that your partner will be the one who assigns the score weights. Please press the continue button";
 		AllocationScreenTitle = "Bonus allocation";
 		AllocationScreenTopMessageHighPower = "Please use the sliders to allocate a bonus to yourself or your partner";
 		AllocationScreenTopMessageLowPower = "Please wait while your partner allocates the bonuses";
@@ -95,6 +104,7 @@ public class TutorialText{
 		GameTakeTurnYesMessageHighPower = "You have chosen to take another turn";
 		GameTakeTurnYesMessageLowPower = "Your partner has chosen to take another turn";
 		GameEndMessage = "The game has ended, please wait";
+		GameTimeRemainingText = "Time remaining in the game";
 	}	
 	
 }

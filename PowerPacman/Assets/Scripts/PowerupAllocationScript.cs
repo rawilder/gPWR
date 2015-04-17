@@ -152,14 +152,6 @@ public class PowerupAllocationScript : MonoBehaviour {
 							DataScript.alloc.FewerGhosts = 1;
 						}
 					}
-
-					//setting up the score weights
-					Debug.Log(DataScript.alloc.scoreWeight);
-					if(DataScript.scenario.ScoreWeightAvailable){
-						Debug.Log("Weight: " + DataScript.scenario.AiAllocateWeight);
-						DataScript.alloc.scoreWeight = DataScript.scenario.AiAllocateWeight;
-					}
-
 				} else {
 					//random allocation
 					if (DataScript.scenario.pSpeedIncreaseAvailable) {
@@ -224,13 +216,6 @@ public class PowerupAllocationScript : MonoBehaviour {
 						} else {
 							DataScript.alloc.FewerGhosts = 0;
 						}
-					}
-
-					//score weight
-					if (DataScript.scenario.ScoreWeightAvailable && !DataScript.scenario.ScoreWeightPredetermined && !DataScript.scenario.playerHasHighPower) {
-						//doesnt happen until the next scene, but assign a value here anyway
-						float w = UnityEngine.Random.Range (.25f, .75f);
-						DataScript.alloc.scoreWeight = (float)Math.Round (w * 20) / 20;
 					}
 				}
 			} else {

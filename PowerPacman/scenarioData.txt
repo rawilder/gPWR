@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="Windows-1252"?>
 <ScenarioList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Scenarios>
     <Scenario>
@@ -185,6 +185,37 @@
       <AiAllocateWeight>0.5</AiAllocateWeight>
       <ScoreWeightAvailable>false</ScoreWeightAvailable>
       <ScoreWeightPredetermined>true</ScoreWeightPredetermined>
+      <scoreThreshold>0</scoreThreshold>
+    </Scenario>
+    <Scenario>
+      <id>0</id>
+      <name>hpBonusAndWeight</name>
+      <control>false</control>
+      <playerHasHighPower>false</playerHasHighPower>
+      <turnTime>15</turnTime>
+      <totalTime>1</totalTime>
+      <pSpeedIncreaseAvailable>true</pSpeedIncreaseAvailable>
+      <gSpeedDecreaseAvailable>true</gSpeedDecreaseAvailable>
+      <fRespawnAvailable>false</fRespawnAvailable>
+      <longerPowerModeAvailable>false</longerPowerModeAvailable>
+      <powerballRespawnAvailable>true</powerballRespawnAvailable>
+      <gRespawnAvailable>false</gRespawnAvailable>
+      <gDumbAvailale>false</gDumbAvailale>
+      <gFewerAvailable>false</gFewerAvailable>
+      <hpStealsTurnsAvailable>true</hpStealsTurnsAvailable>
+      <turnStealLimit>2</turnStealLimit>
+      <AiAllocationIsRandom>false</AiAllocationIsRandom>
+      <AiAllocatePlayerSpeed>0</AiAllocatePlayerSpeed>
+      <AiAllocateGhostSpeed>0</AiAllocateGhostSpeed>
+      <AiAllocateFruitRespawn>1</AiAllocateFruitRespawn>
+      <AiAllocateLongerPowerMode>0</AiAllocateLongerPowerMode>
+      <AiAllocatePowerBallRespawn>0</AiAllocatePowerBallRespawn>
+      <AiAllocateGhostRespawn>1</AiAllocateGhostRespawn>
+      <AiAllocateDumbGhosts>0</AiAllocateDumbGhosts>
+      <AiAllocateFewerGhosts>1</AiAllocateFewerGhosts>
+      <AiAllocateWeight>0.35</AiAllocateWeight>
+      <ScoreWeightAvailable>false</ScoreWeightAvailable>
+      <ScoreWeightPredetermined>false</ScoreWeightPredetermined>
       <scoreThreshold>0</scoreThreshold>
     </Scenario>
   </Scenarios>

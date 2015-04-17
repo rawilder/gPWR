@@ -27,6 +27,27 @@ public class ScoreWeightScreenScript : MonoBehaviour {
 
 		topMessageText.text = "";
 
+		if (!DataScript.scenario.playerHasHighPower) {
+			if(!DataScript.scenario.AiAllocationIsRandom){
+				//setting up the score weights
+				Debug.Log(DataScript.alloc.scoreWeight);
+				if(DataScript.scenario.ScoreWeightAvailable){
+					Debug.Log("Weight: " + DataScript.scenario.AiAllocateWeight);
+					DataScript.alloc.scoreWeight = DataScript.scenario.AiAllocateWeight;
+				}
+			}
+			else{
+				//score weight
+				if (DataScript.scenario.ScoreWeightAvailable && !DataScript.scenario.ScoreWeightPredetermined && !DataScript.scenario.playerHasHighPower) {
+					//doesnt happen until the next scene, but assign a value here anyway
+					float w = UnityEngine.Random.Range (.25f, .75f);
+					DataScript.alloc.scoreWeight = (float)Math.Round (w * 20) / 20;
+				}
+			}
+		} else {
+			//player has high power
+		}
+
 		weightSliderUpdate ();
 
 		if (!DataScript.scenario.playerHasHighPower || DataScript.scenario.ScoreWeightPredetermined || DataScript.scenario.control) {

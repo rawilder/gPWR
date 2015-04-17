@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="us-ascii"?>
+<?xml version="1.0" encoding="Windows-1252"?>
 <TutorialText xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <WelcomeScreenTitle>Welcome to Two Player Pacman</WelcomeScreenTitle>
-  <ObjectiveScreenBody>In a few moments, you will be connected to another player in a different location. The objective of this game is to work together with your partner to earn as many points as possible playing Pacman, where the final score is an average of your separate scores. Each player will have their own maze to navigate. You are going to be taking turns playing for a set amount of time.</ObjectiveScreenBody>
+  <ObjectiveScreenBody>In a few moments, you will be connected to another player in a different location. The objective of this game is to work together with your partner to earn as many points as possible playing Pacman, where the final score is an average of your separate scores. Each player will have their own maze to navigate. You are going to be taking turns playing for a set amount of time. Points are earned by eating dots, cherries, and blue enemies. If you are touched by an enemy, you will return to where you stared and continue your turn</ObjectiveScreenBody>
   <BonusesScreenTitle>Bonuses</BonusesScreenTitle>
   <BonusesScreenBodyHighPower>Bonuses are special abilities that allow you to earn points more quickly. The names of the different bonuses and their effects are detailed to the right. In a few moments you will be given the ability to divide the bonuses between yourself and your partner.</BonusesScreenBodyHighPower>
   <BonusesScreenBodyLowPower>Bonuses are special abilities that allow you to earn points more quickly. The names of the different bonuses and their effects are detailed to the right. In a few moments, your partner is going choose how to divide the bonuses between the two players.</BonusesScreenBodyLowPower>
@@ -12,8 +12,12 @@
   <PreallocationScreenControlNoBonusWeightText>We have connected you with your partner, please press the continue button to continue to the score weight screen</PreallocationScreenControlNoBonusWeightText>
   <PreallocationScreenControlBonusNoWeightText>We have connected you with your partner, please press the continue button to continue to the bonus screen</PreallocationScreenControlBonusNoWeightText>
   <PreallocationScreenControlBonusAndWeightText>We have connected you with your partner, please press the continue button to continue to the bonus screen</PreallocationScreenControlBonusAndWeightText>
-  <PreallocationScreenHighPowerText>We have connected you with your partner, and the game has determined that you will be the one who assigns bonuses. Please press the continue button</PreallocationScreenHighPowerText>
-  <PreallocationScreenLowPowerText>We have connected you with your partner, and the game has determined that your partner will be the one who assigns bonuses. Please press the continue button</PreallocationScreenLowPowerText>
+  <PreallocationScreenHighPowerTextBonusesAndWeight>We have connected you with your partner, and the game has determined that you will be the one who assigns bonuses and score weights. Please press the continue button</PreallocationScreenHighPowerTextBonusesAndWeight>
+  <PreallocationScreenHighPowerTextBonusesNoWeight>We have connected you with your partner, and the game has determined that you will be the one who assigns bonuses. Please press the continue button</PreallocationScreenHighPowerTextBonusesNoWeight>
+  <PreallocationScreenHighPowerTextWeightNoBonuses>We have connected you with your partner, and the game has determined that you will be the one who assigns the score weights. Please press the continue button</PreallocationScreenHighPowerTextWeightNoBonuses>
+  <PreallocationScreenLowPowerTextBonusesAndWeight>We have connected you with your partner, and the game has determined that your partner will be the one who assigns bonuses and the score weights. Please press the continue button</PreallocationScreenLowPowerTextBonusesAndWeight>
+  <PreallocationScreenLowPowerTextBonusesNoWeight>We have connected you with your partner, and the game has determined that your partner will be the one who assigns the bonuses. Please press the continue button</PreallocationScreenLowPowerTextBonusesNoWeight>
+  <PreallocationScreenLowPowerTextWeightNoBonuses>We have connected you with your partner, and the game has determined that your partner will be the one who assigns the score weights. Please press the continue button</PreallocationScreenLowPowerTextWeightNoBonuses>
   <AllocationScreenTitle>Bonus allocation</AllocationScreenTitle>
   <AllocationScreenTopMessageHighPower>Please use the sliders to allocate a bonus to yourself or your partner</AllocationScreenTopMessageHighPower>
   <AllocationScreenTopMessageLowPower>Please wait while your partner allocates the bonuses</AllocationScreenTopMessageLowPower>
@@ -41,4 +45,5 @@
   <GameTakeTurnYesMessageHighPower>You have chosen to take another turn</GameTakeTurnYesMessageHighPower>
   <GameTakeTurnYesMessageLowPower>Your partner has chosen to take another turn</GameTakeTurnYesMessageLowPower>
   <GameEndMessage>The game has ended, please wait</GameEndMessage>
+  <GameTimeRemainingText>Time remaining in the game</GameTimeRemainingText>
 </TutorialText>

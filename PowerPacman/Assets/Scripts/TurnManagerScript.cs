@@ -29,6 +29,11 @@ public class TurnManagerScript : MonoBehaviour {
 	Text countdown;
 	Text messageText;
 	Text takeTurnMessage;
+	Text totalTimeRemainingText;
+	Text totalTimeRemainingCountdown;
+
+	int totalTurnsInGame;
+	int turnCount = 1;
 
 	public static int targetScore = 0;
 
@@ -38,8 +43,16 @@ public class TurnManagerScript : MonoBehaviour {
 		countdown = GameObject.Find ("CountdownText").GetComponent<Text> ();
 		messageText = GameObject.Find ("MessageText").GetComponent<Text> ();
 		takeTurnMessage = GameObject.Find ("TakeTurnMessage").GetComponent<Text> ();
+		totalTimeRemainingText = GameObject.Find ("GameTimeRemainingText").GetComponent<Text> ();
+		totalTimeRemainingCountdown = GameObject.Find ("GameTimeRemainingCountdown").GetComponent<Text> ();
 
 		takeTurnMessage.enabled = false;
+
+		totalTimeRemainingText.text = DataScript.tutText.GameTimeRemainingText;
+		totalTimeRemainingCountdown.text = ""+((60 * totalTimeLimit) - ((int)totalTimeCounter));
+
+		totalTurnsInGame = (int) ((60 * DataScript.scenario.totalTime) / ((int)DataScript.scenario.turnTime));
+		Debug.Log ("Turns in game: " + totalTurnsInGame);
 	}
 
 	void FixedUpdate(){
@@ -49,7 +62,17 @@ public class TurnManagerScript : MonoBehaviour {
 			Application.LoadLevel(10);
 		}
 
-		totalTimeCounter += Time.deltaTime;
+		if (!pregame && !switchingTurnsStage) {
+			totalTimeCounter += Time.deltaTime;
+		}
+
+		int timetemp = ((60 * totalTimeLimit) - ((int)totalTimeCounter));
+		if (timetemp < 0) {
+			totalTimeRemainingCountdown.text = "0";
+		}
+		else{
+			totalTimeRemainingCountdown.text = ""+timetemp;
+		}
 
 		if (pregame) {
 			if (pregameCountdownRemaining > 0) {
@@ -66,13 +89,15 @@ public class TurnManagerScript : MonoBehaviour {
 
 		if (switchingTurnsStage) {
 
-			if (totalTimeCounter > totalTimeLimit * 60) {
+
+			if(turnCount >= totalTurnsInGame){
 				messageText.text = DataScript.tutText.GameEndMessage;
 				paused = true;
 				gameOver = true;
 				countdown.text = "";
 				return;
 			}
+
 
 			if (isPlayerTurn && !DataScript.scenario.control && DataScript.scenario.playerHasHighPower && stolenTurnCount < DataScript.scenario.turnStealLimit) {
 				takeTurnMessage.enabled = true;
@@ -89,7 +114,9 @@ public class TurnManagerScript : MonoBehaviour {
 					aiTurnsteelDelayRemaining -= Time.deltaTime;
 				}
 				else{
-					if(DataScript.aiScore < (1.05 * DataScript.playerScore)){
+					Debug.Log("AI Score: " + DataScript.aiScore);
+					Debug.Log("Playerscore: " + (.75 *DataScript.playerScore));
+					if(DataScript.aiScore < (.75 * DataScript.playerScore) && turnCount < totalTurnsInGame-1){
 						takeTurnMessage.text = DataScript.tutText.GameTakeTurnYesMessageLowPower;
 						stealingTurn = true;
 					}
@@ -110,6 +137,7 @@ public class TurnManagerScript : MonoBehaviour {
 				messageText.text = "";
 				countdown.text = "";
 				paused = false;
+				turnCount++;
 				if(!stealingTurn){
 					if (isPlayerTurn) {
 						isPlayerTurn = false;
@@ -120,6 +148,12 @@ public class TurnManagerScript : MonoBehaviour {
 				else{
 					stealingTurn = false;
 					stolenTurnCount++;
+					if(isPlayerTurn){
+						DataScript.playerTurnsStolen++;
+					}
+					else{
+						DataScript.aiTurnsStolen++;
+					}
 				}
 			}
 		} else {

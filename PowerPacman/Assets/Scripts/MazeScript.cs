@@ -77,10 +77,9 @@ public class MazeScript : MonoBehaviour {
     public string side;
 
     public static int dotPointValue = 1;
-	public static int powerDotPointValue = 20;
-	public static int cherryValue = 100;
-	public static int ghostValue = 100;
-
+    public static int powerDotPointValue = 5;
+    public static int cherryValue = 20;
+    public static int ghostValue = 20;
     public int offsetX;
     public int offsetY;
 
@@ -553,7 +552,8 @@ public class MazeScript : MonoBehaviour {
         //just a cherry
         if (value == justCherry) {
             setValue(position,noDotNoCherry);
-            pacman.player1Score+=cherryValue;
+            //pacman.player1Score+=cherryValue;
+			pacman.addScore(cherryValue);
             cherryEaten = true;
             cherryRespawnTimeRemaining = cherryRespawnTime;
             pacman.cherriesEaten++;
@@ -561,7 +561,8 @@ public class MazeScript : MonoBehaviour {
         }
         if (value == dotAndCherry) {
             setValue(position,noDotNoCherry);
-            pacman.player1Score += (cherryValue + dotPointValue);
+            //pacman.player1Score += (cherryValue + dotPointValue);
+			pacman.addScore(cherryValue+dotPointValue);
             cherryEaten = true;
             cherryRespawnTimeRemaining = cherryRespawnTime;
             cherryObject.SetActive(false);
@@ -576,7 +577,8 @@ public class MazeScript : MonoBehaviour {
             //set the game object to not active
             Position p = new Position((int)position.x, (int)position.y);
             dots[p].SetActive(false);
-            pacman.player1Score += dotPointValue;
+            //pacman.player1Score += dotPointValue;
+			pacman.addScore(dotPointValue);
             dotsRemaining--;
             pacman.dotsEaten++;
         }
@@ -584,7 +586,8 @@ public class MazeScript : MonoBehaviour {
             setValue(position,6);
             Position p = new Position((int)position.x, (int)position.y);
             powerDots[p].SetActive(false);
-            pacman.player1Score += powerDotPointValue;
+            //pacman.player1Score += powerDotPointValue;
+			pacman.addScore(powerDotPointValue);
             powerDotsRemaining--;
             pacman.powerMode = true;
             pacman.powerModeTimeRemaining = pacman.powerModeDuration;
