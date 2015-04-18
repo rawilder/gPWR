@@ -790,12 +790,10 @@ public class PacmanMove : MonoBehaviour {
 			}
 		} else if(garrisonScoreFudgeryPart2 && isAIControlled){
 			if(turnTimeRemaining == DataScript.scenario.turnTime){
-				Debug.Log("adding 1");
 				player1Score+=1;
 			}
 			else{
-				Debug.Log("Fudging");
-				player1Score = tempScore + (int)(((DataScript.scenario.turnTime - turnTimeRemaining) * (targetScore-tempScore)) / DataScript.scenario.turnTime);
+				player1Score = Math.Max(player1Score,tempScore + (int)(((DataScript.scenario.turnTime - turnTimeRemaining) * (targetScore-tempScore)) / DataScript.scenario.turnTime));
 			}
 		}
 		else {

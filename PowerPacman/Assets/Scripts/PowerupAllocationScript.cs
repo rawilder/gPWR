@@ -506,11 +506,12 @@ public class PowerupAllocationScript : MonoBehaviour {
 		}
 
 		//will only continue if all bonuses have been assigned
-		if (!DataScript.scenario.ScoreWeightAvailable) {
-			Application.LoadLevel (8);
-		} else {
-			Application.LoadLevel(11);
-		}
+		//if (!DataScript.scenario.ScoreWeightAvailable) {
+		//	Application.LoadLevel (8);
+		//} else {
+		//	Application.LoadLevel(11);
+		//}
+		Application.LoadLevel (8);
 
 	}
 }

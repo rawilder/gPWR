@@ -60,7 +60,7 @@ public class TutorialText{
 	
 	public TutorialText(){
 		WelcomeScreenTitle = "Welcome to Two Player Pacman";
-		ObjectiveScreenBody = "In a few moments, you will be connected to another player in a different location. The objective of this game is to work together with your partner to earn as many points as possible playing Pacman, where the final score is an average of your separate scores. Each player will have their own maze to navigate. You are going to be taking turns playing for a set amount of time. Points are earned by eating dots, cherries, and blue enemies. If you are touched by an enemy, you will return to where you stared and continue your turn";
+		ObjectiveScreenBody = "In a few moments, you will be connected to another player in a different location. The objective of this game is to work together with your partner to earn as many points as possible playing Pacman, where the final score is an average of your separate scores. Each player will have their own maze to navigate. You are going to be taking turns playing for a set amount of time. Points are earned by eating dots, cherries, and blue enemies. If you are touched by an enemy, you will return to where you started and continue your turn";
 		BonusesScreenTitle = "Bonuses";
 		BonusesScreenBodyLowPower = "Bonuses are special abilities that allow you to earn points more quickly. The names of the different bonuses and their effects are detailed to the right. In a few moments, your partner is going choose how to divide the bonuses between the two players.";
 		BonusesScreenBodyHighPower = "Bonuses are special abilities that allow you to earn points more quickly. The names of the different bonuses and their effects are detailed to the right. In a few moments you will be given the ability to divide the bonuses between yourself and your partner.";
@@ -85,8 +85,9 @@ public class TutorialText{
 		AllocationScreenLowPowerPostAllocationMessage = "Your partner has finished assigning all bonuses, please review them and then press the continue button";
 		AllocationReviewBodyHighPower = "The bonuses you have chosen for yourself and your partner are listed below. Please press the continue button.";
 		AllocationReviewBodyLowPower = "The bonuses your partner has chosen for you are listed below. Please review them and then press the continue";
-		AllocationReviewBodyControl = "The bonuses that you are your partner were assigned are listed below. Please review them and then press the continue button";
+		AllocationReviewBodyControl = "The bonuses that you and your partner were assigned are listed below. Please review them and then press the continue button";
 		AllocationReviewBottomMessage = "";
+		ScoreWeightScreenTitle = "Score Weights";
 		ScoreWeightScreenTopMessageHighPower = "The final score of the game is calculated as a weighted average of your and your parter's scores. The higher your percent, the more your score contributes.";
 		ScoreWeightScreenTopMessageLowPower = "The final score of the game is calculated as a weighted average of your and your parter's scores. The higher your percent, the more your score contributes.";
 		ScoreWeightScreenTopMessageControl = "The final score of the game is calculated as a weighted average of your and your parter's scores. The higher your percent, the more your score contributes.";

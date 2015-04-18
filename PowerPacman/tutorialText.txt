@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <TutorialText xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <WelcomeScreenTitle>Welcome to Two Player Pacman</WelcomeScreenTitle>
-  <ObjectiveScreenBody>In a few moments, you will be connected to another player in a different location. The objective of this game is to work together with your partner to earn as many points as possible playing Pacman, where the final score is an average of your separate scores. Each player will have their own maze to navigate. You are going to be taking turns playing for a set amount of time. Points are earned by eating dots, cherries, and blue enemies. If you are touched by an enemy, you will return to where you stared and continue your turn</ObjectiveScreenBody>
+  <ObjectiveScreenBody>In a few moments, you will be connected to another player in a different location. The objective of this game is to work together with your partner to earn as many points as possible playing Pacman, where the final score is an average of your separate scores. Each player will have their own maze to navigate. You are going to be taking turns playing for a set amount of time. Points are earned by eating dots, cherries, and blue enemies. If you are touched by an enemy, you will return to where you started and continue your turn</ObjectiveScreenBody>
   <BonusesScreenTitle>Bonuses</BonusesScreenTitle>
   <BonusesScreenBodyHighPower>Bonuses are special abilities that allow you to earn points more quickly. The names of the different bonuses and their effects are detailed to the right. In a few moments you will be given the ability to divide the bonuses between yourself and your partner.</BonusesScreenBodyHighPower>
   <BonusesScreenBodyLowPower>Bonuses are special abilities that allow you to earn points more quickly. The names of the different bonuses and their effects are detailed to the right. In a few moments, your partner is going choose how to divide the bonuses between the two players.</BonusesScreenBodyLowPower>
@@ -26,8 +26,9 @@
   <AllocationScreenLowPowerPostAllocationMessage>Your partner has finished assigning all bonuses, please review them and then press the continue button</AllocationScreenLowPowerPostAllocationMessage>
   <AllocationReviewBodyHighPower>The bonuses you have chosen for yourself and your partner are listed below. Please press the continue button.</AllocationReviewBodyHighPower>
   <AllocationReviewBodyLowPower>The bonuses your partner has chosen for you are listed below. Please review them and then press the continue</AllocationReviewBodyLowPower>
-  <AllocationReviewBodyControl>The bonuses that you are your partner were assigned are listed below. Please review them and then press the continue button</AllocationReviewBodyControl>
+  <AllocationReviewBodyControl>The bonuses that you and your partner were assigned are listed below. Please review them and then press the continue button</AllocationReviewBodyControl>
   <AllocationReviewBottomMessage />
+  <ScoreWeightScreenTitle>Score Weights</ScoreWeightScreenTitle>
   <ScoreWeightScreenTopMessageHighPower>The final score of the game is calculated as a weighted average of your and your parter's scores. The higher your percent, the more your score contributes.</ScoreWeightScreenTopMessageHighPower>
   <ScoreWeightScreenTopMessageLowPower>The final score of the game is calculated as a weighted average of your and your parter's scores. The higher your percent, the more your score contributes.</ScoreWeightScreenTopMessageLowPower>
   <ScoreWeightScreenTopMessageControl>The final score of the game is calculated as a weighted average of your and your parter's scores. The higher your percent, the more your score contributes.</ScoreWeightScreenTopMessageControl>

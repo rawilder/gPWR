@@ -25,6 +25,7 @@ public class ScoreWeightScreenScript : MonoBehaviour {
 		bottomMessageText = GameObject.Find ("BottomMessageText").GetComponent<Text> ();
 		continueButton = GameObject.Find ("ContinueButton").GetComponent<Button> ();
 
+		titleText.text = DataScript.tutText.ScoreWeightScreenTitle;
 		topMessageText.text = "";
 
 		if (!DataScript.scenario.playerHasHighPower) {
