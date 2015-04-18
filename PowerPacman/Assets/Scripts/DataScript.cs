@@ -128,6 +128,8 @@ public class DataScript : MonoBehaviour {
 	            "AllocatedDumbEnemiesBonus,"+
 	            "AllocatedFewerEnemiesBonus,"+
 	            "AllocatedScoreWeight,"+
+			    "scoreWeightsEnabled," +
+			    "scoreWeightsPredetermined," +
 				"PlayerScore," +
 				"aiScore," +
 				"totalScore," +
@@ -143,7 +145,7 @@ public class DataScript : MonoBehaviour {
 				"aiCherriesEaten," +
 				"playerPowerDotsEaten," +
 				"aiPowerDotsEaten,"+
-			    "playerTurnsStole,"+
+			    "playerTurnsStolen,"+
 			    "aiTurnsStolen");
 			f.Close();
 		}
@@ -151,7 +153,7 @@ public class DataScript : MonoBehaviour {
 		using (StreamWriter sw = File.AppendText(fileName)) {
 
 			sw.WriteLine(""+DateTime.Now.ToString("M/d/yyyy") +","
-			             + DateTime.Now.ToString ("HH:mm:ss tt") + ","
+			             + DateTime.Now.ToString ("h:mm:ss tt") + ","
 			             + playerId + ","
 			             + computerId + ","
 			             + scenario.name + ","
@@ -189,6 +191,8 @@ public class DataScript : MonoBehaviour {
 			             + alloc.DumbGhosts + ","
 			             + alloc.FewerGhosts + ","
 			             + alloc.scoreWeight + ","
+			             + scenario.ScoreWeightAvailable + ","
+			             + scenario.ScoreWeightPredetermined + ","
 			             + playerScore + ","
 			             + aiScore + ","
 			             + totalScore + ","
