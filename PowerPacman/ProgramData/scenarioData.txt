@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<ScenarioList xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Scenarios>
+    <Scenario>
+      <id>0</id>
+      <name>ControlTest</name>
+      <control>true</control>
+      <playerHasHighPower>false</playerHasHighPower>
+      <turnTime>30</turnTime>
+      <totalTime>1</totalTime>
+      <pSpeedIncreaseAvailable>true</pSpeedIncreaseAvailable>
+      <gSpeedDecreaseAvailable>true</gSpeedDecreaseAvailable>
+      <fRespawnAvailable>true</fRespawnAvailable>
+      <longerPowerModeAvailable>true</longerPowerModeAvailable>
+      <powerballRespawnAvailable>true</powerballRespawnAvailable>
+      <gRespawnAvailable>true</gRespawnAvailable>
+      <gDumbAvailale>true</gDumbAvailale>
+      <gFewerAvailable>true</gFewerAvailable>
+      <hpStealsTurnsAvailable>true</hpStealsTurnsAvailable>
+      <turnStealLimit>2</turnStealLimit>
+      <AiAllocationIsRandom>true</AiAllocationIsRandom>
+      <AiAllocatePlayerSpeed>1</AiAllocatePlayerSpeed>
+      <AiAllocateGhostSpeed>1</AiAllocateGhostSpeed>
+      <AiAllocateFruitRespawn>1</AiAllocateFruitRespawn>
+      <AiAllocateLongerPowerMode>1</AiAllocateLongerPowerMode>
+      <AiAllocatePowerBallRespawn>1</AiAllocatePowerBallRespawn>
+      <AiAllocateGhostRespawn>1</AiAllocateGhostRespawn>
+      <AiAllocateDumbGhosts>1</AiAllocateDumbGhosts>
+      <AiAllocateFewerGhosts>1</AiAllocateFewerGhosts>
+      <AiAllocateWeight>0.5</AiAllocateWeight>
+      <ScoreWeightAvailable>true</ScoreWeightAvailable>
+      <ScoreWeightPredetermined>true</ScoreWeightPredetermined>
+      <scoreThreshold>0</scoreThreshold>
+    </Scenario>
+  </Scenarios>
+</ScenarioList>

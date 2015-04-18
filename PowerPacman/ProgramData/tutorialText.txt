@@ -47,4 +47,5 @@
   <GameTakeTurnYesMessageLowPower>Your partner has chosen to take another turn</GameTakeTurnYesMessageLowPower>
   <GameEndMessage>The game has ended, please wait</GameEndMessage>
   <GameTimeRemainingText>Time remaining in the game</GameTimeRemainingText>
+  <EndGameMessage>Please notify the research assistant that you have finished.</EndGameMessage>
 </TutorialText>

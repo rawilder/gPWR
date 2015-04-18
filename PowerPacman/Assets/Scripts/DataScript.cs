@@ -48,9 +48,9 @@ public class Allocation{
 
 public class DataScript : MonoBehaviour {
 
-	static string fileName = "data.csv";
+	static string fileName = "ProgramData\\export.csv";
 
-	public static int playerId;
+	public static string playerId;
 	public static string computerId;
 	public static int totalScore;
 	
@@ -83,6 +83,7 @@ public class DataScript : MonoBehaviour {
 	Text playerScoreText;
 	Text totalScoreText;
 	Text PlayerBonuses, PartnerBonuses;
+	Text message;
 
 	public static void exportData(){
 
@@ -215,6 +216,7 @@ public class DataScript : MonoBehaviour {
 		aiScoreText = GameObject.Find ("aiScoreText").GetComponent<Text>();
 		PlayerBonuses = GameObject.Find ("PlayerBonuses").GetComponent<Text> ();
 		PartnerBonuses = GameObject.Find ("PartnerBonuses").GetComponent<Text> ();
+		message = GameObject.Find ("RAMessage").GetComponent<Text> ();
 
 		scenarioName = scenario.name;
 
@@ -304,6 +306,7 @@ public class DataScript : MonoBehaviour {
 			PartnerBonuses.text += "Score Weight: " + (1 - DataScript.alloc.scoreWeight) * 100 + "%";
 		}
 
+		message.text = DataScript.tutText.EndGameMessage;
 		
 		aiScoreText.text = "" + aiScore;
 		playerScoreText.text = "" + playerScore;

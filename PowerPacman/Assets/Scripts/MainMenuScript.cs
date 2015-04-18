@@ -57,6 +57,7 @@ public class TutorialText{
 	public string GameTakeTurnYesMessageLowPower;
 	public string GameEndMessage;
 	public string GameTimeRemainingText;
+	public string EndGameMessage;
 	
 	public TutorialText(){
 		WelcomeScreenTitle = "Welcome to Two Player Pacman";
@@ -106,6 +107,7 @@ public class TutorialText{
 		GameTakeTurnYesMessageLowPower = "Your partner has chosen to take another turn";
 		GameEndMessage = "The game has ended, please wait";
 		GameTimeRemainingText = "Time remaining in the game";
+		EndGameMessage = "Please notify the research assistant that you have finished.";
 	}	
 	
 }
@@ -122,11 +124,15 @@ public class MainMenuScript : MonoBehaviour {
 
 	public Text errorMessage;
 
-	public static string tutorialTextFileName = "tutorialText.txt";
+	public static string tutorialTextFileName = "ProgramData\\tutorialText.txt";
 
 	void Start(){
 
 		errorMessage = GameObject.Find ("ErrorText").GetComponent<Text> ();
+
+		if(!Directory.Exists(AdminDataManager.scenarioDataFileName)){
+			Directory.CreateDirectory(Path.GetDirectoryName(AdminDataManager.scenarioDataFileName));
+		}
 
 		scenList = new ScenarioList ();
 
@@ -229,17 +235,9 @@ public class MainMenuScript : MonoBehaviour {
 		}
 		
 		if (subjectId != "" && compIdStr != "") {
-			int val = 0;
-			bool intParseSuccess = int.TryParse(subjectId, out val);
-			if(intParseSuccess){
-				//might not even have to do this check
-				DataScript.playerId = val;
-				DataScript.computerId = compIdStr;
-				Application.LoadLevel(1);
-			}
-			else{
-				//not an int
-			}
+			DataScript.playerId = subjectId;
+			DataScript.computerId = compIdStr;
+			Application.LoadLevel(1);
 		} else {
 			//display some error
 		}
