@@ -197,6 +197,9 @@ public class PacmanMove : MonoBehaviour {
 	void FixedUpdate () {
 
 		targetScore = (int)((DataScript.playerScore+DataScript.scenario.scoreThreshold)*(1+fudgeFactor));
+		if (targetScore < 0) {
+			targetScore = (int) (DataScript.playerScore * (1+fudgeFactor));
+		}
 		percentTimeLeftInTurn = turnTimeRemaining / DataScript.scenario.turnTime;
 		percentScoreToTarget = player1Score / (float)targetScore;
 

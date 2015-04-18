@@ -61,7 +61,7 @@
       <AiAllocateWeight>0.5</AiAllocateWeight>
       <ScoreWeightAvailable>true</ScoreWeightAvailable>
       <ScoreWeightPredetermined>false</ScoreWeightPredetermined>
-      <scoreThreshold>-25</scoreThreshold>
+      <scoreThreshold>-5000</scoreThreshold>
     </Scenario>
   </Scenarios>
 </ScenarioList>
