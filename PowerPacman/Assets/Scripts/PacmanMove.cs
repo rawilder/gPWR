@@ -144,10 +144,17 @@ public class PacmanMove : MonoBehaviour {
 
         // powerups
         // going to need to replace when powerup interface is in place
-        if (PacmanSpeedPowerup)
-        {
-            speed = 16;
-        }
+        if (PacmanSpeedPowerup && !isAIControlled) {
+			speed = 16;
+		} else if (PacmanSpeedPowerup && isAIControlled) {
+			speed = 13;
+		} else if (!PacmanSpeedPowerup && !isAIControlled) {
+			speed = 11;
+		} else {
+			speed = 9;
+		}
+
+		Debug.Log (side + " speed: " + speed);
 
         if (PowerModeDurationPowerup)
         {
@@ -183,7 +190,7 @@ public class PacmanMove : MonoBehaviour {
 		}
 
 		bool availableBonuses = (DataScript.scenario.pSpeedIncreaseAvailable || DataScript.scenario.gSpeedDecreaseAvailable || DataScript.scenario.fRespawnAvailable || DataScript.scenario.powerballRespawnAvailable || DataScript.scenario.gRespawnAvailable || DataScript.scenario.gDumbAvailale || DataScript.scenario.gFewerAvailable);
-		if (DataScript.scenario.control || !availableBonuses) {
+		if (!availableBonuses) {
 			bonusBox.enabled = false;
 		}
 

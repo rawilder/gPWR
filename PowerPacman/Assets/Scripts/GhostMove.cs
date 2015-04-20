@@ -27,7 +27,7 @@ public class GhostMove : MonoBehaviour {
     private PacmanMove.Direction queuedDir = PacmanMove.Direction.None;
 
     void Start(){
-        speed = 9.0f;
+        speed = 8.0f;
         eatenDelay = 1.0f;
         origin = transform.localPosition;
         dest = origin;
@@ -40,7 +40,6 @@ public class GhostMove : MonoBehaviour {
     }
 
     void FixedUpdate() {
-
 
         if (TurnManagerScript.paused) {
             return;

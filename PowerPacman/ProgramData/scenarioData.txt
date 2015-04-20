@@ -6,10 +6,10 @@
       <name>ControlTest</name>
       <control>true</control>
       <playerHasHighPower>false</playerHasHighPower>
-      <turnTime>30</turnTime>
+      <turnTime>15</turnTime>
       <totalTime>1</totalTime>
       <pSpeedIncreaseAvailable>true</pSpeedIncreaseAvailable>
-      <gSpeedDecreaseAvailable>true</gSpeedDecreaseAvailable>
+      <gSpeedDecreaseAvailable>false</gSpeedDecreaseAvailable>
       <fRespawnAvailable>true</fRespawnAvailable>
       <longerPowerModeAvailable>true</longerPowerModeAvailable>
       <powerballRespawnAvailable>true</powerballRespawnAvailable>
