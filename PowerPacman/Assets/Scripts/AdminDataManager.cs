@@ -16,6 +16,8 @@ public class Scenario{
 	public int turnTime; //the time in seconds that each turn lasts
 	public int totalTime; //the time in minutes that the two players spend taking turns
 
+	public bool powerUpsPredetermined;
+
 	public bool pSpeedIncreaseAvailable;
 	public bool gSpeedDecreaseAvailable;
 	public bool fRespawnAvailable;
@@ -73,6 +75,8 @@ public class Scenario{
 		AiAllocateDumbGhosts = 1.0f;
 		AiAllocateFewerGhosts = 1.0f;
 
+		powerUpsPredetermined = false;
+
 		AiAllocateWeight = .5f;
 
 		scoreThreshold = 0;
@@ -117,6 +121,8 @@ public class Scenario{
 
 		ScoreWeightAvailable = s.ScoreWeightAvailable;
 		ScoreWeightPredetermined = s.ScoreWeightPredetermined;
+
+		powerUpsPredetermined = s.powerUpsPredetermined;
 	}
 }
 
@@ -156,6 +162,7 @@ public class AdminDataManager : MonoBehaviour {
 	Toggle gDumb;
 	Toggle gFewer;
 	Toggle hpStealTurns;
+	Toggle powerUpsPredeterminedToggle;
 
 	Toggle aiAllocationsRandomToggle;
 	Slider aiAllocatesPlayerSpeed;
@@ -221,6 +228,7 @@ public class AdminDataManager : MonoBehaviour {
 
 		scoreWeightAvailable = GameObject.Find ("WeightsEnabledToggle").GetComponent<Toggle> ();
 		scoreWeightPredetermined = GameObject.Find ("WeightsPredetermined").GetComponent<Toggle> ();
+		powerUpsPredeterminedToggle = GameObject.Find ("PowerupsPredeterminedToggle").GetComponent<Toggle> ();
 
 		allocationSliders.Add (aiAllocatesPlayerSpeed);
 		allocationSliders.Add (aiAllocatesGhostSpeed);
@@ -357,6 +365,8 @@ public class AdminDataManager : MonoBehaviour {
 		tempScenario.ScoreWeightAvailable = scoreWeightAvailable.isOn;
 		tempScenario.ScoreWeightPredetermined = scoreWeightPredetermined.isOn;
 
+		tempScenario.powerUpsPredetermined = powerUpsPredeterminedToggle.isOn;
+
 		if (thresholdInput.text != "") {
 			try {
 				int val = Convert.ToInt32 (thresholdInput.text);
@@ -395,7 +405,6 @@ public class AdminDataManager : MonoBehaviour {
 			int index = i;
 			button.GetComponent<Button>().onClick.AddListener(
 				() => {
-				//TODO populate all fields
 				nameBox.text = scenList.Scenarios[index].name;
 				controlToggle.isOn = scenList.Scenarios[index].control;
 				playerAllocatesToggle.isOn = scenList.Scenarios[index].playerHasHighPower;
@@ -429,6 +438,8 @@ public class AdminDataManager : MonoBehaviour {
 
 				thresholdInput.text = "" + scenList.Scenarios[index].scoreThreshold;
 				turnStealLimitInput.text = "" + scenList.Scenarios[index].turnStealLimit;
+
+				powerUpsPredeterminedToggle.isOn = scenList.Scenarios[index].powerUpsPredetermined;
 
 				tempScenario = new Scenario(scenList.Scenarios[index]);
 			}

@@ -96,6 +96,7 @@ public class DataScript : MonoBehaviour {
 			    "ScenarioName," +
 			    "isControlMode," +
 	            "playerHasHighPower,"+
+			    "powerupsPredetermined,"+
 	            "turnTime,"+
 	            "totalTime,"+
 	            "speedIncreaseBonusAvailable,"+
@@ -159,6 +160,7 @@ public class DataScript : MonoBehaviour {
 			             + scenario.name + ","
 			             + scenario.control + ","
 			             + scenario.playerHasHighPower + ","
+			             + scenario.powerUpsPredetermined + ","
 			             + scenario.turnTime + ","
 			             + scenario.totalTime + ","
 			             + scenario.pSpeedIncreaseAvailable + ","

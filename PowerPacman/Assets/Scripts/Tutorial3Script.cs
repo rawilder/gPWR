@@ -25,6 +25,10 @@ public class Tutorial3Script : MonoBehaviour {
 			}
 		}
 
+		if (DataScript.scenario.powerUpsPredetermined) {
+			Tut3Body.text = DataScript.tutText.BonusesScreenBodyPredetermined;
+		}
+
 
 		//populate the power up description panel with all available power ups
 		if (DataScript.scenario.pSpeedIncreaseAvailable) {

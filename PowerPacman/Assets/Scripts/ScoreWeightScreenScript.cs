@@ -49,6 +49,11 @@ public class ScoreWeightScreenScript : MonoBehaviour {
 			//player has high power
 		}
 
+		if (DataScript.scenario.ScoreWeightAvailable && DataScript.scenario.ScoreWeightPredetermined ) {
+			DataScript.alloc.scoreWeight = DataScript.scenario.AiAllocateWeight;
+			weightSlider.value = DataScript.alloc.scoreWeight;
+		}
+
 		weightSliderUpdate ();
 
 		if (!DataScript.scenario.playerHasHighPower || DataScript.scenario.ScoreWeightPredetermined || DataScript.scenario.control) {

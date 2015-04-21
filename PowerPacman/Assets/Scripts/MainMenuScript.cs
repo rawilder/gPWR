@@ -16,6 +16,7 @@ public class TutorialText{
 	public string BonusesScreenBodyHighPower;
 	public string BonusesScreenBodyLowPower;
 	public string BonusesScreenBodyControl;
+	public string BonusesScreenBodyPredetermined;
 	public string ConnectingScreenTitle;
 	public string ConnectingScreenText;
 	public string PreallocationScreenControlNoBonusNoWeightText;
@@ -28,6 +29,11 @@ public class TutorialText{
 	public string PreallocationScreenLowPowerTextBonusesAndWeight;
 	public string PreallocationScreenLowPowerTextBonusesNoWeight;
 	public string PreallocationScreenLowPowerTextWeightNoBonuses;
+	public string PreallocationScreenLowPowerTextBonusesPredetermined;
+	public string PreallocationScreenLowPowerTextNoBonusesPredetermined;
+	public string PreallocationScreenHighPowerTextBonusesPredetermined;
+	public string PreallocationScreenHighPowerTextNoBonusesPredetermined;
+	public string PreallocationScreenNoWeightsNoBonuses;
 	public string AllocationScreenTitle;
 	public string AllocationScreenTopMessageHighPower;
 	public string AllocationScreenTopMessageLowPower;
@@ -37,6 +43,7 @@ public class TutorialText{
 	public string AllocationReviewBodyHighPower;
 	public string AllocationReviewBodyLowPower;
 	public string AllocationReviewBodyControl;
+	public string AllocationReviewBodyLowPowerPredetermined;
 	public string AllocationReviewBottomMessage;
 	public string ScoreWeightScreenTitle;
 	public string ScoreWeightScreenTopMessageHighPower;
@@ -66,6 +73,7 @@ public class TutorialText{
 		BonusesScreenBodyLowPower = "Bonuses are special abilities that allow you to earn points more quickly. The names of the different bonuses and their effects are detailed to the right. In a few moments, your partner is going choose how to divide the bonuses between the two players.";
 		BonusesScreenBodyHighPower = "Bonuses are special abilities that allow you to earn points more quickly. The names of the different bonuses and their effects are detailed to the right. In a few moments you will be given the ability to divide the bonuses between yourself and your partner.";
 		BonusesScreenBodyControl = "Bonuses are special abilities that allow you to earn points more quickly. The names of the different bonuses and their effects are detailed to the right. Both you and your partner will have the same bonuses.";
+		BonusesScreenBodyPredetermined = "Bonuses are special abilities that allow you to earn points more quickly. The names of the different bonuses and their effects are detailed to the right.";
 		ConnectingScreenTitle = "Connecting to partner";
 		ConnectingScreenText = "Please wait while we match you with a partner";
 		PreallocationScreenControlNoBonusNoWeightText = "We have connected you with your partner, please press the continue button to begin the game";
@@ -78,6 +86,11 @@ public class TutorialText{
 		PreallocationScreenLowPowerTextBonusesAndWeight = "We have connected you with your partner, and the game has determined that your partner will be the one who assigns bonuses and the score weights. Please press the continue button";
 		PreallocationScreenLowPowerTextBonusesNoWeight = "We have connected you with your partner, and the game has determined that your partner will be the one who assigns the bonuses. Please press the continue button";
 		PreallocationScreenLowPowerTextWeightNoBonuses = "We have connected you with your partner, and the game has determined that your partner will be the one who assigns the score weights. Please press the continue button";
+		PreallocationScreenLowPowerTextBonusesPredetermined = "We have connected you with your partner, and the game has determined which players will get the different bonuses";
+		PreallocationScreenLowPowerTextNoBonusesPredetermined = "We have connected you with your partner. Please press the continue button";
+		PreallocationScreenHighPowerTextBonusesPredetermined = "We have connected you with your partner, and the game has determined which players will get the different bonuses";
+		PreallocationScreenHighPowerTextNoBonusesPredetermined = "We have connected you with your partner. Please press the continue button";
+		PreallocationScreenNoWeightsNoBonuses = "Please press the continue button";
 		AllocationScreenTitle = "Bonus allocation";
 		AllocationScreenTopMessageHighPower = "Please use the sliders to allocate a bonus to yourself or your partner";
 		AllocationScreenTopMessageLowPower = "Please wait while your partner allocates the bonuses";
@@ -85,8 +98,9 @@ public class TutorialText{
 		AllocationScreenErrorMessage = "Please assign all bonuses before continuing";
 		AllocationScreenLowPowerPostAllocationMessage = "Your partner has finished assigning all bonuses, please review them and then press the continue button";
 		AllocationReviewBodyHighPower = "The bonuses you have chosen for yourself and your partner are listed below. Please press the continue button.";
-		AllocationReviewBodyLowPower = "The bonuses your partner has chosen for you are listed below. Please review them and then press the continue";
+		AllocationReviewBodyLowPower = "The bonuses your partner has chosen for you are listed below. Please review them and then press the continue button";
 		AllocationReviewBodyControl = "The bonuses that you and your partner were assigned are listed below. Please review them and then press the continue button";
+		AllocationReviewBodyLowPowerPredetermined = "The bonuses that were chosen for you and your partner are listed below. Please review them and then press the continue button";
 		AllocationReviewBottomMessage = "";
 		ScoreWeightScreenTitle = "Score Weights";
 		ScoreWeightScreenTopMessageHighPower = "The final score of the game is calculated as a weighted average of your and your parter's scores. The higher your percent, the more your score contributes.";

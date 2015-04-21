@@ -20,13 +20,20 @@ public class Tutorial7Script : MonoBehaviour {
 		BottomMessageText = GameObject.Find ("BottomMessageBox").GetComponent<Text> ();
 		continueButton = GameObject.Find ("Button").GetComponent<Button> ();
 
-		if (DataScript.scenario.control) {
-			messageText.text = DataScript.tutText.AllocationReviewBodyControl;
-		} else {
-			if (DataScript.scenario.playerHasHighPower) {
-				messageText.text = DataScript.tutText.AllocationReviewBodyHighPower;
+		if (!DataScript.scenario.powerUpsPredetermined) {
+			if (DataScript.scenario.control) {
+				messageText.text = DataScript.tutText.AllocationReviewBodyControl;
 			} else {
-				messageText.text = DataScript.tutText.AllocationReviewBodyLowPower;
+				if (DataScript.scenario.playerHasHighPower) {
+					messageText.text = DataScript.tutText.AllocationReviewBodyHighPower;
+				} else {
+					messageText.text = DataScript.tutText.AllocationReviewBodyLowPower;
+				}
+			}
+		} else {
+
+			if(!DataScript.scenario.control && !DataScript.scenario.playerHasHighPower){
+				messageText.text = DataScript.tutText.AllocationReviewBodyLowPowerPredetermined;
 			}
 		}
 

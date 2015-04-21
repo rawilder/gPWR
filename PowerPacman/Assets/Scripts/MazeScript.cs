@@ -215,9 +215,12 @@ public class MazeScript : MonoBehaviour {
 
         powerDotRespawns = false;
 
-		if (!DataScript.scenario.ScoreWeightAvailable) {
+		if (DataScript.scenario.control || !DataScript.scenario.hpStealsTurnsAvailable) {
 			turnSkipLabel.enabled = false;
 			turnSkipsRemainingText.enabled = false;
+		}
+
+		if (!DataScript.scenario.ScoreWeightAvailable) {
 			scoreWeightLabel.enabled = false;
 			scoreWeightBox.enabled = false;
 		} else {
