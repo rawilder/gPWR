@@ -84,7 +84,7 @@ public class ScoreWeightScreenScript : MonoBehaviour {
 		if (delay > 0) {
 			delay -= Time.deltaTime;
 		} else {
-			if (!DataScript.scenario.playerHasHighPower && DataScript.scenario.ScoreWeightAvailable && !DataScript.scenario.control) {
+			if (!DataScript.scenario.playerHasHighPower && DataScript.scenario.ScoreWeightAvailable && !DataScript.scenario.control && !DataScript.scenario.ScoreWeightPredetermined) {
 				weightSlider.value = DataScript.alloc.scoreWeight;
 				bottomMessageText.text = DataScript.tutText.ScoreWeightScreenSelectionCompleteMessage;
 			}

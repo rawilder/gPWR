@@ -88,6 +88,8 @@ public class PacmanMove : MonoBehaviour {
 	public float percentScoreToTarget;
 	public float hardPercentLimit = .05f;
 
+
+
 	int tempScore = 0;		//for use with ai score fudging
 
 	Text bonusBox;
@@ -203,10 +205,18 @@ public class PacmanMove : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 
-		targetScore = (int)((DataScript.playerScore+DataScript.scenario.scoreThreshold)*(1+fudgeFactor));
-		if (targetScore < 0) {
-			targetScore = (int) (DataScript.playerScore * (1+fudgeFactor));
+		if (TurnManagerScript.aiStealingNextTurn) {
+			targetScore = (int) ((DataScript.playerScore + DataScript.aiScore + DataScript.scenario.scoreThreshold)/2.0f);
+			if (targetScore < 0) {
+				targetScore = (int)(DataScript.playerScore * (1 + fudgeFactor));
+			}
+		} else {
+			targetScore = (int)((DataScript.playerScore + DataScript.scenario.scoreThreshold) * (1 + fudgeFactor));
+			if (targetScore < 0) {
+				targetScore = (int)(DataScript.playerScore * (1 + fudgeFactor));
+			}
 		}
+
 		percentTimeLeftInTurn = turnTimeRemaining / DataScript.scenario.turnTime;
 		percentScoreToTarget = player1Score / (float)targetScore;
 

@@ -19,6 +19,9 @@ public class TurnManagerScript : MonoBehaviour {
 
 	public static float turnSwitchDelay = 5.0f;
 	public static float turnSwitchTimeRemaining = 0.0f;
+	public static int aiTurnStealGoal;
+	public static bool aiStealingNextTurn;
+	public static bool aiStoleCurrentTurn;
 
 	int totalTimeLimit = DataScript.scenario.totalTime;
 
@@ -32,12 +35,14 @@ public class TurnManagerScript : MonoBehaviour {
 	Text totalTimeRemainingText;
 	Text totalTimeRemainingCountdown;
 
-	int totalTurnsInGame;
+	public int totalTurnsInGame;
 	int turnCount = 1;
 
 	public static int targetScore = 0;
 
 	void Start(){
+		aiStealingNextTurn = false;
+		aiStoleCurrentTurn = false;
 		pregameCountdownRemaining = pregameCountdownDelay;
 		turnSwitchTimeRemaining = turnSwitchDelay;
 		countdown = GameObject.Find ("CountdownText").GetComponent<Text> ();
@@ -53,6 +58,7 @@ public class TurnManagerScript : MonoBehaviour {
 
 		totalTurnsInGame = (int) ((60 * DataScript.scenario.totalTime) / ((int)DataScript.scenario.turnTime));
 		Debug.Log ("Turns in game: " + totalTurnsInGame);
+		aiTurnStealGoal = DataScript.scenario.turnStealLimit;
 	}
 
 	void FixedUpdate(){
@@ -90,6 +96,7 @@ public class TurnManagerScript : MonoBehaviour {
 		if (switchingTurnsStage) {
 
 
+
 			if(turnCount >= totalTurnsInGame){
 				messageText.text = DataScript.tutText.GameEndMessage;
 				paused = true;
@@ -99,13 +106,13 @@ public class TurnManagerScript : MonoBehaviour {
 			}
 
 
-			if (isPlayerTurn && !DataScript.scenario.control && DataScript.scenario.playerHasHighPower && stolenTurnCount < DataScript.scenario.turnStealLimit) {
+			if (isPlayerTurn && !DataScript.scenario.control && DataScript.scenario.playerHasHighPower && stolenTurnCount < DataScript.scenario.turnStealLimit && DataScript.scenario.hpStealsTurnsAvailable) {
 				takeTurnMessage.enabled = true;
 				if(Input.GetKey(KeyCode.F)){
 					stealingTurn = true;
 					takeTurnMessage.text = DataScript.tutText.GameTakeTurnYesMessageHighPower;
 				}
-			}else if(!isPlayerTurn && !DataScript.scenario.control && !DataScript.scenario.playerHasHighPower && stolenTurnCount < DataScript.scenario.turnStealLimit){
+			}else if(!isPlayerTurn && !DataScript.scenario.control && !DataScript.scenario.playerHasHighPower && stolenTurnCount < DataScript.scenario.turnStealLimit && DataScript.scenario.hpStealsTurnsAvailable){
 				//AI chooses whether to steal a turn or not
 				takeTurnMessage.enabled = true;
 
@@ -114,9 +121,16 @@ public class TurnManagerScript : MonoBehaviour {
 					aiTurnsteelDelayRemaining -= Time.deltaTime;
 				}
 				else{
-					Debug.Log("AI Score: " + DataScript.aiScore);
-					Debug.Log("Playerscore (target): " + (.75 *DataScript.playerScore+targetScore));
-					if(DataScript.aiScore < (.75 * DataScript.playerScore+targetScore) && turnCount < totalTurnsInGame-1){
+					//Debug.Log("AI Score: " + DataScript.aiScore);
+					//Debug.Log("Playerscore (target): " + (.75 *DataScript.playerScore+targetScore));
+					//if(stolenTurnCount < aiTurnStealGoal){
+						//still have turns to steal
+						//if(DataScript.aiScore < (.75 * DataScript.playerScore+targetScore) && turnCount < totalTurnsInGame-1){
+							//takeTurnMessage.text = DataScript.tutText.GameTakeTurnYesMessageLowPower;
+							//stealingTurn = true;
+						//}
+					//}
+					if(aiStealingNextTurn){
 						takeTurnMessage.text = DataScript.tutText.GameTakeTurnYesMessageLowPower;
 						stealingTurn = true;
 					}
@@ -141,8 +155,23 @@ public class TurnManagerScript : MonoBehaviour {
 				if(!stealingTurn){
 					if (isPlayerTurn) {
 						isPlayerTurn = false;
+						Debug.Log("stealing next before: " + aiStealingNextTurn);
+						Debug.Log("Stole current: " + aiStoleCurrentTurn);
+						if(!DataScript.scenario.control && !DataScript.scenario.playerHasHighPower && stolenTurnCount < DataScript.scenario.turnStealLimit && !aiStoleCurrentTurn && DataScript.scenario.hpStealsTurnsAvailable){
+							//decide if ai will steal its next turn (after this one)
+							//need to know this so we can set the target goal to be half of what it normally is
+							aiStealingNextTurn = true;
+							aiStoleCurrentTurn = true;
+						}
+						else{
+							aiStealingNextTurn = false;
+							aiStoleCurrentTurn = false;
+						}
+						Debug.Log("stealing next after: " + aiStealingNextTurn);
 					} else {
 						isPlayerTurn = true;
+						aiStealingNextTurn = false;
+						aiStoleCurrentTurn = false;
 					}
 				}
 				else{
@@ -150,17 +179,21 @@ public class TurnManagerScript : MonoBehaviour {
 					stolenTurnCount++;
 					if(isPlayerTurn){
 						DataScript.playerTurnsStolen++;
+						aiStoleCurrentTurn = false;
 					}
 					else{
+						aiStealingNextTurn = false;
 						DataScript.aiTurnsStolen++;
+						aiStoleCurrentTurn = true;
+						Debug.Log(aiStealingNextTurn);
 					}
 				}
 			}
 		} else {
-			if(DataScript.scenario.playerHasHighPower){
+			if(DataScript.scenario.playerHasHighPower && DataScript.scenario.hpStealsTurnsAvailable){
 				takeTurnMessage.text = DataScript.tutText.GameTakeTurnMessageHighPower;
 			}
-			else{
+			else if(!DataScript.scenario.playerHasHighPower && DataScript.scenario.hpStealsTurnsAvailable){
 				takeTurnMessage.text = DataScript.tutText.GameTakeTurnMessageLowPower;
 			}
 			takeTurnMessage.enabled = false;
