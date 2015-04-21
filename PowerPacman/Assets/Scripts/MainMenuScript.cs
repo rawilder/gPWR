@@ -65,7 +65,7 @@ public class TutorialText{
 		BonusesScreenTitle = "Bonuses";
 		BonusesScreenBodyLowPower = "Bonuses are special abilities that allow you to earn points more quickly. The names of the different bonuses and their effects are detailed to the right. In a few moments, your partner is going choose how to divide the bonuses between the two players.";
 		BonusesScreenBodyHighPower = "Bonuses are special abilities that allow you to earn points more quickly. The names of the different bonuses and their effects are detailed to the right. In a few moments you will be given the ability to divide the bonuses between yourself and your partner.";
-		BonusesScreenBodyControl = "Bonuses are special abilities that all you to earn points more quickly. The names of the different bonuses and their effects are detailed to the right. Both you and your partner will have the same bonuses.";
+		BonusesScreenBodyControl = "Bonuses are special abilities that allow you to earn points more quickly. The names of the different bonuses and their effects are detailed to the right. Both you and your partner will have the same bonuses.";
 		ConnectingScreenTitle = "Connecting to partner";
 		ConnectingScreenText = "Please wait while we match you with a partner";
 		PreallocationScreenControlNoBonusNoWeightText = "We have connected you with your partner, please press the continue button to begin the game";
