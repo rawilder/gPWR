@@ -149,7 +149,7 @@ public class PacmanMove : MonoBehaviour {
         if (PacmanSpeedPowerup && !isAIControlled) {
 			speed = 16;
 		} else if (PacmanSpeedPowerup && isAIControlled) {
-			speed = 13;
+			speed = 12;
 		} else if (!PacmanSpeedPowerup && !isAIControlled) {
 			speed = 11;
 		} else {
