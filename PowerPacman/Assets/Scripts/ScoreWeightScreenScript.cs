@@ -28,7 +28,7 @@ public class ScoreWeightScreenScript : MonoBehaviour {
 		titleText.text = DataScript.tutText.ScoreWeightScreenTitle;
 		topMessageText.text = "";
 
-		if (!DataScript.scenario.playerHasHighPower) {
+		if (!DataScript.scenario.playerAllocatesScoreWeights) {
 			if(!DataScript.scenario.AiAllocationIsRandom){
 				//setting up the score weights
 				Debug.Log(DataScript.alloc.scoreWeight);
@@ -39,7 +39,7 @@ public class ScoreWeightScreenScript : MonoBehaviour {
 			}
 			else{
 				//score weight
-				if (DataScript.scenario.ScoreWeightAvailable && !DataScript.scenario.ScoreWeightPredetermined && !DataScript.scenario.playerHasHighPower) {
+				if (DataScript.scenario.ScoreWeightAvailable && !DataScript.scenario.ScoreWeightPredetermined && !DataScript.scenario.playerAllocatesScoreWeights) {
 					//doesnt happen until the next scene, but assign a value here anyway
 					float w = UnityEngine.Random.Range (.25f, .75f);
 					DataScript.alloc.scoreWeight = (float)Math.Round (w * 20) / 20;
@@ -56,7 +56,7 @@ public class ScoreWeightScreenScript : MonoBehaviour {
 
 		weightSliderUpdate ();
 
-		if (!DataScript.scenario.playerHasHighPower || DataScript.scenario.ScoreWeightPredetermined || DataScript.scenario.control) {
+		if (!DataScript.scenario.playerAllocatesScoreWeights || DataScript.scenario.ScoreWeightPredetermined || DataScript.scenario.control) {
 			weightSlider.GetComponentInChildren<Slider> ().interactable = false;
 			Graphic[] g2 = weightSlider.GetComponentInChildren<Slider> ().GetComponentsInChildren<Graphic> ();
 			for (int i = 0; i < g2.Length; i++) {
@@ -70,7 +70,7 @@ public class ScoreWeightScreenScript : MonoBehaviour {
 			bottomMessageText.text = DataScript.tutText.ScoreWeightScreenBottomMessageControl;
 			topMessageText.text = DataScript.tutText.ScoreWeightScreenTopMessageControl;
 		} else {
-			if(DataScript.scenario.playerHasHighPower){
+			if(DataScript.scenario.playerAllocatesScoreWeights){
 				bottomMessageText.text = DataScript.tutText.ScoreWeightScreenBottomMessageHighPower;
 				topMessageText.text = DataScript.tutText.ScoreWeightScreenTopMessageHighPower;
 			}
@@ -89,7 +89,7 @@ public class ScoreWeightScreenScript : MonoBehaviour {
 		if (delay > 0) {
 			delay -= Time.deltaTime;
 		} else {
-			if (!DataScript.scenario.playerHasHighPower && DataScript.scenario.ScoreWeightAvailable && !DataScript.scenario.control && !DataScript.scenario.ScoreWeightPredetermined) {
+			if (!DataScript.scenario.playerAllocatesScoreWeights && DataScript.scenario.ScoreWeightAvailable && !DataScript.scenario.control && !DataScript.scenario.ScoreWeightPredetermined) {
 				weightSlider.value = DataScript.alloc.scoreWeight;
 				bottomMessageText.text = DataScript.tutText.ScoreWeightScreenSelectionCompleteMessage;
 			}
@@ -106,7 +106,7 @@ public class ScoreWeightScreenScript : MonoBehaviour {
 		playerWeightText.text = "" + (newVal*100) + "%";
 		weightSlider.value = newVal;
 
-		if (DataScript.scenario.playerHasHighPower) {
+		if (DataScript.scenario.playerAllocatesScoreWeights) {
 			DataScript.alloc.scoreWeight = newVal;
 		}
 	}

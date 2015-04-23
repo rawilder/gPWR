@@ -17,7 +17,7 @@ public class Tutorial3Script : MonoBehaviour {
 		if (DataScript.scenario.control) {
 			Tut3Body.text = DataScript.tutText.BonusesScreenBodyControl;
 		} else {
-			if(DataScript.scenario.playerHasHighPower){
+			if(DataScript.scenario.playerAllocatesPowerups){
 				Tut3Body.text = DataScript.tutText.BonusesScreenBodyHighPower;
 			}
 			else{

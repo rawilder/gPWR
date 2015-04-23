@@ -215,7 +215,7 @@ public class MazeScript : MonoBehaviour {
 
         powerDotRespawns = false;
 
-		if (DataScript.scenario.control || !DataScript.scenario.hpStealsTurnsAvailable) {
+		if (DataScript.scenario.turnStealLimit <= 0) {
 			turnSkipLabel.enabled = false;
 			turnSkipsRemainingText.enabled = false;
 		}
@@ -232,11 +232,11 @@ public class MazeScript : MonoBehaviour {
 			}
 		}
 
-        if (!DataScript.scenario.control && DataScript.scenario.hpStealsTurnsAvailable) {
-            if(DataScript.scenario.playerHasHighPower && !pacman.isAIControlled){
+        if (DataScript.scenario.turnStealLimit > 0) {
+            if(DataScript.scenario.playerCanStealTurns && !pacman.isAIControlled){
                 turnSkipsRemainingText.text = "" + DataScript.scenario.turnStealLimit;
             }
-            else if(!DataScript.scenario.control && !DataScript.scenario.playerHasHighPower && pacman.isAIControlled){
+            else if(!DataScript.scenario.playerCanStealTurns && pacman.isAIControlled){
                 turnSkipsRemainingText.text = "" + DataScript.scenario.turnStealLimit;
             }
         } else {
@@ -247,10 +247,10 @@ public class MazeScript : MonoBehaviour {
 
     void FixedUpdate(){
 
-        if (DataScript.scenario.hpStealsTurnsAvailable) {
-            if (DataScript.scenario.playerHasHighPower && !pacman.isAIControlled) {
+        if (DataScript.scenario.turnStealLimit > 0) {
+            if (DataScript.scenario.playerCanStealTurns && !pacman.isAIControlled) {
                 turnSkipsRemainingText.text = "" + (DataScript.scenario.turnStealLimit - TurnManagerScript.stolenTurnCount);
-            } else if (!DataScript.scenario.playerHasHighPower && pacman.isAIControlled) {
+            } else if (!DataScript.scenario.playerCanStealTurns && pacman.isAIControlled) {
                 turnSkipsRemainingText.text = "" + (DataScript.scenario.turnStealLimit - TurnManagerScript.stolenTurnCount);
             }
         }

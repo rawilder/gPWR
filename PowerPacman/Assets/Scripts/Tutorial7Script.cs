@@ -24,15 +24,17 @@ public class Tutorial7Script : MonoBehaviour {
 			if (DataScript.scenario.control) {
 				messageText.text = DataScript.tutText.AllocationReviewBodyControl;
 			} else {
-				if (DataScript.scenario.playerHasHighPower) {
+				if (DataScript.scenario.playerAllocatesPowerups) {
 					messageText.text = DataScript.tutText.AllocationReviewBodyHighPower;
 				} else {
 					messageText.text = DataScript.tutText.AllocationReviewBodyLowPower;
 				}
 			}
 		} else {
-
-			if(!DataScript.scenario.control && !DataScript.scenario.playerHasHighPower){
+			if(DataScript.scenario.control){
+				messageText.text = DataScript.tutText.AllocationReviewBodyControl;
+			}
+			else if(!DataScript.scenario.control && !DataScript.scenario.playerAllocatesPowerups){
 				messageText.text = DataScript.tutText.AllocationReviewBodyLowPowerPredetermined;
 			}
 		}

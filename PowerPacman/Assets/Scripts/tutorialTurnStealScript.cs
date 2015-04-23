@@ -17,14 +17,14 @@ public class tutorialTurnStealScript : MonoBehaviour {
 
 
 		playerGoesFirstText.text = DataScript.tutText.PregamePlayerGoesFirstText;
-		if (DataScript.scenario.hpStealsTurnsAvailable && DataScript.scenario.playerHasHighPower && !DataScript.scenario.control) {
+		if (DataScript.scenario.turnStealLimit > 0 && DataScript.scenario.playerCanStealTurns) {
 			turnStealText.text = DataScript.tutText.PregamePlayerStealsTurnsText.Replace ("[turnSteals]", "" + DataScript.scenario.turnStealLimit);
-		} else if (DataScript.scenario.hpStealsTurnsAvailable && !DataScript.scenario.playerHasHighPower && !DataScript.scenario.control) {
+		} else if (DataScript.scenario.turnStealLimit > 0 && !DataScript.scenario.playerCanStealTurns) {
 			turnStealText.text = DataScript.tutText.PregamePlayerStealsTurnsLowPowerText.Replace ("[turnSteals]", "" + DataScript.scenario.turnStealLimit);
 		} else {
 			turnStealText.text = "";
 		}
 		continueText.text = DataScript.tutText.PregameContinueText;
-
+		
 	}
 }

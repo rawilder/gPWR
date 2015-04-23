@@ -262,7 +262,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Bonuses are special abilities that allow you earn points quicker....
+  m_Text: Bonuses are special abilities that allow you earn points more quickly
 --- !u!222 &698093578
 CanvasRenderer:
   m_ObjectHideFlags: 0

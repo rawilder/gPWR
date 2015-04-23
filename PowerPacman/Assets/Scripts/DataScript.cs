@@ -95,7 +95,8 @@ public class DataScript : MonoBehaviour {
 				"ComputerId," +
 			    "ScenarioName," +
 			    "isControlMode," +
-	            "playerHasHighPower,"+
+	            "playerAllocatesPowerups,"+
+			    "playerAllocatesScoreWeights,"+
 			    "powerupsPredetermined,"+
 	            "turnTime,"+
 	            "totalTime,"+
@@ -107,7 +108,7 @@ public class DataScript : MonoBehaviour {
 	            "enemyRespawnBonusAvailable,"+
 	            "dumbEnemyBonusAvailable,"+
 	            "fewerEnemiesBonusAvailable,"+
-	            "highPowerPlayerCanStealTurns,"+
+	            "playerCanStealTurns,"+
 	            "turnStealLimit,"+
 	            "AiRandomlyAllocates,"+
 				"AiAllocatesPlayerSpeed,"+
@@ -159,7 +160,8 @@ public class DataScript : MonoBehaviour {
 			             + computerId + ","
 			             + scenario.name + ","
 			             + scenario.control + ","
-			             + scenario.playerHasHighPower + ","
+			             + scenario.playerAllocatesPowerups + ","
+			             + scenario.playerAllocatesScoreWeights + ","
 			             + scenario.powerUpsPredetermined + ","
 			             + scenario.turnTime + ","
 			             + scenario.totalTime + ","
@@ -171,7 +173,7 @@ public class DataScript : MonoBehaviour {
 			             + scenario.gRespawnAvailable + ","
 			             + scenario.gDumbAvailale + ","
 			             + scenario.gFewerAvailable + ","
-			             + scenario.hpStealsTurnsAvailable + ","
+			             + scenario.playerCanStealTurns + ","
 			             + scenario.turnStealLimit + ","
 			             + scenario.AiAllocationIsRandom + ","
 			             + scenario.AiAllocatePlayerSpeed + ","

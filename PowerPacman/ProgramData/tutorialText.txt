@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <TutorialText xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <WelcomeScreenTitle>Welcome to Two Player Pacman</WelcomeScreenTitle>
-  <ObjectiveScreenBody>In a few moments, you will be connected to another player in a different location. The objective of this game is to work together with your partner to earn as many points as possible playing Pacman, where the final score is an average of your separate scores. Each player will have their own maze to navigate. You are going to be taking turns playing for a set amount of time. Points are earned by eating dots, cherries, and blue enemies. If you are touched by an enemy, you will return to where you started and continue your turn</ObjectiveScreenBody>
+  <ObjectiveScreenBody>In a few moments, you will be connected to another player in a different location. The objective of this game is to work together with your partner to earn as many points as possible playing Pacman, where the final score is an average of your separate scores. Each player will have their own maze to navigate. You are going to be taking turns playing for a set amount of time. Points are earned by eating dots, cherries, and blue enemies. Enemies will turn blue for a short period of time after you eat a large green super dot. If you are touched by an enemy, you will return to where you started and continue your turn</ObjectiveScreenBody>
   <BonusesScreenTitle>Bonuses</BonusesScreenTitle>
   <BonusesScreenBodyHighPower>Bonuses are special abilities that allow you to earn points more quickly. The names of the different bonuses and their effects are detailed to the right. In a few moments you will be given the ability to divide the bonuses between yourself and your partner.</BonusesScreenBodyHighPower>
   <BonusesScreenBodyLowPower>Bonuses are special abilities that allow you to earn points more quickly. The names of the different bonuses and their effects are detailed to the right. In a few moments, your partner is going choose how to divide the bonuses between the two players.</BonusesScreenBodyLowPower>
@@ -9,18 +9,19 @@
   <BonusesScreenBodyPredetermined>Bonuses are special abilities that allow you to earn points more quickly. The names of the different bonuses and their effects are detailed to the right.</BonusesScreenBodyPredetermined>
   <ConnectingScreenTitle>Connecting to partner</ConnectingScreenTitle>
   <ConnectingScreenText>Please wait while we match you with a partner</ConnectingScreenText>
-  <PreallocationScreenControlNoBonusNoWeightText>We have connected you with your partner, please press the continue button to begin the game</PreallocationScreenControlNoBonusNoWeightText>
+  <PreallocationScreenControlNoBonusNoWeightText>We have connected you with your partner, please press the continue button</PreallocationScreenControlNoBonusNoWeightText>
   <PreallocationScreenControlNoBonusWeightText>We have connected you with your partner, please press the continue button to continue to the score weight screen</PreallocationScreenControlNoBonusWeightText>
   <PreallocationScreenControlBonusNoWeightText>We have connected you with your partner, please press the continue button to continue to the bonus screen</PreallocationScreenControlBonusNoWeightText>
   <PreallocationScreenControlBonusAndWeightText>We have connected you with your partner, please press the continue button to continue to the bonus screen</PreallocationScreenControlBonusAndWeightText>
-  <PreallocationScreenHighPowerTextBonusesAndWeight>We have connected you with your partner, and the game has determined that you will be the one who assigns bonuses and score weights. Please press the continue button</PreallocationScreenHighPowerTextBonusesAndWeight>
-  <PreallocationScreenHighPowerTextBonusesNoWeight>We have connected you with your partner, and the game has determined that you will be the one who assigns bonuses. Please press the continue button</PreallocationScreenHighPowerTextBonusesNoWeight>
-  <PreallocationScreenHighPowerTextWeightNoBonuses>We have connected you with your partner, and the game has determined that you will be the one who assigns the score weights. Please press the continue button</PreallocationScreenHighPowerTextWeightNoBonuses>
-  <PreallocationScreenLowPowerTextBonusesAndWeight>We have connected you with your partner, and the game has determined that your partner will be the one who assigns bonuses and the score weights. Please press the continue button</PreallocationScreenLowPowerTextBonusesAndWeight>
-  <PreallocationScreenLowPowerTextBonusesNoWeight>We have connected you with your partner, and the game has determined that your partner will be the one who assigns the bonuses. Please press the continue button</PreallocationScreenLowPowerTextBonusesNoWeight>
-  <PreallocationScreenLowPowerTextWeightNoBonuses>We have connected you with your partner, and the game has determined that your partner will be the one who assigns the score weights. Please press the continue button</PreallocationScreenLowPowerTextWeightNoBonuses>
+  <PreallocationScreenHighPowerTextBonuses>We have connected you with your partner, and the game has determined that you will be the one who assigns bonuses. Please press the continue button</PreallocationScreenHighPowerTextBonuses>
+  <PreallocationScreenHighPowerTextWeight>We have connected you with your partner, and the game has determined that you will be the one who assigns the score weights. Please press the continue button</PreallocationScreenHighPowerTextWeight>
+  <PreallocationScreenLowPowerTextBonuses>We have connected you with your partner, and the game has determined that your partner will be the one who assigns bonuses. Please press the continue button</PreallocationScreenLowPowerTextBonuses>
+  <PreallocationScreenLowPowerTextWeight>We have connected you with your partner, and the game has determined that your partner will be the one who assigns score weights. Please press the continue button</PreallocationScreenLowPowerTextWeight>
   <PreallocationScreenLowPowerTextBonusesPredetermined>We have connected you with your partner, and the game has determined which players will get the different bonuses</PreallocationScreenLowPowerTextBonusesPredetermined>
   <PreallocationScreenLowPowerTextNoBonusesPredetermined>We have connected you with your partner. Please press the continue button</PreallocationScreenLowPowerTextNoBonusesPredetermined>
+  <PreallocationScreenHighPowerTextBonusesPredetermined>We have connected you with your partner, and the game has determined which players will get the different bonuses</PreallocationScreenHighPowerTextBonusesPredetermined>
+  <PreallocationScreenHighPowerTextNoBonusesPredetermined>We have connected you with your partner. Please press the continue button</PreallocationScreenHighPowerTextNoBonusesPredetermined>
+  <PreallocationScreenNoWeightsNoBonuses>We have connected you with your partner, please press the continue button</PreallocationScreenNoWeightsNoBonuses>
   <AllocationScreenTitle>Bonus allocation</AllocationScreenTitle>
   <AllocationScreenTopMessageHighPower>Please use the sliders to allocate a bonus to yourself or your partner</AllocationScreenTopMessageHighPower>
   <AllocationScreenTopMessageLowPower>Please wait while your partner allocates the bonuses</AllocationScreenTopMessageLowPower>
@@ -42,8 +43,8 @@
   <ScoreWeightScreenSelectionCompleteMessage>Your partner has finished determining the score weights, please press the continue button</ScoreWeightScreenSelectionCompleteMessage>
   <PregameScreenTitle>Pregame</PregameScreenTitle>
   <PregamePlayerGoesFirstText>The program has decided that you will have the first turn of the game.</PregamePlayerGoesFirstText>
-  <PregamePlayerStealsTurnsText>The game has determined that between turns, you will have the ability to skip your partner's turn and immediately play again. Your partner does not have this ability. You will be limited to [turnSteals] turn skips</PregamePlayerStealsTurnsText>
-  <PregamePlayerStealsTurnsLowPowerText>The game has determined that between turns, your partner will have the ability to skip your turn and immediately play again. You will not have this ability. Your partner will be limited to [turnSteals] turn skips</PregamePlayerStealsTurnsLowPowerText>
+  <PregamePlayerStealsTurnsText>The game has determined that between turns, you will have the ability to skip your partner's turn and immediately play again. Your partner does not have this ability. You will be limited to [turnSteals] turn skip(s)</PregamePlayerStealsTurnsText>
+  <PregamePlayerStealsTurnsLowPowerText>The game has determined that between turns, your partner will have the ability to skip your turn and immediately play again. You will not have this ability. Your partner will be limited to [turnSteals] turn skip(s)</PregamePlayerStealsTurnsLowPowerText>
   <PregameContinueText>Please press the continue button to begin the game</PregameContinueText>
   <GameTakeTurnMessageHighPower>Press 'F' to take another turn</GameTakeTurnMessageHighPower>
   <GameTakeTurnMessageLowPower>Your partner is deciding whether to take another turn</GameTakeTurnMessageLowPower>

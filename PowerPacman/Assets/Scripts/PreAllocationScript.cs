@@ -25,23 +25,15 @@ public class PreAllocationScript : MonoBehaviour {
 				}
 
 			} else {
-				if (DataScript.scenario.playerHasHighPower) {
+				if (DataScript.scenario.playerAllocatesPowerups) {
 					if (availableBonuses) {
-						if (DataScript.scenario.ScoreWeightAvailable) {
-							if (DataScript.scenario.ScoreWeightPredetermined) {
-								messageText.text = DataScript.tutText.PreallocationScreenHighPowerTextBonusesNoWeight;
-							} else {
-								messageText.text = DataScript.tutText.PreallocationScreenHighPowerTextBonusesAndWeight;
-							}
-						} else {
-							messageText.text = DataScript.tutText.PreallocationScreenHighPowerTextBonusesNoWeight;
-						}
+						messageText.text = DataScript.tutText.PreallocationScreenHighPowerTextBonuses;
 					} else {
 						if (DataScript.scenario.ScoreWeightAvailable) {
 							if (DataScript.scenario.ScoreWeightPredetermined) {
-								//cant have high power and no bonuses and predetermined weights, that's just a control
+								messageText.text = DataScript.tutText.PreallocationScreenHighPowerTextNoBonusesPredetermined;
 							} else {
-								messageText.text = DataScript.tutText.PreallocationScreenHighPowerTextWeightNoBonuses;
+								messageText.text = DataScript.tutText.PreallocationScreenHighPowerTextWeight;
 							}
 						} else {
 							messageText.text = DataScript.tutText.PreallocationScreenNoWeightsNoBonuses;
@@ -50,21 +42,13 @@ public class PreAllocationScript : MonoBehaviour {
 				} else {
 					//player has low power
 					if (availableBonuses) {
-						if (DataScript.scenario.ScoreWeightAvailable) {
-							if (DataScript.scenario.ScoreWeightPredetermined) {
-								messageText.text = DataScript.tutText.PreallocationScreenLowPowerTextBonusesNoWeight;
-							} else {
-								messageText.text = DataScript.tutText.PreallocationScreenLowPowerTextBonusesAndWeight;
-							}
-						} else {
-							messageText.text = DataScript.tutText.PreallocationScreenLowPowerTextBonusesNoWeight;
-						}
+						messageText.text = DataScript.tutText.PreallocationScreenLowPowerTextBonuses;
 					} else {
 						if (DataScript.scenario.ScoreWeightAvailable) {
 							if (DataScript.scenario.ScoreWeightPredetermined) {
-								//cant have high power and no bonuses and predetermined weights, that's just a control
+								messageText.text = DataScript.tutText.PreallocationScreenLowPowerTextNoBonusesPredetermined;
 							} else {
-								messageText.text = DataScript.tutText.PreallocationScreenLowPowerTextWeightNoBonuses;
+								messageText.text = DataScript.tutText.PreallocationScreenLowPowerTextWeight;
 							}
 						} else {
 							messageText.text = DataScript.tutText.PreallocationScreenNoWeightsNoBonuses;
@@ -73,17 +57,34 @@ public class PreAllocationScript : MonoBehaviour {
 				}
 			}
 		} else {
-			if(!DataScript.scenario.playerHasHighPower && !DataScript.scenario.control && availableBonuses){
-				messageText.text = DataScript.tutText.PreallocationScreenLowPowerTextBonusesPredetermined;
+			if(DataScript.scenario.control){
+				if (availableBonuses) {
+					if (DataScript.scenario.ScoreWeightAvailable) {
+						messageText.text = DataScript.tutText.PreallocationScreenControlBonusAndWeightText;
+					} else {
+						messageText.text = DataScript.tutText.PreallocationScreenControlBonusNoWeightText;
+					}
+				} else {
+					if (DataScript.scenario.ScoreWeightAvailable) {
+						messageText.text = DataScript.tutText.PreallocationScreenControlNoBonusWeightText;
+					} else {
+						messageText.text = DataScript.tutText.PreallocationScreenControlNoBonusNoWeightText;
+					}
+				}
 			}
-			else if(!DataScript.scenario.playerHasHighPower && !DataScript.scenario.control && !availableBonuses){
-				messageText.text = DataScript.tutText.PreallocationScreenLowPowerTextNoBonusesPredetermined;
-			}
-			else if(DataScript.scenario.playerHasHighPower && !DataScript.scenario.control && availableBonuses){
-				messageText.text = DataScript.tutText.PreallocationScreenHighPowerTextBonusesPredetermined;
-			}
-			else if(DataScript.scenario.playerHasHighPower && !DataScript.scenario.control && !availableBonuses){
-				messageText.text = DataScript.tutText.PreallocationScreenHighPowerTextNoBonusesPredetermined;
+			else{
+				if(!DataScript.scenario.playerAllocatesPowerups && !DataScript.scenario.control && availableBonuses){
+					messageText.text = DataScript.tutText.PreallocationScreenLowPowerTextBonusesPredetermined;
+				}
+				else if(!DataScript.scenario.playerAllocatesPowerups && !DataScript.scenario.control && !availableBonuses){
+					messageText.text = DataScript.tutText.PreallocationScreenLowPowerTextNoBonusesPredetermined;
+				}
+				else if(DataScript.scenario.playerAllocatesPowerups && !DataScript.scenario.control && availableBonuses){
+					messageText.text = DataScript.tutText.PreallocationScreenHighPowerTextBonusesPredetermined;
+				}
+				else if(DataScript.scenario.playerAllocatesPowerups && !DataScript.scenario.control && !availableBonuses){
+					messageText.text = DataScript.tutText.PreallocationScreenHighPowerTextNoBonusesPredetermined;
+				}
 			}
 		}
 	}
@@ -94,13 +95,37 @@ public class PreAllocationScript : MonoBehaviour {
 			bool availableBonuses = (DataScript.scenario.pSpeedIncreaseAvailable || DataScript.scenario.gSpeedDecreaseAvailable || DataScript.scenario.fRespawnAvailable || DataScript.scenario.powerballRespawnAvailable || DataScript.scenario.gRespawnAvailable || DataScript.scenario.gDumbAvailale || DataScript.scenario.gFewerAvailable);
 			bool weightsActive = DataScript.scenario.ScoreWeightAvailable;
 			if(availableBonuses){
-				Application.LoadLevel(7);
+				if(DataScript.scenario.pSpeedIncreaseAvailable){
+					DataScript.alloc.PlayerSpeed = 2;
+				}
+				if(DataScript.scenario.gSpeedDecreaseAvailable){
+					DataScript.alloc.GhostSpeed = 2;
+				}
+				if(DataScript.scenario.fRespawnAvailable){
+					DataScript.alloc.FruitRespawn = 2;
+				}
+				if(DataScript.scenario.longerPowerModeAvailable){
+					DataScript.alloc.LongerPowerMode = 2;
+				}
+				if(DataScript.scenario.powerballRespawnAvailable){
+					DataScript.alloc.PowerBallRespawn = 2;
+				}
+				if(DataScript.scenario.gRespawnAvailable){
+					DataScript.alloc.GhostRespawn = 2;
+				}
+				if(DataScript.scenario.gDumbAvailale){
+					DataScript.alloc.DumbGhosts = 2;
+				}
+				if(DataScript.scenario.gFewerAvailable){
+					DataScript.alloc.FewerGhosts = 2;
+				}
+				Application.LoadLevel(8);
 			}
 			else if(weightsActive){
 				Application.LoadLevel(11);
 			}
 			else{
-				Application.LoadLevel (2);
+				Application.LoadLevel (12);
 			}
 		} else {
 			//advance to allocation stage

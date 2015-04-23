@@ -614,7 +614,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Allocation review placeholder
+  m_Text: Allocation review
 --- !u!222 &1904663580
 CanvasRenderer:
   m_ObjectHideFlags: 0

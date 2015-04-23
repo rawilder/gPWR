@@ -12,9 +12,11 @@ public class Scenario{
 	public int id;
 	public string name;
 	public bool control;
-	public bool playerHasHighPower;
+//	public bool playerHasHighPower;
 	public int turnTime; //the time in seconds that each turn lasts
 	public int totalTime; //the time in minutes that the two players spend taking turns
+	public bool playerAllocatesPowerups;
+	public bool playerAllocatesScoreWeights;
 
 	public bool powerUpsPredetermined;
 
@@ -26,7 +28,7 @@ public class Scenario{
 	public bool gRespawnAvailable;
 	public bool gDumbAvailale;
 	public bool gFewerAvailable;
-	public bool hpStealsTurnsAvailable;//not an allocatable powerup, but it is an ability
+	public bool playerCanStealTurns;//not an allocatable powerup, but it is an ability
 	public int turnStealLimit;
 
 	public bool AiAllocationIsRandom;
@@ -50,9 +52,10 @@ public class Scenario{
 		name = "";
 		id = 0;
 		control = false;
-		playerHasHighPower = false;
 		turnTime = 30;	//default
 		totalTime = 10;	//default
+		playerAllocatesPowerups = false;
+		playerAllocatesScoreWeights = false;
 
 
 		pSpeedIncreaseAvailable = false;
@@ -63,7 +66,7 @@ public class Scenario{
 		gRespawnAvailable = false;
 		gDumbAvailale = false;
 		gFewerAvailable = false;
-		hpStealsTurnsAvailable = false;
+		playerCanStealTurns = false;
 
 		AiAllocationIsRandom = false;
 		AiAllocatePlayerSpeed = 1.0f;
@@ -91,7 +94,6 @@ public class Scenario{
 		name = s.name;
 		id = s.id;
 		control = s.control;
-		playerHasHighPower = s.playerHasHighPower;
 		turnTime = s.turnTime;
 		totalTime = s.totalTime;
 
@@ -103,7 +105,7 @@ public class Scenario{
 		gRespawnAvailable = s.gRespawnAvailable;
 		gDumbAvailale = s.gDumbAvailale;
 		gFewerAvailable = s.gFewerAvailable;
-		hpStealsTurnsAvailable = s.hpStealsTurnsAvailable;
+		playerCanStealTurns = s.playerCanStealTurns;
 
 		AiAllocationIsRandom = s.AiAllocationIsRandom;
 		AiAllocatePlayerSpeed = s.AiAllocatePlayerSpeed;
@@ -123,6 +125,9 @@ public class Scenario{
 		ScoreWeightPredetermined = s.ScoreWeightPredetermined;
 
 		powerUpsPredetermined = s.powerUpsPredetermined;
+
+		playerAllocatesPowerups = s.playerAllocatesPowerups;
+		playerAllocatesScoreWeights = s.playerAllocatesScoreWeights;
 	}
 }
 
@@ -150,7 +155,8 @@ public class AdminDataManager : MonoBehaviour {
 	InputField turnTimeBox;
 	InputField totalTimeBox;
 	Toggle controlToggle;
-	Toggle playerAllocatesToggle;
+	Toggle playerAllocatesPowerupsToggle;
+	Toggle playerAllocatesScoreWeightsToggle;
 
 	//power up toggles
 	Toggle pSpeed;
@@ -161,7 +167,7 @@ public class AdminDataManager : MonoBehaviour {
 	Toggle gRespawn;
 	Toggle gDumb;
 	Toggle gFewer;
-	Toggle hpStealTurns;
+	Toggle playerCanStealTurnsToggle;
 	Toggle powerUpsPredeterminedToggle;
 
 	Toggle aiAllocationsRandomToggle;
@@ -197,7 +203,9 @@ public class AdminDataManager : MonoBehaviour {
 		turnTimeBox = GameObject.Find ("TurnTimeInput").GetComponent<InputField> ();
 		totalTimeBox = GameObject.Find ("TotalTimeInput").GetComponent<InputField> ();
 		controlToggle = GameObject.Find ("ControlToggle").GetComponent<Toggle> ();
-		playerAllocatesToggle = GameObject.Find ("AllocationToggle").GetComponent<Toggle> ();
+		//playerAllocatesToggle = GameObject.Find ("AllocationToggle").GetComponent<Toggle> ();
+		playerAllocatesPowerupsToggle = GameObject.Find("PowerupAllocationToggle").GetComponent<Toggle>();
+		playerAllocatesScoreWeightsToggle = GameObject.Find("ScoreAllocationToggle").GetComponent<Toggle>();
 
 		pSpeed = GameObject.Find ("PlayerSpeedIncreaseToggle").GetComponent<Toggle> ();
 		gSpeed = GameObject.Find ("GhostSpeedDecreaseToggle").GetComponent<Toggle> ();
@@ -207,7 +215,7 @@ public class AdminDataManager : MonoBehaviour {
 		gRespawn = GameObject.Find ("GhostsRespawnSlowerToggle").GetComponent<Toggle> ();
 		gDumb = GameObject.Find ("DumbGhostsToggle").GetComponent<Toggle> ();
 		gFewer = GameObject.Find ("FewerGhostsToggle").GetComponent<Toggle> ();
-		hpStealTurns = GameObject.Find ("TurnTakingToggle").GetComponent<Toggle> ();
+		playerCanStealTurnsToggle = GameObject.Find ("TurnTakingToggle").GetComponent<Toggle> ();
 
 		aiAllocationsRandomToggle = GameObject.Find ("AIAllocationRandomToggle").GetComponent<Toggle> ();
 		aiAllocatesPlayerSpeed = GameObject.Find ("PlayerSpeedSlider").GetComponent<Slider> ();
@@ -319,7 +327,9 @@ public class AdminDataManager : MonoBehaviour {
 
 		tempScenario.name = nameBox.text;
 		tempScenario.control = controlToggle.isOn;
-		tempScenario.playerHasHighPower = playerAllocatesToggle.isOn;
+		//tempScenario.playerHasHighPower = playerAllocatesToggle.isOn;
+		tempScenario.playerAllocatesPowerups = playerAllocatesPowerupsToggle.isOn;
+		tempScenario.playerAllocatesScoreWeights = playerAllocatesScoreWeightsToggle.isOn;
 
 		int turn = 30;
 		int total = 10;
@@ -349,7 +359,7 @@ public class AdminDataManager : MonoBehaviour {
 		tempScenario.gRespawnAvailable = gRespawn.isOn;
 		tempScenario.gDumbAvailale = gDumb.isOn;
 		tempScenario.gFewerAvailable = gFewer.isOn;
-		tempScenario.hpStealsTurnsAvailable = hpStealTurns.isOn;
+		tempScenario.playerCanStealTurns =  playerCanStealTurnsToggle.isOn;
 
 		tempScenario.AiAllocationIsRandom = aiAllocationsRandomToggle.isOn;
 		tempScenario.AiAllocatePlayerSpeed = aiAllocatesPlayerSpeed.value;
@@ -407,7 +417,9 @@ public class AdminDataManager : MonoBehaviour {
 				() => {
 				nameBox.text = scenList.Scenarios[index].name;
 				controlToggle.isOn = scenList.Scenarios[index].control;
-				playerAllocatesToggle.isOn = scenList.Scenarios[index].playerHasHighPower;
+				//playerAllocatesToggle.isOn = scenList.Scenarios[index].playerHasHighPower;
+				playerAllocatesPowerupsToggle.isOn = scenList.Scenarios[index].playerAllocatesPowerups;
+				playerAllocatesScoreWeightsToggle.isOn = scenList.Scenarios[index].playerAllocatesScoreWeights;
 				turnTimeBox.text = "" + scenList.Scenarios[index].turnTime;
 				totalTimeBox.text = "" + scenList.Scenarios[index].totalTime;
 
@@ -419,7 +431,7 @@ public class AdminDataManager : MonoBehaviour {
 				gRespawn.isOn = scenList.Scenarios[index].gRespawnAvailable;
 				gDumb.isOn = scenList.Scenarios[index].gDumbAvailale;
 				gFewer.isOn = scenList.Scenarios[index].gFewerAvailable;
-				hpStealTurns.isOn = scenList.Scenarios[index].hpStealsTurnsAvailable;
+				playerCanStealTurnsToggle.isOn = scenList.Scenarios[index].playerCanStealTurns;
 
 				aiAllocationsRandomToggle.isOn = scenList.Scenarios[index].AiAllocationIsRandom;
 				aiAllocatesPlayerSpeed.value = scenList.Scenarios[index].AiAllocatePlayerSpeed;

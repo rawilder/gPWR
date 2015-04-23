@@ -32,7 +32,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 
 		messageText = GameObject.Find ("TempText").GetComponent<Text> ();
 
-		if (!DataScript.scenario.playerHasHighPower && !DataScript.scenario.control) {
+		if (!DataScript.scenario.playerAllocatesPowerups && !DataScript.scenario.control) {
 			buttonSetEnabled (continueButton, false);
 			messageText.text = DataScript.tutText.AllocationScreenTopMessageLowPower;
 		} else {
@@ -45,7 +45,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 		//create the sliders
 		createSliders ();
 
-		if (!DataScript.scenario.playerHasHighPower || DataScript.scenario.control){
+		if (!DataScript.scenario.playerAllocatesPowerups || DataScript.scenario.control){
 			foreach (var slider in sliders) {
 				slider.GetComponentInChildren<Slider>().interactable = false;
 				Graphic[] g = slider.GetComponentInChildren<Slider>().GetComponentsInChildren<Graphic>();
@@ -84,12 +84,11 @@ public class PowerupAllocationScript : MonoBehaviour {
 
 
 		} else {
-			if (!DataScript.scenario.playerHasHighPower) {
+			if (!DataScript.scenario.playerAllocatesPowerups) {
 				if (!DataScript.scenario.AiAllocationIsRandom) {
 
 					//apply the power ups
 					if (DataScript.scenario.pSpeedIncreaseAvailable) {
-						Debug.Log ("Player speed: " + DataScript.scenario.AiAllocatePlayerSpeed);
 						if (DataScript.scenario.AiAllocatePlayerSpeed == 0) {
 							DataScript.alloc.PlayerSpeed = 0;
 						} else {
@@ -232,7 +231,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 			countdownRemaining -= Time.deltaTime;
 		}
 		else{
-			if (!DataScript.scenario.playerHasHighPower && !DataScript.scenario.control) {
+			if (!DataScript.scenario.playerAllocatesPowerups && !DataScript.scenario.control) {
 				runAiAllocation();
 			}
 			countdownRemaining = UnityEngine.Random.Range(0.5f,1.5f);
@@ -247,7 +246,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 			newSlider.GetComponentInChildren<Text> ().text = "Player Speed Increase";
 			newSlider.GetComponentInChildren<Slider> ().onValueChanged.AddListener ((float value) => {
 				
-				if (DataScript.scenario.playerHasHighPower) {
+				if (DataScript.scenario.playerAllocatesPowerups) {
 					int v = updateSliderValue (newSlider.GetComponentInChildren<Slider> ());
 					DataScript.alloc.PlayerSpeed = v;
 				}
@@ -263,7 +262,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 			newSlider.GetComponentInChildren<Text> ().text = "Enemy Speed Decrease";
 			newSlider.GetComponentInChildren<Slider> ().onValueChanged.AddListener ((float value) => {
 				
-				if (DataScript.scenario.playerHasHighPower) {
+				if (DataScript.scenario.playerAllocatesPowerups) {
 					int v = updateSliderValue (newSlider.GetComponentInChildren<Slider> ());
 					DataScript.alloc.GhostSpeed = v;
 				}
@@ -279,7 +278,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 			newSlider.GetComponentInChildren<Text> ().text = "Fruit Respawn Increase";
 			newSlider.GetComponentInChildren<Slider> ().onValueChanged.AddListener ((float value) => {
 				
-				if (DataScript.scenario.playerHasHighPower) {
+				if (DataScript.scenario.playerAllocatesPowerups) {
 					int v = updateSliderValue (newSlider.GetComponentInChildren<Slider> ());
 					DataScript.alloc.FruitRespawn = v;
 				}
@@ -295,7 +294,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 			newSlider.GetComponentInChildren<Text> ().text = "Longer Power Mode";
 			newSlider.GetComponentInChildren<Slider> ().onValueChanged.AddListener ((float value) => {
 				
-				if (DataScript.scenario.playerHasHighPower) {
+				if (DataScript.scenario.playerAllocatesPowerups) {
 					int v = updateSliderValue (newSlider.GetComponentInChildren<Slider> ());
 					DataScript.alloc.LongerPowerMode = v;
 				}
@@ -311,7 +310,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 			newSlider.GetComponentInChildren<Text> ().text = "Power Balls Respawn";
 			newSlider.GetComponentInChildren<Slider> ().onValueChanged.AddListener ((float value) => {
 				
-				if (DataScript.scenario.playerHasHighPower) {
+				if (DataScript.scenario.playerAllocatesPowerups) {
 					int v = updateSliderValue (newSlider.GetComponentInChildren<Slider> ());
 					DataScript.alloc.PowerBallRespawn = v;
 				}
@@ -327,7 +326,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 			newSlider.GetComponentInChildren<Text> ().text = "Enemy Slower Respawn";
 			newSlider.GetComponentInChildren<Slider> ().onValueChanged.AddListener ((float value) => {
 				
-				if (DataScript.scenario.playerHasHighPower) {
+				if (DataScript.scenario.playerAllocatesPowerups) {
 					int v = updateSliderValue (newSlider.GetComponentInChildren<Slider> ());
 					DataScript.alloc.GhostRespawn = v;
 				}
@@ -343,7 +342,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 			newSlider.GetComponentInChildren<Text> ().text = "\"Dumb\" Enemies";
 			newSlider.GetComponentInChildren<Slider> ().onValueChanged.AddListener ((float value) => {
 				
-				if (DataScript.scenario.playerHasHighPower) {
+				if (DataScript.scenario.playerAllocatesPowerups) {
 					int v = updateSliderValue (newSlider.GetComponentInChildren<Slider> ());
 					DataScript.alloc.DumbGhosts = v;
 				}
@@ -359,7 +358,7 @@ public class PowerupAllocationScript : MonoBehaviour {
 			newSlider.GetComponentInChildren<Text> ().text = "Fewer Enemies";
 			newSlider.GetComponentInChildren<Slider> ().onValueChanged.AddListener ((float value) => {
 				
-				if (DataScript.scenario.playerHasHighPower) {
+				if (DataScript.scenario.playerAllocatesPowerups) {
 					int v = updateSliderValue (newSlider.GetComponentInChildren<Slider> ());
 					DataScript.alloc.FewerGhosts = v;
 				}

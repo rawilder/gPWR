@@ -3,11 +3,45 @@
   <Scenarios>
     <Scenario>
       <id>0</id>
-      <name>lp1</name>
-      <control>false</control>
-      <playerHasHighPower>false</playerHasHighPower>
+      <name>control1</name>
+      <control>true</control>
       <turnTime>15</turnTime>
       <totalTime>1</totalTime>
+      <playerAllocatesPowerups>true</playerAllocatesPowerups>
+      <playerAllocatesScoreWeights>true</playerAllocatesScoreWeights>
+      <powerUpsPredetermined>true</powerUpsPredetermined>
+      <pSpeedIncreaseAvailable>true</pSpeedIncreaseAvailable>
+      <gSpeedDecreaseAvailable>true</gSpeedDecreaseAvailable>
+      <fRespawnAvailable>false</fRespawnAvailable>
+      <longerPowerModeAvailable>false</longerPowerModeAvailable>
+      <powerballRespawnAvailable>true</powerballRespawnAvailable>
+      <gRespawnAvailable>true</gRespawnAvailable>
+      <gDumbAvailale>true</gDumbAvailale>
+      <gFewerAvailable>true</gFewerAvailable>
+      <playerCanStealTurns>false</playerCanStealTurns>
+      <turnStealLimit>0</turnStealLimit>
+      <AiAllocationIsRandom>true</AiAllocationIsRandom>
+      <AiAllocatePlayerSpeed>1</AiAllocatePlayerSpeed>
+      <AiAllocateGhostSpeed>1</AiAllocateGhostSpeed>
+      <AiAllocateFruitRespawn>1</AiAllocateFruitRespawn>
+      <AiAllocateLongerPowerMode>1</AiAllocateLongerPowerMode>
+      <AiAllocatePowerBallRespawn>1</AiAllocatePowerBallRespawn>
+      <AiAllocateGhostRespawn>1</AiAllocateGhostRespawn>
+      <AiAllocateDumbGhosts>1</AiAllocateDumbGhosts>
+      <AiAllocateFewerGhosts>1</AiAllocateFewerGhosts>
+      <AiAllocateWeight>0.4</AiAllocateWeight>
+      <ScoreWeightAvailable>true</ScoreWeightAvailable>
+      <ScoreWeightPredetermined>false</ScoreWeightPredetermined>
+      <scoreThreshold>0</scoreThreshold>
+    </Scenario>
+    <Scenario>
+      <id>0</id>
+      <name>lp1</name>
+      <control>false</control>
+      <turnTime>15</turnTime>
+      <totalTime>1</totalTime>
+      <playerAllocatesPowerups>true</playerAllocatesPowerups>
+      <playerAllocatesScoreWeights>false</playerAllocatesScoreWeights>
       <powerUpsPredetermined>true</powerUpsPredetermined>
       <pSpeedIncreaseAvailable>true</pSpeedIncreaseAvailable>
       <gSpeedDecreaseAvailable>true</gSpeedDecreaseAvailable>
@@ -17,116 +51,53 @@
       <gRespawnAvailable>true</gRespawnAvailable>
       <gDumbAvailale>true</gDumbAvailale>
       <gFewerAvailable>true</gFewerAvailable>
-      <hpStealsTurnsAvailable>true</hpStealsTurnsAvailable>
-      <turnStealLimit>2</turnStealLimit>
+      <playerCanStealTurns>false</playerCanStealTurns>
+      <turnStealLimit>1</turnStealLimit>
       <AiAllocationIsRandom>false</AiAllocationIsRandom>
-      <AiAllocatePlayerSpeed>1</AiAllocatePlayerSpeed>
+      <AiAllocatePlayerSpeed>0</AiAllocatePlayerSpeed>
       <AiAllocateGhostSpeed>0</AiAllocateGhostSpeed>
-      <AiAllocateFruitRespawn>0</AiAllocateFruitRespawn>
-      <AiAllocateLongerPowerMode>1</AiAllocateLongerPowerMode>
+      <AiAllocateFruitRespawn>1</AiAllocateFruitRespawn>
+      <AiAllocateLongerPowerMode>0</AiAllocateLongerPowerMode>
       <AiAllocatePowerBallRespawn>1</AiAllocatePowerBallRespawn>
       <AiAllocateGhostRespawn>0</AiAllocateGhostRespawn>
       <AiAllocateDumbGhosts>1</AiAllocateDumbGhosts>
       <AiAllocateFewerGhosts>1</AiAllocateFewerGhosts>
-      <AiAllocateWeight>0.55</AiAllocateWeight>
+      <AiAllocateWeight>0.5</AiAllocateWeight>
       <ScoreWeightAvailable>true</ScoreWeightAvailable>
       <ScoreWeightPredetermined>false</ScoreWeightPredetermined>
       <scoreThreshold>0</scoreThreshold>
     </Scenario>
     <Scenario>
       <id>0</id>
-      <name>lp2</name>
-      <control>false</control>
-      <playerHasHighPower>false</playerHasHighPower>
+      <name>control2</name>
+      <control>true</control>
       <turnTime>30</turnTime>
       <totalTime>1</totalTime>
-      <powerUpsPredetermined>false</powerUpsPredetermined>
+      <playerAllocatesPowerups>true</playerAllocatesPowerups>
+      <playerAllocatesScoreWeights>true</playerAllocatesScoreWeights>
+      <powerUpsPredetermined>true</powerUpsPredetermined>
       <pSpeedIncreaseAvailable>true</pSpeedIncreaseAvailable>
       <gSpeedDecreaseAvailable>true</gSpeedDecreaseAvailable>
-      <fRespawnAvailable>true</fRespawnAvailable>
-      <longerPowerModeAvailable>false</longerPowerModeAvailable>
-      <powerballRespawnAvailable>false</powerballRespawnAvailable>
-      <gRespawnAvailable>false</gRespawnAvailable>
-      <gDumbAvailale>false</gDumbAvailale>
-      <gFewerAvailable>false</gFewerAvailable>
-      <hpStealsTurnsAvailable>true</hpStealsTurnsAvailable>
-      <turnStealLimit>2</turnStealLimit>
-      <AiAllocationIsRandom>false</AiAllocationIsRandom>
-      <AiAllocatePlayerSpeed>1</AiAllocatePlayerSpeed>
-      <AiAllocateGhostSpeed>0</AiAllocateGhostSpeed>
-      <AiAllocateFruitRespawn>0</AiAllocateFruitRespawn>
-      <AiAllocateLongerPowerMode>0</AiAllocateLongerPowerMode>
-      <AiAllocatePowerBallRespawn>1</AiAllocatePowerBallRespawn>
-      <AiAllocateGhostRespawn>1</AiAllocateGhostRespawn>
-      <AiAllocateDumbGhosts>1</AiAllocateDumbGhosts>
-      <AiAllocateFewerGhosts>1</AiAllocateFewerGhosts>
-      <AiAllocateWeight>0.4</AiAllocateWeight>
-      <ScoreWeightAvailable>true</ScoreWeightAvailable>
-      <ScoreWeightPredetermined>false</ScoreWeightPredetermined>
-      <scoreThreshold>0</scoreThreshold>
-    </Scenario>
-    <Scenario>
-      <id>0</id>
-      <name>control1</name>
-      <control>true</control>
-      <playerHasHighPower>false</playerHasHighPower>
-      <turnTime>15</turnTime>
-      <totalTime>1</totalTime>
-      <powerUpsPredetermined>false</powerUpsPredetermined>
-      <pSpeedIncreaseAvailable>false</pSpeedIncreaseAvailable>
-      <gSpeedDecreaseAvailable>false</gSpeedDecreaseAvailable>
       <fRespawnAvailable>false</fRespawnAvailable>
       <longerPowerModeAvailable>false</longerPowerModeAvailable>
-      <powerballRespawnAvailable>false</powerballRespawnAvailable>
-      <gRespawnAvailable>false</gRespawnAvailable>
-      <gDumbAvailale>false</gDumbAvailale>
-      <gFewerAvailable>false</gFewerAvailable>
-      <hpStealsTurnsAvailable>true</hpStealsTurnsAvailable>
-      <turnStealLimit>2</turnStealLimit>
+      <powerballRespawnAvailable>true</powerballRespawnAvailable>
+      <gRespawnAvailable>true</gRespawnAvailable>
+      <gDumbAvailale>true</gDumbAvailale>
+      <gFewerAvailable>true</gFewerAvailable>
+      <playerCanStealTurns>true</playerCanStealTurns>
+      <turnStealLimit>1</turnStealLimit>
       <AiAllocationIsRandom>true</AiAllocationIsRandom>
       <AiAllocatePlayerSpeed>1</AiAllocatePlayerSpeed>
-      <AiAllocateGhostSpeed>0</AiAllocateGhostSpeed>
+      <AiAllocateGhostSpeed>1</AiAllocateGhostSpeed>
       <AiAllocateFruitRespawn>1</AiAllocateFruitRespawn>
       <AiAllocateLongerPowerMode>1</AiAllocateLongerPowerMode>
       <AiAllocatePowerBallRespawn>1</AiAllocatePowerBallRespawn>
       <AiAllocateGhostRespawn>1</AiAllocateGhostRespawn>
-      <AiAllocateDumbGhosts>0</AiAllocateDumbGhosts>
-      <AiAllocateFewerGhosts>1</AiAllocateFewerGhosts>
-      <AiAllocateWeight>0.4</AiAllocateWeight>
-      <ScoreWeightAvailable>false</ScoreWeightAvailable>
-      <ScoreWeightPredetermined>true</ScoreWeightPredetermined>
-      <scoreThreshold>0</scoreThreshold>
-    </Scenario>
-    <Scenario>
-      <id>0</id>
-      <name>hp1</name>
-      <control>false</control>
-      <playerHasHighPower>true</playerHasHighPower>
-      <turnTime>15</turnTime>
-      <totalTime>1</totalTime>
-      <powerUpsPredetermined>false</powerUpsPredetermined>
-      <pSpeedIncreaseAvailable>false</pSpeedIncreaseAvailable>
-      <gSpeedDecreaseAvailable>false</gSpeedDecreaseAvailable>
-      <fRespawnAvailable>false</fRespawnAvailable>
-      <longerPowerModeAvailable>false</longerPowerModeAvailable>
-      <powerballRespawnAvailable>false</powerballRespawnAvailable>
-      <gRespawnAvailable>false</gRespawnAvailable>
-      <gDumbAvailale>false</gDumbAvailale>
-      <gFewerAvailable>false</gFewerAvailable>
-      <hpStealsTurnsAvailable>false</hpStealsTurnsAvailable>
-      <turnStealLimit>2</turnStealLimit>
-      <AiAllocationIsRandom>true</AiAllocationIsRandom>
-      <AiAllocatePlayerSpeed>1</AiAllocatePlayerSpeed>
-      <AiAllocateGhostSpeed>0</AiAllocateGhostSpeed>
-      <AiAllocateFruitRespawn>0</AiAllocateFruitRespawn>
-      <AiAllocateLongerPowerMode>0</AiAllocateLongerPowerMode>
-      <AiAllocatePowerBallRespawn>1</AiAllocatePowerBallRespawn>
-      <AiAllocateGhostRespawn>1</AiAllocateGhostRespawn>
       <AiAllocateDumbGhosts>1</AiAllocateDumbGhosts>
       <AiAllocateFewerGhosts>1</AiAllocateFewerGhosts>
-      <AiAllocateWeight>0.35</AiAllocateWeight>
-      <ScoreWeightAvailable>false</ScoreWeightAvailable>
-      <ScoreWeightPredetermined>false</ScoreWeightPredetermined>
+      <AiAllocateWeight>0.5</AiAllocateWeight>
+      <ScoreWeightAvailable>true</ScoreWeightAvailable>
+      <ScoreWeightPredetermined>true</ScoreWeightPredetermined>
       <scoreThreshold>0</scoreThreshold>
     </Scenario>
   </Scenarios>
