@@ -1940,6 +1940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef1945e5544f9f4982a473482ba0176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  totalTurnsInGame: 0
 --- !u!4 &101659503
 Transform:
   m_ObjectHideFlags: 0
@@ -12824,7 +12825,7 @@ MonoBehaviour:
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
+  m_DynamicPixelsPerUnit: 4
 --- !u!223 &551347297
 Canvas:
   m_ObjectHideFlags: 0
@@ -26095,7 +26096,7 @@ MonoBehaviour:
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
+  m_DynamicPixelsPerUnit: 4
 --- !u!223 &1008973492
 Canvas:
   m_ObjectHideFlags: 0
@@ -55262,7 +55263,7 @@ MonoBehaviour:
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
+  m_DynamicPixelsPerUnit: 4
 --- !u!223 &1998999166
 Canvas:
   m_ObjectHideFlags: 0
