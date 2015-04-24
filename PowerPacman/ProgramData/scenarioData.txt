@@ -62,7 +62,7 @@
       <AiAllocateGhostRespawn>0</AiAllocateGhostRespawn>
       <AiAllocateDumbGhosts>1</AiAllocateDumbGhosts>
       <AiAllocateFewerGhosts>1</AiAllocateFewerGhosts>
-      <AiAllocateWeight>0.5</AiAllocateWeight>
+      <AiAllocateWeight>0.6</AiAllocateWeight>
       <ScoreWeightAvailable>true</ScoreWeightAvailable>
       <ScoreWeightPredetermined>false</ScoreWeightPredetermined>
       <scoreThreshold>0</scoreThreshold>

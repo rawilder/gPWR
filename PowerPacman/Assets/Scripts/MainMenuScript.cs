@@ -107,7 +107,7 @@ public class TutorialText{
 		ScoreWeightScreenBottomMessageControl = "The score weights that were determined for you and your partner are displayed on the slider below. Please read them and then press the continue button";
 		ScoreWeightScreenSelectionCompleteMessage = "Your partner has finished determining the score weights, please press the continue button";
 		PregameScreenTitle = "Pregame";
-		PregamePlayerGoesFirstText = "The program has decided that you will have the first turn of the game.";
+		PregamePlayerGoesFirstText = "The game has determined that you will have the first turn of the game.";
 		PregamePlayerStealsTurnsText = "The game has determined that between turns, you will have the ability to skip your partner's turn and immediately play again. Your partner does not have this ability. You will be limited to [turnSteals] turn skip(s)";
 		PregamePlayerStealsTurnsLowPowerText = "The game has determined that between turns, your partner will have the ability to skip your turn and immediately play again. You will not have this ability. Your partner will be limited to [turnSteals] turn skip(s)";
 		PregameContinueText = "Please press the continue button to begin the game";
